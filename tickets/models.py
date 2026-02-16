@@ -13,6 +13,7 @@ class Ticket(models.Model):
     STATUS_CHOICES = [
         ('open', 'Open'),
         ('in_progress', 'In Progress'),
+        ('sent_post_dhl', 'Sent per Post/DHL'),
         ('waiting_approval', 'Waiting Client Approval'),
         ('approved', 'Approved'),
         ('closed', 'Closed'),
@@ -63,6 +64,3 @@ class Note(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-
-
-

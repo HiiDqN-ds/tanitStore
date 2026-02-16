@@ -295,6 +295,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // ===== Swiper =====
   new Swiper('.swiper',{loop:true,autoplay:{delay:5000},pagination:{el:'.swiper-pagination',clickable:true}});
 
+  // ===== Mobile Menu Toggle =====
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  
+  mobileMenuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+
   // ===== Tracking Modal =====
   const trackModal = document.getElementById('trackModal');
   const openTrackBtn = document.getElementById('openTrackModal');

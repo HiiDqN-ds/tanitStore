@@ -43,6 +43,7 @@
               <span class="px-2 py-1 rounded-full text-white
                 {% if ticket.status == 'open' %}bg-green-500
                 {% elif ticket.status == 'in_progress' %}bg-yellow-500
+                {% elif ticket.status == 'sent_post_dhl' %}bg-blue-500
                 {% else %}bg-gray-500{% endif %}">
                 {{ ticket.status|title }}
               </span>
@@ -72,6 +73,7 @@
             <select id="status" name="status" class="border px-3 py-2 rounded w-full">
               <option value="open" {% if ticket.status == 'open' %}selected{% endif %}>Open</option>
               <option value="in_progress" {% if ticket.status == 'in_progress' %}selected{% endif %}>In Progress</option>
+              <option value="sent_post_dhl" {% if ticket.status == 'sent_post_dhl' %}selected{% endif %}>Sent per Post/DHL</option>
               <option value="closed" {% if ticket.status == 'closed' %}selected{% endif %}>Closed</option>
             </select>
           </div>
@@ -138,6 +140,64 @@
       };
     };
   });
+
+  // Auto-logout after 3 minutes of inactivity
+  (function() {
+      let inactivityTime = 0;
+      const logoutTime = 3 * 60; // 3 minutes in seconds
+      const warningTime = 2 * 60; // Show warning at 2 minutes
+      let warningShown = false;
+      
+      function resetTimer() {
+          inactivityTime = 0;
+          warningShown = false;
+          hideWarning();
+      }
+      
+      function showWarning() {
+          if (!document.getElementById('inactivity-warning')) {
+              const warning = document.createElement('div');
+              warning.id = 'inactivity-warning';
+              warning.className = 'fixed top-20 right-4 bg-red-600 text-white px-6 py-4 rounded-lg shadow-lg z-50 animate-pulse';
+              warning.innerHTML = '<strong>⚠️ Inaktivitätswarnung:</strong> Sie werden in 1 Minute automatisch abgemeldet. Bitte klicken oder tippen Sie, um angemeldet zu bleiben.';
+              document.body.appendChild(warning);
+          }
+      }
+      
+      function hideWarning() {
+          const warning = document.getElementById('inactivity-warning');
+          if (warning) {
+              warning.remove();
+          }
+      }
+      
+      function logout() {
+          window.location.href = "{% url 'staff:logout' %}";
+      }
+      
+      // Increment timer every second
+      setInterval(function() {
+          inactivityTime++;
+          
+          // Show warning at 2 minutes
+          if (inactivityTime >= warningTime && !warningShown) {
+              warningShown = true;
+              showWarning();
+          }
+          
+          // Logout at 3 minutes
+          if (inactivityTime >= logoutTime) {
+              logout();
+          }
+      }, 1000);
+      
+      // Reset timer on user activity
+      document.addEventListener('mousemove', resetTimer);
+      document.addEventListener('keypress', resetTimer);
+      document.addEventListener('click', resetTimer);
+      document.addEventListener('touchstart', resetTimer);
+      document.addEventListener('scroll', resetTimer);
+  })();
 </script>
 </body>
 </html>

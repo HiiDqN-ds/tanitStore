@@ -184,3 +184,14 @@ DEFAULT_FROM_EMAIL = 'Tanitech <info@tanitech.de>'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+# Use database-backed sessions
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+# Expire session after 15 minutes of inactivity
+SESSION_COOKIE_AGE = 15 * 60  # 15 minutes in seconds
+
+# Make the session expire when the browser is closed (optional)
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# Reset the session timer on every request (optional, usually desired)
+SESSION_SAVE_EVERY_REQUEST = True
