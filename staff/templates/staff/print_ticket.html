@@ -10,28 +10,59 @@
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
 
     <style>
-       /* Thermal receipt size: 104mm width × 56mm height */
+        /* Thermal receipt size: 104mm width × 56mm height */
         @page {
             size: 104mm 56mm;
-            margin: 2mm;
+            margin: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
             font-family: sans-serif;
-            font-size: 12px;
-            width: 104mm;   /* full width of the ticket */
-            height: 56mm;   /* optional, ensures layout fits */
+            font-size: 10px;
+            width: 104mm;
+            height: 56mm;
             margin: 0;
-            padding: 6px;
+            padding: 2mm;
             -webkit-print-color-adjust: exact;
             -moz-print-color-adjust: exact;
             print-color-adjust: exact;
+            overflow: hidden;
         }
+
         .ticket {
             width: 100%;
-            padding: 4px;
-            border: 1px solid #000;
-            border-radius: 6px;
+            height: 100%;
+            padding: 2mm;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .ticket-content {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .ticket-title {
+            font-size: 10px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 2mm;
+        }
+
+        .ticket-row {
+            margin-bottom: 1mm;
+            line-height: 1.2;
+        }
+
+        .ticket-row strong {
+            font-size: 9px;
         }
 
         .text-center {
@@ -41,7 +72,8 @@
         .barcode-container {
             display: flex;
             justify-content: center;
-            margin: 10px 0;
+            margin: 2mm 0;
+            padding: 1mm;
         }
 
         .no-print {
@@ -50,48 +82,90 @@
 
         @media print {
             .no-print {
-                display: none;
+                display: none !important;
             }
+            
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        /* Scale wrapper for auto-fitting */
+        .scale-wrapper {
+            width: 104mm;
+            height: 56mm;
+            transform-origin: top left;
         }
     </style>
 </head>
 <body>
 
 <div class="ticket">
-    <h2 class="text-2xl font-bold mb-2 text-center">Repair Ticket</h2>
+    <div class="ticket-content">
+        <div class="ticket-title">Repair Ticket</div>
 
-    <div class="mb-1"><strong>Tracking ID:</strong> {{ ticket.tracking_id }}</div>
-    <div class="mb-1"><strong>Client:</strong> {{ ticket.client.first_name }} {{ ticket.client.last_name }}</div>
-    <div class="mb-1"><strong>Phone:</strong> {{ ticket.client_phone|default:"N/A" }}</div>
-    <div class="mb-1"><strong>Device:</strong> {{ ticket.device_type }} – {{ ticket.device_model }}</div>
-    <div class="mb-1"><strong>Status:</strong> {{ ticket.status|title }}</div>
-    <div class="mb-1"><strong>Created:</strong> {{ ticket.created_at|date:"Y-m-d H:i" }}</div>
+        <div class="ticket-row"><strong>ID:</strong> {{ ticket.tracking_id }}</div>
+        <div class="ticket-row"><strong>Client:</strong> {{ ticket.client.first_name }} {{ ticket.client.last_name }}</div>
+        <div class="ticket-row"><strong>Phone:</strong> {{ ticket.client_phone|default:"N/A" }}</div>
+        <div class="ticket-row"><strong>Device:</strong> {{ ticket.device_type }} {{ ticket.device_model }}</div>
+        <div class="ticket-row"><strong>Status:</strong> {{ ticket.status|title }}</div>
+        <div class="ticket-row"><strong>Date:</strong> {{ ticket.created_at|date:"Y-m-d H:i" }}</div>
+    </div>
 
     <!-- Barcode -->
     <div class="barcode-container">
         <svg id="barcode"></svg>
     </div>
+</div>
 
-    <div class="mt-2 text-center no-print">
-        <button onclick="window.print()"
-            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition">
-            Print
-        </button>
-    </div>
+<div class="no-print" style="position: fixed; bottom: 10px; right: 10px;">
+    <button onclick="window.print()"
+        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition">
+        Print
+    </button>
 </div>
 
 <script>
-
-    
-    // Generate the barcode using the tracking ID
+    // Generate the barcode using the tracking ID - smaller size
     JsBarcode("#barcode", "{{ ticket.tracking_id }}", {
         format: "CODE128",
         lineColor: "#000",
-        width: 2,
-        height: 50,
+        width: 1,
+        height: 25,
         displayValue: true,
-        textAlign: "center"
+        fontSize: 10,
+        textAlign: "center",
+        margin: 0
     });
+
+    // Auto-fit scaling - scales content to fit within the page
+    function scaleToFit() {
+        const ticket = document.querySelector('.ticket');
+        const maxWidth = 104; // mm
+        const maxHeight = 56; // mm
+        
+        // Get the actual content height
+        const contentHeight = ticket.scrollHeight / 3.78; // Convert px to mm (approx)
+        const contentWidth = ticket.scrollWidth / 3.78;
+        
+        // Calculate scale factor
+        const scaleX = maxWidth / contentWidth;
+        const scaleY = maxHeight / contentHeight;
+        const scale = Math.min(scaleX, scaleY, 1); // Don't scale up, only down
+        
+        // Apply scale if needed
+        if (scale < 1) {
+            ticket.style.transform = `scale(${scale})`;
+            ticket.style.transformOrigin = 'top left';
+            ticket.style.width = `${contentWidth}mm`;
+            ticket.style.height = `${contentHeight}mm`;
+        }
+    }
+
+    // Run scaling after page loads
+    window.addEventListener('load', scaleToFit);
+    window.addEventListener('resize', scaleToFit);
 
     // Auto-logout after 3 minutes of inactivity
     (function() {
