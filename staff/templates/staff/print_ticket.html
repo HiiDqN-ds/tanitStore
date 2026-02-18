@@ -10,11 +10,14 @@
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
 
     <style>
-        /* Thermal receipt size: 104mm width × 56mm height */
+        /* 104mm × 56mm paper - landscape/horizontal orientation */
         @page {
             size: 104mm 56mm;
             margin: 0;
         }
+
+
+
 
         * {
             box-sizing: border-box;
@@ -34,6 +37,9 @@
             print-color-adjust: exact;
             overflow: hidden;
         }
+
+
+
 
         .ticket {
             width: 100%;
@@ -97,6 +103,9 @@
             height: 56mm;
             transform-origin: top left;
         }
+
+
+
     </style>
 </head>
 <body>
@@ -118,6 +127,8 @@
         <svg id="barcode"></svg>
     </div>
 </div>
+
+
 
 <div class="no-print" style="position: fixed; bottom: 10px; right: 10px;">
     <button onclick="window.print()"
@@ -144,6 +155,9 @@
         const ticket = document.querySelector('.ticket');
         const maxWidth = 104; // mm
         const maxHeight = 56; // mm
+
+
+
         
         // Get the actual content height
         const contentHeight = ticket.scrollHeight / 3.78; // Convert px to mm (approx)

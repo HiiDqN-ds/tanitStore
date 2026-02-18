@@ -58,9 +58,19 @@
       {% if ticket.device_photo %}
       <div class="mt-4">
         <p class="font-semibold">Device Photo:</p>
-        <img src="{{ ticket.device_photo.url }}" class="mt-2 rounded shadow max-h-64">
+        <button type="button" id="viewPhotoBtn" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+          View Photo
+        </button>
       </div>
       {% endif %}
+
+      <!-- Photo Modal -->
+      <div id="photoModal" class="fixed inset-0 bg-black bg-opacity-75 hidden items-center justify-center z-50">
+        <div class="relative max-w-4xl max-h-screen p-4">
+          <button type="button" id="closeModalBtn" class="absolute top-2 right-2 text-white text-2xl font-bold hover:text-gray-300">&times;</button>
+          <img src="{{ ticket.device_photo.url }}" class="max-w-full max-h-[90vh] rounded shadow-lg">
+        </div>
+      </div>
 
       <!-- Price & Status Update Form -->
       <div class="mt-6 bg-gray-50 p-4 rounded shadow">
@@ -140,6 +150,39 @@
       };
     };
   });
+
+  // Photo Modal functionality
+  (function() {
+    const modal = document.getElementById('photoModal');
+    const viewBtn = document.getElementById('viewPhotoBtn');
+    const closeBtn = document.getElementById('closeModalBtn');
+
+    if (viewBtn && modal) {
+      viewBtn.addEventListener('click', function() {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      });
+
+      closeBtn.addEventListener('click', function() {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      });
+
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+        }
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+        }
+      });
+    }
+  })();
 
   // Auto-logout after 3 minutes of inactivity
   (function() {

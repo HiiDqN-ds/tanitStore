@@ -215,3 +215,11 @@ Tanitech Team
 
     # If someone opens URL manually
     return redirect("staff:dashboard")
+
+
+# -----------------------------
+# Example view for landscape ticket orientation
+# -----------------------------
+def print_ticket_example(request):
+    """Example page showing landscape ticket orientation"""
+    return render(request, 'staff/print_ticket_example.html')
