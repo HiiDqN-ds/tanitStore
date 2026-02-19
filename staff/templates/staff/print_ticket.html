@@ -10,11 +10,13 @@
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
 
     <style>
-        /* 104mm × 56mm paper - landscape/horizontal orientation */
+        /* 80mm × 40mm paper - landscape/horizontal orientation */
         @page {
-            size: 104mm 56mm;
+            size: 80mm 40mm landscape;
             margin: 0;
         }
+
+
 
 
 
@@ -29,16 +31,19 @@
 
         body {
             font-family: sans-serif;
-            font-size: 10px;
-            width: 104mm;
-            height: 56mm;
+            font-size: 8px;
+            width: 80mm;
+            height: 40mm;
             margin: 0;
-            padding: 2mm;
+            padding: 0;
             -webkit-print-color-adjust: exact;
             -moz-print-color-adjust: exact;
             print-color-adjust: exact;
             overflow: hidden;
+            background: white;
         }
+
+
 
 
 
@@ -46,13 +51,17 @@
 
 
         .ticket {
-            width: 100%;
-            height: 100%;
+            width: 76mm;
+            height: 36mm;
             padding: 2mm;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            box-sizing: border-box;
+            background: white;
         }
+
+
 
         .ticket-content {
             flex: 1;
@@ -60,20 +69,21 @@
         }
 
         .ticket-title {
-            font-size: 10px;
+            font-size: 8px;
             font-weight: bold;
             text-align: center;
-            margin-bottom: 2mm;
+            margin-bottom: 1mm;
         }
 
         .ticket-row {
-            margin-bottom: 1mm;
-            line-height: 1.2;
+            margin-bottom: 0.5mm;
+            line-height: 1.1;
         }
 
         .ticket-row strong {
-            font-size: 9px;
+            font-size: 7px;
         }
+
 
         .text-center {
             text-align: center;
@@ -82,9 +92,10 @@
         .barcode-container {
             display: flex;
             justify-content: center;
-            margin: 2mm 0;
-            padding: 1mm;
+            margin: 1mm 0;
+            padding: 0.5mm;
         }
+
 
         .no-print {
             display: none;
@@ -98,15 +109,34 @@
             body {
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
+                width: 80mm;
+                height: 40mm;
+                margin: 0;
+                padding: 0;
+            }
+            
+            .ticket {
+                width: 76mm;
+                height: 36mm;
+                margin: 2mm;
+                page-break-inside: avoid;
+            }
+
+            
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
         }
 
+
         /* Scale wrapper for auto-fitting */
         .scale-wrapper {
-            width: 104mm;
-            height: 56mm;
+            width: 80mm;
+            height: 40mm;
             transform-origin: top left;
         }
+
 
 
 
@@ -136,12 +166,25 @@
 
 
 
-<div class="no-print" style="position: fixed; bottom: 10px; right: 10px;">
-    <button onclick="window.print()"
-        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition">
-        Print
+<!-- Print Setup Instructions -->
+<div class="no-print" style="position: fixed; top: 10px; left: 10px; background: white; padding: 15px; border: 2px solid #ccc; border-radius: 8px; max-width: 300px; font-size: 12px; z-index: 1000;">
+    <h3 style="margin: 0 0 10px 0; font-size: 14px; font-weight: bold;">🖨️ Druck-Einstellungen</h3>
+    <ol style="margin: 0; padding-left: 20px; line-height: 1.5;">
+        <li>Papier: <strong>80mm × 40mm</strong> (Etikett)</li>
+
+        <li>Format: <strong>Querformat (Landscape)</strong></li>
+        <li>Ränder: <strong>Keine (None)</strong></li>
+        <li>Skalierung: <strong>100%</strong> (nicht "An Seite anpassen")</li>
+    </ol>
+    <p style="margin: 10px 0 0 0; color: #666; font-size: 11px;">
+        Tipp: In Chrome → "Mehr Einstellungen" → Papierformat auf "Benutzerdefiniert" setzen
+    </p>
+    <button onclick="window.print()" 
+        class="mt-3 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded w-full font-bold">
+        🖨️ Jetzt Drucken
     </button>
 </div>
+
 
 <script>
     // Generate the barcode using the tracking ID - smaller size
@@ -159,8 +202,9 @@
     // Auto-fit scaling - scales content to fit within the page
     function scaleToFit() {
         const ticket = document.querySelector('.ticket');
-        const maxWidth = 104; // mm
-        const maxHeight = 56; // mm
+        const maxWidth = 80; // mm
+        const maxHeight = 40; // mm
+
 
 
 
@@ -188,6 +232,18 @@
     // Run scaling after page loads
     window.addEventListener('load', scaleToFit);
     window.addEventListener('resize', scaleToFit);
+
+    // Auto-open print dialog after a short delay
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            // Only auto-print if not already printed in this session
+            if (!sessionStorage.getItem('ticketPrinted')) {
+                window.print();
+                sessionStorage.setItem('ticketPrinted', 'true');
+            }
+        }, 500);
+    });
+
 
     // Auto-logout after 3 minutes of inactivity
     (function() {
