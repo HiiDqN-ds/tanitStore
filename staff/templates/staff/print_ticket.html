@@ -10,11 +10,12 @@
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
 
     <style>
-        /* 80mm × 40mm paper - landscape/horizontal orientation */
+        /* 104mm × 56mm paper - landscape/horizontal orientation */
         @page {
-            size: 80mm 40mm landscape;
+            size: 104mm 56mm landscape;
             margin: 0;
         }
+
 
 
 
@@ -33,9 +34,9 @@
 
         body {
             font-family: sans-serif;
-            font-size: 8px;
-            width: 80mm;
-            height: 40mm;
+            font-size: 9px;
+            width: 104mm;
+            height: 56mm;
             margin: 0;
             padding: 0;
             -webkit-print-color-adjust: exact;
@@ -54,9 +55,10 @@
 
 
 
+
         .ticket {
-            width: 76mm;
-            height: 36mm;
+            width: 100mm;
+            height: 52mm;
             padding: 2mm;
             display: flex;
             flex-direction: column;
@@ -64,6 +66,7 @@
             box-sizing: border-box;
             background: white;
         }
+
 
 
 
@@ -115,18 +118,19 @@
             body {
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
-                width: 80mm;
-                height: 40mm;
+                width: 104mm;
+                height: 56mm;
                 margin: 0;
                 padding: 0;
             }
             
             .ticket {
-                width: 76mm;
-                height: 36mm;
+                width: 100mm;
+                height: 52mm;
                 margin: 2mm;
                 page-break-inside: avoid;
             }
+
 
 
 
@@ -140,10 +144,11 @@
 
         /* Scale wrapper for auto-fitting */
         .scale-wrapper {
-            width: 80mm;
-            height: 40mm;
+            width: 104mm;
+            height: 56mm;
             transform-origin: top left;
         }
+
 
 
 
@@ -180,8 +185,9 @@
 <div class="no-print" style="position: fixed; top: 10px; left: 10px; background: white; padding: 15px; border: 2px solid #ccc; border-radius: 8px; max-width: 300px; font-size: 12px; z-index: 1000;">
     <h3 style="margin: 0 0 10px 0; font-size: 14px; font-weight: bold;">🖨️ Druck-Einstellungen</h3>
     <ol style="margin: 0; padding-left: 20px; line-height: 1.5;">
-        <li>Papier: <strong>80mm × 40mm</strong> (Etikett)</li>
+        <li>Papier: <strong>104mm × 56mm</strong> (Etikett)</li>
         <li>Format: <strong>Querformat (Landscape)</strong></li>
+
         <li>Ränder: <strong>Keine (None)</strong></li>
 
         <li>Skalierung: <strong>100%</strong> (nicht "An Seite anpassen")</li>
@@ -212,8 +218,9 @@
     // Auto-fit scaling - scales content to fit within the page
     function scaleToFit() {
         const ticket = document.querySelector('.ticket');
-        const maxWidth = 80; // mm
-        const maxHeight = 40; // mm
+        const maxWidth = 104; // mm
+        const maxHeight = 56; // mm
+
 
 
 
