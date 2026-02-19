@@ -34,29 +34,106 @@
             border-bottom: 2px solid #007bff;
         }
         
-        /* HORIZONTAL (Landscape) - 104mm × 56mm */
+        /* HORIZONTAL (Landscape) - 104mm × 56mm - CURRENT DESIGN */
         .ticket-horizontal {
             width: 520px;  /* 104mm × 5 for visibility */
             height: 280px; /* 56mm × 5 for visibility */
             border: 3px solid #28a745;
             background: white;
-            padding: 20px;
+            padding: 15px;
             margin: 20px auto;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             justify-content: space-between;
+            align-items: center;
             position: relative;
         }
         
         .ticket-horizontal::before {
-            content: "HORIZONTAL (104mm × 56mm)";
+            content: "CURRENT DESIGN: HORIZONTAL (104mm × 56mm)";
             position: absolute;
             top: -30px;
             left: 0;
             font-weight: bold;
             color: #28a745;
         }
+        
+        .ticket-content {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .ticket-title-new {
+            font-size: 22px;
+            font-weight: bold;
+            text-align: left;
+            margin-bottom: 10px;
+            color: #000;
+            text-transform: uppercase;
+            border-bottom: 2px solid #000;
+            padding-bottom: 5px;
+        }
+        
+        .ticket-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px 15px;
+        }
+        
+        .ticket-row-new {
+            margin-bottom: 3px;
+            line-height: 1.2;
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .ticket-row-new strong {
+            font-size: 11px;
+            color: #555;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+        
+        .ticket-row-new span {
+            font-size: 15px;
+            font-weight: 600;
+            color: #000;
+        }
+        
+        .barcode-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-left: 15px;
+            border-left: 2px dashed #ccc;
+        }
+        
+        .fake-barcode-new {
+            height: 70px;
+            width: 120px;
+            background: repeating-linear-gradient(
+                90deg,
+                #000 0px,
+                #000 2px,
+                #fff 2px,
+                #fff 4px
+            );
+            margin-bottom: 5px;
+        }
+        
+        .tracking-id-text {
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
         
         /* VERTICAL (Portrait) - 56mm × 104mm */
         .ticket-vertical {
@@ -153,20 +230,41 @@
             <p>The ticket prints <strong>wide and short</strong> - good for labels on boxes/devices</p>
             
             <div class="ticket-horizontal">
-                <div>
-                    <div class="ticket-title">Repair Ticket</div>
-                    <div class="ticket-row"><strong>ID:</strong> 679E1EF85D83</div>
-                    <div class="ticket-row"><strong>Client:</strong> Test User</div>
-                    <div class="ticket-row"><strong>Phone:</strong> +1234567890</div>
-                    <div class="ticket-row"><strong>Device:</strong> Laptop Test Model X1</div>
-                    <div class="ticket-row"><strong>Status:</strong> Open</div>
-                    <div class="ticket-row"><strong>Date:</strong> 2026-02-18 15:31</div>
+                <div class="ticket-content">
+                    <div class="ticket-title-new">REPAIR TICKET</div>
+                    <div class="ticket-info-grid">
+                        <div class="ticket-row-new">
+                            <strong>Tracking ID</strong>
+                            <span>679E1EF85D83</span>
+                        </div>
+                        <div class="ticket-row-new">
+                            <strong>Status</strong>
+                            <span>Open</span>
+                        </div>
+                        <div class="ticket-row-new">
+                            <strong>Client</strong>
+                            <span>Test User</span>
+                        </div>
+                        <div class="ticket-row-new">
+                            <strong>Phone</strong>
+                            <span>+1234567890</span>
+                        </div>
+                        <div class="ticket-row-new">
+                            <strong>Device</strong>
+                            <span>Laptop Test Model X1</span>
+                        </div>
+                        <div class="ticket-row-new">
+                            <strong>Date</strong>
+                            <span>18.02.2026</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="barcode-area">
-                    <div class="fake-barcode"></div>
-                    <div>679E1EF85D83</div>
+                <div class="barcode-section">
+                    <div class="fake-barcode-new"></div>
+                    <div class="tracking-id-text">679E1EF85D83</div>
                 </div>
             </div>
+
         </div>
         
         <div class="test-section">
@@ -223,11 +321,26 @@
         </div>
         
         <div class="recommendation">
-            <h3>💡 Current Setting</h3>
-            <p>Your ticket is currently set to <strong>Horizontal (104mm × 56mm)</strong>.</p>
-            <p>This means it prints <strong>wide and short</strong> - perfect for sticking on laptops, phones, or boxes.</p>
-            <p>If you want to change to <strong>Vertical</strong>, I can swap the dimensions to 56mm × 104mm.</p>
+            <h3>💡 Current Design Features</h3>
+            <ul style="margin: 10px 0; padding-left: 20px;">
+                <li><strong>Horizontal layout:</strong> Wide and short (104mm × 56mm)</li>
+                <li><strong>Two-column design:</strong> Info on left, barcode on right</li>
+                <li><strong>Grid layout:</strong> 2×3 grid for compact information</li>
+                <li><strong>Professional labels:</strong> Small gray uppercase labels</li>
+                <li><strong>Large values:</strong> Bold black text for readability</li>
+                <li><strong>Vertical barcode:</strong> With tracking ID below</li>
+                <li><strong>Perfect for:</strong> Device labels, box stickers, asset tags</li>
+            </ul>
+            <p><strong>Chrome Print Settings:</strong></p>
+            <ol style="margin: 5px 0; padding-left: 20px;">
+                <li>Layout: Querformat (Landscape)</li>
+                <li>Paper: Benutzerdefiniert 104mm × 56mm</li>
+                <li>Margins: Keine (None)</li>
+                <li>Scale: 100%</li>
+                <li>Background graphics: ✓ Enabled (for barcode & borders)</li>
+            </ol>
         </div>
+
     </div>
 </body>
 </html>
