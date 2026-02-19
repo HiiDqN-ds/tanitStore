@@ -2,9 +2,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Landscape Print Ticket Example</title>
+    <title>Ticket Print Orientation Test - Xprinter XP-420B</title>
     <style>
-        /* Example showing landscape orientation */
         body {
             font-family: Arial, sans-serif;
             padding: 20px;
@@ -12,167 +11,222 @@
         }
         
         .example-container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
         }
         
-        /* Visual representation of the printed ticket */
-        .ticket-preview {
-            width: 400px;  /* 56mm scaled up for visibility */
-            height: 742px; /* 104mm scaled up for visibility */
-            border: 2px solid #333;
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
             background: white;
-            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .test-section h2 {
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #007bff;
+        }
+        
+        /* HORIZONTAL (Landscape) - 104mm × 56mm */
+        .ticket-horizontal {
+            width: 520px;  /* 104mm × 5 for visibility */
+            height: 280px; /* 56mm × 5 for visibility */
+            border: 3px solid #28a745;
+            background: white;
+            padding: 20px;
             margin: 20px auto;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            position: relative;
         }
         
-        .ticket-header {
+        .ticket-horizontal::before {
+            content: "HORIZONTAL (104mm × 56mm)";
+            position: absolute;
+            top: -30px;
+            left: 0;
+            font-weight: bold;
+            color: #28a745;
+        }
+        
+        /* VERTICAL (Portrait) - 56mm × 104mm */
+        .ticket-vertical {
+            width: 280px;  /* 56mm × 5 for visibility */
+            height: 520px; /* 104mm × 5 for visibility */
+            border: 3px solid #dc3545;
+            background: white;
+            padding: 20px;
+            margin: 20px auto;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+        
+        .ticket-vertical::before {
+            content: "VERTICAL (56mm × 104mm)";
+            position: absolute;
+            top: -30px;
+            left: 0;
+            font-weight: bold;
+            color: #dc3545;
+        }
+        
+        .ticket-title {
             text-align: center;
             font-weight: bold;
-            font-size: 18px;
-            border-bottom: 2px solid #333;
-            padding-bottom: 10px;
+            font-size: 20px;
             margin-bottom: 15px;
         }
         
-        .ticket-info {
-            flex: 1;
-        }
-        
-        .info-row {
-            margin: 10px 0;
+        .ticket-row {
+            margin: 8px 0;
             font-size: 14px;
-            padding: 5px;
-            background: #f9f9f9;
-            border-left: 3px solid #007bff;
-        }
-        
-        .info-label {
-            font-weight: bold;
-            color: #333;
         }
         
         .barcode-area {
             text-align: center;
-            padding: 20px;
+            margin-top: 15px;
+            padding-top: 15px;
             border-top: 2px dashed #333;
-            margin-top: 10px;
         }
         
         .fake-barcode {
-            height: 60px;
+            height: 50px;
             background: repeating-linear-gradient(
                 90deg,
                 #000 0px,
-                #000 2px,
-                #fff 2px,
-                #fff 4px
+                #000 3px,
+                #fff 3px,
+                #fff 6px
             );
             margin: 10px 0;
         }
         
-        .orientation-label {
-            text-align: center;
-            color: #666;
-            font-style: italic;
-            margin-top: 10px;
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
         }
         
-        .comparison {
-            display: flex;
-            justify-content: space-around;
+        .comparison-table th, .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .comparison-table th {
+            background: #007bff;
+            color: white;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        .recommendation {
             margin-top: 30px;
-        }
-        
-        .old-orientation, .new-orientation {
-            text-align: center;
-        }
-        
-        .old-box {
-            width: 200px;
-            height: 108px;
-            border: 2px solid red;
-            margin: 10px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #ffe6e6;
-        }
-        
-        .new-box {
-            width: 108px;
-            height: 200px;
-            border: 2px solid green;
-            margin: 10px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #e6ffe6;
+            padding: 20px;
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
     <div class="example-container">
-        <h1 style="text-align: center;">🎫 Ticket Print Orientation Example</h1>
+        <h1>🖨️ Xprinter XP-420B - Ticket Orientation Test</h1>
         
-        <h2>NEW: Landscape/Horizontal Format (56mm × 104mm)</h2>
-        <div class="ticket-preview">
-            <div>
-                <div class="ticket-header">Repair Ticket</div>
-                <div class="ticket-info">
-                    <div class="info-row">
-                        <span class="info-label">ID:</span> TRK-2024-001
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Client:</span> John Doe
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Phone:</span> +1 234 567 890
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Device:</span> iPhone 14 Pro
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Status:</span> In Progress
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Date:</span> 2024-01-15 14:30
-                    </div>
+        <div class="test-section">
+            <h2>Option 1: HORIZONTAL (Landscape) - Current Setting</h2>
+            <p>Paper size: <strong>104mm wide × 56mm tall</strong></p>
+            <p>The ticket prints <strong>wide and short</strong> - good for labels on boxes/devices</p>
+            
+            <div class="ticket-horizontal">
+                <div>
+                    <div class="ticket-title">Repair Ticket</div>
+                    <div class="ticket-row"><strong>ID:</strong> 679E1EF85D83</div>
+                    <div class="ticket-row"><strong>Client:</strong> Test User</div>
+                    <div class="ticket-row"><strong>Phone:</strong> +1234567890</div>
+                    <div class="ticket-row"><strong>Device:</strong> Laptop Test Model X1</div>
+                    <div class="ticket-row"><strong>Status:</strong> Open</div>
+                    <div class="ticket-row"><strong>Date:</strong> 2026-02-18 15:31</div>
+                </div>
+                <div class="barcode-area">
+                    <div class="fake-barcode"></div>
+                    <div>679E1EF85D83</div>
                 </div>
             </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Option 2: VERTICAL (Portrait) - Alternative</h2>
+            <p>Paper size: <strong>56mm wide × 104mm tall</strong></p>
+            <p>The ticket prints <strong>narrow and tall</strong> - good for hanging tags</p>
             
-            <div class="barcode-area">
-                <div class="fake-barcode"></div>
-                <div>* TRK-2024-001 *</div>
-            </div>
-        </div>
-        <p class="orientation-label">↑ This is how your ticket will look when printed (TALL/NARROW format)</p>
-        
-        <div class="comparison">
-            <div class="old-orientation">
-                <h3>OLD: Portrait (104mm × 56mm)</h3>
-                <div class="old-box">WIDE<br>SHORT</div>
-                <p>Landscape orientation</p>
-            </div>
-            <div class="new-orientation">
-                <h3>NEW: Landscape (56mm × 104mm)</h3>
-                <div class="new-box">NARROW<br>TALL</div>
-                <p>Portrait orientation</p>
+            <div class="ticket-vertical">
+                <div>
+                    <div class="ticket-title">Repair Ticket</div>
+                    <div class="ticket-row"><strong>ID:</strong> 679E1EF85D83</div>
+                    <div class="ticket-row"><strong>Client:</strong> Test User</div>
+                    <div class="ticket-row"><strong>Phone:</strong> +1234567890</div>
+                    <div class="ticket-row"><strong>Device:</strong> Laptop Test Model X1</div>
+                    <div class="ticket-row"><strong>Status:</strong> Open</div>
+                    <div class="ticket-row"><strong>Date:</strong> 2026-02-18 15:31</div>
+                </div>
+                <div class="barcode-area">
+                    <div class="fake-barcode"></div>
+                    <div>679E1EF85D83</div>
+                </div>
             </div>
         </div>
         
-        <div style="margin-top: 30px; padding: 15px; background: #e7f3ff; border-radius: 5px;">
-            <h3>📋 Summary of Changes:</h3>
-            <ul>
-                <li><strong>Before:</strong> 104mm wide × 56mm tall (wide and short)</li>
-                <li><strong>After:</strong> 56mm wide × 104mm tall (narrow and tall)</li>
-                <li>The ticket now prints in <strong>vertical/portrait</strong> orientation on the paper</li>
-                <li>Perfect for sticking on devices as a label</li>
-            </ul>
+        <div class="test-section">
+            <h2>📊 Comparison</h2>
+            <table class="comparison-table">
+                <tr>
+                    <th>Feature</th>
+                    <th>Horizontal (104×56)</th>
+                    <th>Vertical (56×104)</th>
+                </tr>
+                <tr>
+                    <td>Width</td>
+                    <td>104mm (wide)</td>
+                    <td>56mm (narrow)</td>
+                </tr>
+                <tr>
+                    <td>Height</td>
+                    <td>56mm (short)</td>
+                    <td>104mm (tall)</td>
+                </tr>
+                <tr>
+                    <td>Best for</td>
+                    <td>Device labels, box stickers</td>
+                    <td>Hanging tags, narrow spaces</td>
+                </tr>
+                <tr>
+                    <td>Text layout</td>
+                    <td>More horizontal space</td>
+                    <td>More vertical space</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="recommendation">
+            <h3>💡 Current Setting</h3>
+            <p>Your ticket is currently set to <strong>Horizontal (104mm × 56mm)</strong>.</p>
+            <p>This means it prints <strong>wide and short</strong> - perfect for sticking on laptops, phones, or boxes.</p>
+            <p>If you want to change to <strong>Vertical</strong>, I can swap the dimensions to 56mm × 104mm.</p>
         </div>
     </div>
 </body>

@@ -62,7 +62,6 @@
           View Photo
         </button>
       </div>
-      {% endif %}
 
       <!-- Photo Modal -->
       <div id="photoModal" class="fixed inset-0 bg-black bg-opacity-75 hidden items-center justify-center z-50">
@@ -71,6 +70,7 @@
           <img src="{{ ticket.device_photo.url }}" class="max-w-full max-h-[90vh] rounded shadow-lg">
         </div>
       </div>
+      {% endif %}
 
       <!-- Price & Status Update Form -->
       <div class="mt-6 bg-gray-50 p-4 rounded shadow">
