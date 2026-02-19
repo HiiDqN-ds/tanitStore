@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Required - Staff Access</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="repair_system/static/favicon.ico" type="image/x-icon">
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white p-8 rounded shadow-lg w-full max-w-md text-center">
+        <div class="mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+        </div>
+        
+        <h1 class="text-2xl font-bold mb-4 text-gray-800">Payment Required</h1>
+        
+        <p class="text-gray-600 mb-6">
+            Staff access requires a one-time payment of <strong class="text-blue-600 text-xl">€{{ amount }}</strong>.
+        </p>
+        
+        <div class="bg-yellow-50 border border-yellow-200 rounded p-4 mb-6">
+            <p class="text-sm text-yellow-800">
+                <strong>Instructions:</strong><br>
+                1. Click the PayPal button below to pay €{{ amount }}<br>
+                2. After payment, contact admin with your PayPal receipt<br>
+                3. Your account will be activated within 24 hours
+            </p>
+        </div>
+
+        
+        <div class="space-y-4">
+            <a href="{{ paypal_link }}" target="_blank" 
+               class="block w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded transition flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.59 3.025-2.566 6.082-8.558 6.082H9.63l-1.496 9.478h2.79c.457 0 .85-.334.922-.788l.04-.19.73-4.627.047-.255a.933.933 0 0 1 .922-.788h.58c3.76 0 6.704-1.528 7.565-5.946.318-1.63.157-2.97-.507-3.98z"/>
+                </svg>
+                Pay €{{ amount }} with PayPal
+            </a>
+            
+            <a href="{% url 'staff:login' %}" class="block text-gray-500 hover:text-gray-700 text-sm mt-4">
+
+                ← Back to Login
+            </a>
+        </div>
+        
+        <div class="mt-6 text-xs text-gray-400">
+            One-time payment for lifetime staff access. Secure system.
+        </div>
+    </div>
+</body>
+</html>

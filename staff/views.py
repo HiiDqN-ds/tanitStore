@@ -5,7 +5,6 @@ from django.core.mail import send_mail
 from django.urls import reverse
 from tickets.models import Ticket
 from django.contrib import messages
-
 # -----------------------------
 # Staff Authentication
 # -----------------------------
@@ -14,9 +13,24 @@ from django.contrib.auth import authenticate, login
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.conf import settings
 
+# In-memory storage for paid users (user_id -> True for lifetime access)
+# In production, use a database model with a 'has_paid' flag
+PAID_USERS = set()
+
 def staff_login(request):
-    """Staff login page"""
+    """Staff login page with PayPal paywall"""
     next_url = request.GET.get("next") or request.POST.get("next") or '/staff/dashboard/'
+    
+    # Check if user is already authenticated and has paid (lifetime access)
+    if request.user.is_authenticated and request.user.is_staff:
+        user_id = request.user.id
+        if user_id in PAID_USERS:
+            # Lifetime access granted
+            return redirect('staff:dashboard')
+        else:
+            # User hasn't paid, logout and require payment
+            logout(request)
+            return redirect('staff:payment_required')
 
     if request.method == "POST":
         username = request.POST.get("username")
@@ -25,16 +39,34 @@ def staff_login(request):
         user = authenticate(request, username=username, password=password)
 
         if user and user.is_staff:
-            login(request, user)
-            
-            # Safety check to prevent open redirect
-            if url_has_allowed_host_and_scheme(next_url, allowed_hosts=settings.ALLOWED_HOSTS):
-                return redirect(next_url)
-            return redirect('/staff/dashboard/')
+            # Check if user has paid (admin must manually add to PAID_USERS)
+            if user.id in PAID_USERS:
+                # Log the user in
+                login(request, user)
+                
+                # Safety check to prevent open redirect
+                if url_has_allowed_host_and_scheme(next_url, allowed_hosts=settings.ALLOWED_HOSTS):
+                    return redirect(next_url)
+                return redirect('/staff/dashboard/')
+            else:
+                # User hasn't paid, redirect to payment page
+                return redirect('staff:payment_required')
 
         return render(request, "staff/login.html", {"error": "Invalid credentials", "next": next_url})
 
     return render(request, "staff/login.html", {"next": next_url})
+
+
+def payment_required(request):
+    """Show payment page with PayPal link"""
+    # PayPal.me link for 150 EUR
+    paypal_link = "https://paypal.me/YOUR_PAYPAL_ID/150"
+    
+    return render(request, "staff/payment_required.html", {
+        "paypal_link": paypal_link,
+        "amount": 150
+    })
+
 
 
 
