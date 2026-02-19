@@ -23,6 +23,8 @@
 
 
 
+
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -50,6 +52,8 @@
 
 
 
+
+
         .ticket {
             width: 76mm;
             height: 36mm;
@@ -60,6 +64,8 @@
             box-sizing: border-box;
             background: white;
         }
+
+
 
 
 
@@ -122,6 +128,8 @@
                 page-break-inside: avoid;
             }
 
+
+
             
             * {
                 -webkit-print-color-adjust: exact !important;
@@ -136,6 +144,8 @@
             height: 40mm;
             transform-origin: top left;
         }
+
+
 
 
 
@@ -171,9 +181,9 @@
     <h3 style="margin: 0 0 10px 0; font-size: 14px; font-weight: bold;">🖨️ Druck-Einstellungen</h3>
     <ol style="margin: 0; padding-left: 20px; line-height: 1.5;">
         <li>Papier: <strong>80mm × 40mm</strong> (Etikett)</li>
-
         <li>Format: <strong>Querformat (Landscape)</strong></li>
         <li>Ränder: <strong>Keine (None)</strong></li>
+
         <li>Skalierung: <strong>100%</strong> (nicht "An Seite anpassen")</li>
     </ol>
     <p style="margin: 10px 0 0 0; color: #666; font-size: 11px;">
@@ -204,6 +214,8 @@
         const ticket = document.querySelector('.ticket');
         const maxWidth = 80; // mm
         const maxHeight = 40; // mm
+
+
 
 
 
