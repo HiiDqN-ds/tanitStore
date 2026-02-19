@@ -18,19 +18,12 @@ from django.conf import settings
 PAID_USERS = set()
 
 def staff_login(request):
-    """Staff login page with PayPal paywall"""
+    """Staff login page"""
     next_url = request.GET.get("next") or request.POST.get("next") or '/staff/dashboard/'
     
-    # Check if user is already authenticated and has paid (lifetime access)
+    # Check if user is already authenticated and is staff
     if request.user.is_authenticated and request.user.is_staff:
-        user_id = request.user.id
-        if user_id in PAID_USERS:
-            # Lifetime access granted
-            return redirect('staff:dashboard')
-        else:
-            # User hasn't paid, logout and require payment
-            logout(request)
-            return redirect('staff:payment_required')
+        return redirect('staff:dashboard')
 
     if request.method == "POST":
         username = request.POST.get("username")
@@ -39,18 +32,13 @@ def staff_login(request):
         user = authenticate(request, username=username, password=password)
 
         if user and user.is_staff:
-            # Check if user has paid (admin must manually add to PAID_USERS)
-            if user.id in PAID_USERS:
-                # Log the user in
-                login(request, user)
-                
-                # Safety check to prevent open redirect
-                if url_has_allowed_host_and_scheme(next_url, allowed_hosts=settings.ALLOWED_HOSTS):
-                    return redirect(next_url)
-                return redirect('/staff/dashboard/')
-            else:
-                # User hasn't paid, redirect to payment page
-                return redirect('staff:payment_required')
+            # Log the user in
+            login(request, user)
+            
+            # Safety check to prevent open redirect
+            if url_has_allowed_host_and_scheme(next_url, allowed_hosts=settings.ALLOWED_HOSTS):
+                return redirect(next_url)
+            return redirect('/staff/dashboard/')
 
         return render(request, "staff/login.html", {"error": "Invalid credentials", "next": next_url})
 
