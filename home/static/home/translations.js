@@ -340,7 +340,7 @@ function switchLanguage() {
     updateLangLabels();
     
     // Reload page to apply Django template changes if needed
-    // window.location.reload();
+    window.location.reload();
 }
 
 // Update the language labels in all toggle buttons
