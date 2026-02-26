@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,24 +6,165 @@
     <title>Staff Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="shortcut icon" href="repair_system/static/favicon.ico" type="image/x-icon">
+    <script src="{% static 'home/translations.js' %}"></script>
+    <style>
+        /* Language Toggle - Flag Colors */
+        .lang-toggle {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            border-radius: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        .lang-toggle.en { background: linear-gradient(135deg, #012169 25%, #fff 25%, #fff 50%, #C8102E 50%, #C8102E 75%, #012169 75%); background-size: 20px 20px; }
+        .lang-toggle.de { background: linear-gradient(135deg, #000 25%, #DD0000 25%, #DD0000 50%, #000 50%, #000 75%, #DD0000 75%); background-size: 20px 20px; }
+        .lang-toggle span {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 10px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+        .lang-toggle.de span { color: white; }
+        .lang-toggle.en span { color: #012169; }
+        
+        /* WhatsApp Float Button */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .whatsapp-float:hover {
+            background-color: #20b857;
+            transform: scale(1.1);
+        }
+        
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            width: 44px;
+            height: 24px;
+            background-color: #e5e7eb;
+            border-radius: 12px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .dark-mode-toggle.dark {
+            background-color: #4b5563;
+        }
+        .dark-mode-toggle::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        .dark-mode-toggle.dark::after {
+            left: 22px;
+        }
+        
+        /* Dark Mode Styles */
+        body.dark {
+            background-color: #1f2937 !important;
+        }
+        body.dark .bg-white {
+            background-color: #374151 !important;
+        }
+        body.dark .text-gray-500, 
+        body.dark .text-gray-400 {
+            color: #9ca3af !important;
+        }
+        body.dark .text-gray-800, 
+        body.dark .text-gray-700 {
+            color: #f3f4f6 !important;
+        }
+        body.dark header {
+            background-color: #374151 !important;
+            border-bottom-color: #4b5563 !important;
+        }
+        body.dark input, 
+        body.dark textarea {
+            background-color: #4b5563 !important;
+            border-color: #6b7280 !important;
+            color: #f3f4f6 !important;
+        }
+        body.dark .divide-gray-200 > * {
+            border-color: #4b5563 !important;
+        }
+        body.dark .shadow-sm {
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3) !important;
+        }
+        body.dark .shadow-md {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4) !important;
+        }
+        body.dark .shadow-lg {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4) !important;
+        }
+        body.dark h1, 
+        body.dark h2, 
+        body.dark p {
+            color: #f9fafb !important;
+        }
+        body.dark .text-gray-800 {
+            color: #f9fafb !important;
+        }
+        body.dark .bg-gray-100 {
+            background-color: #111827 !important;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 min-h-screen font-sans">
+<body class="bg-gray-100 min-h-screen font-sans" onload="applyTranslations()">
 
 <!-- Fixed Header -->
 <header class="bg-white shadow-md fixed w-full z-50 border-b">
   <div class="max-w-7xl mx-auto px-6 flex justify-between items-center h-20">
     <div class="flex items-center gap-3">
-      <img src="/media/images/logo.png" alt="Tanitech Logo" class="h-12 w-auto">
+      <a href="/" class="flex items-center gap-2 hover:opacity-80 transition">
+        
+        <img src="/media/images/logo.png" alt="Tanitech Logo" class="h-12 w-auto">
+      </a>
     </div>
-    <form action="{% url 'staff:logout' %}" method="POST">
+    <div class="flex items-center gap-4">
+      <!-- Dark Mode Toggle -->
+      <button id="darkModeToggle" type="button" onclick="toggleDarkMode()" class="dark-mode-toggle" title="Dark Mode">
+      </button>
+      <!-- Language Toggle - Flag Design -->
+      <button id="langToggle" type="button" onclick="switchLanguage()" class="lang-toggle" title="Sprache ändern / Change Language">
+        <span id="langLabel">DE</span>
+      </button>
+      <form action="{% url 'staff:logout' %}" method="POST">
         {% csrf_token %}
         <button type="submit" class="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition shadow-md">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1m0-9V7m0 2H3m18 4H3" />
           </svg>
-          Logout
+          <span data-translate="Logout">Logout</span>
         </button>
-    </form>
+      </form>
+    </div>
   </div>
 </header>
 
@@ -30,12 +172,67 @@
 <main class="pt-28 max-w-7xl mx-auto px-6">
 
   <!-- Dashboard Title -->
-  <h1 class="text-3xl font-bold text-gray-800 mb-6">Repair Tickets Dashboard</h1>
+  <h1 class="text-3xl font-bold text-gray-800 mb-6" data-translate="Repair Tickets Dashboard">Repair Tickets Dashboard</h1>
+
+  
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+
+        <!-- Open Amount Card -->
+        <div class="bg-white rounded-2xl shadow-sm border-l-4 border-yellow-400 p-6 flex justify-between items-center">
+            <div>
+                <p class="text-gray-500 text-sm">Open Amount</p>
+                <h2 class="text-2xl font-bold mt-1">€{{ open_amount }}</h2>
+                <p class="text-xs text-gray-400 mt-1">{{ open_tickets_count }} open tickets</p>
+            </div>
+            <div class="bg-yellow-100 p-3 rounded-full">
+                <svg class="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" stroke-width="2"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 8c-1.5 0-3 .8-3 2s1.5 2 3 2 3 .8 3 2-1.5 2-3 2m0-10v2m0 12v2" />
+                </svg>
+            </div>
+        </div>
+
+        <!-- Closed Amount Card -->
+        <div class="bg-white rounded-2xl shadow-sm border-l-4 border-green-500 p-6 flex justify-between items-center">
+            <div>
+                <p class="text-gray-500 text-sm">Closed Amount</p>
+                <h2 class="text-2xl font-bold mt-1">€{{ closed_amount }}</h2>
+                <p class="text-xs text-gray-400 mt-1">{{ closed_tickets_count }} closed tickets</p>
+            </div>
+            <div class="bg-green-100 p-3 rounded-full">
+                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" stroke-width="2"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M5 13l4 4L19 7" />
+                </svg>
+            </div>
+        </div>
+
+        <!-- Total Revenue Card -->
+        <div class="bg-white rounded-2xl shadow-sm border-l-4 border-blue-500 p-6 flex justify-between items-center">
+            <div>
+                <p class="text-gray-500 text-sm">Total Revenue</p>
+                <h2 class="text-2xl font-bold mt-1">€{{ total_revenue }}</h2>
+                <p class="text-xs text-gray-400 mt-1">{{ total_tickets }} total tickets</p>
+            </div>
+            <div class="bg-blue-100 p-3 rounded-full">
+                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" stroke-width="2"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M3 3v18h18M9 17V9m4 8V5m4 12v-6" />
+                </svg>
+            </div>
+        </div>
+
+    </div>
 
   <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
     <input 
         type="text"
         id="search-box"
+        data-translate-placeholder="Search Tracking ID / Client / Device..."
         placeholder="Search Tracking ID / Client / Device..."
         class="border rounded-full px-4 py-2 w-full sm:w-80 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-md"
         autocomplete="off"
@@ -45,8 +242,6 @@
       <!-- Warehouse Button -->
       <a href="https://store-kdwk.onrender.com" target="_blank"
          class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-full shadow-md transition flex items-center gap-2">
-        
-        <!-- Warehouse Icon -->
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round"
@@ -54,14 +249,13 @@
           <path stroke-linecap="round" stroke-linejoin="round"
                 d="M9 22V12h6v10" />
         </svg>
-
-        Warehouse
+        <span data-translate="Warehouse">Warehouse</span>
       </a>
 
       <!-- New Ticket Button -->
-      <button onclick="openModal()"
+      <button onclick="openModal()" type="button"
         class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full shadow-md transition">
-        ➕ New Ticket
+        ➕ <span data-translate="New Ticket">New Ticket</span>
       </button>
     </div>
   </div>
@@ -71,12 +265,12 @@
     <table class="min-w-full divide-y divide-gray-200">
       <thead class="bg-blue-600 text-white rounded-t-lg">
         <tr>
-          <th class="px-6 py-3 text-left text-sm font-medium uppercase">Tracking ID</th>
-          <th class="px-6 py-3 text-left text-sm font-medium uppercase">Client</th>
-          <th class="px-6 py-3 text-left text-sm font-medium uppercase">Device</th>
-          <th class="px-6 py-3 text-left text-sm font-medium uppercase">Status</th>
-          <th class="px-6 py-3 text-left text-sm font-medium uppercase">Created</th>
-          <th class="px-6 py-3 text-center text-sm font-medium uppercase">Actions</th>
+          <th class="px-6 py-3 text-left text-sm font-medium uppercase" data-translate="Tracking ID">Tracking ID</th>
+          <th class="px-6 py-3 text-left text-sm font-medium uppercase" data-translate="Client">Client</th>
+          <th class="px-6 py-3 text-left text-sm font-medium uppercase" data-translate="Device">Device</th>
+          <th class="px-6 py-3 text-left text-sm font-medium uppercase" data-translate="Status">Status</th>
+          <th class="px-6 py-3 text-left text-sm font-medium uppercase" data-translate="Created">Created</th>
+          <th class="px-6 py-3 text-center text-sm font-medium uppercase" data-translate="Actions">Actions</th>
         </tr>
       </thead>
       <tbody class="bg-white divide-y divide-gray-200">
@@ -97,16 +291,13 @@
           </td>
           <td class="px-6 py-4 text-sm text-gray-500">{{ ticket.created_at|date:"Y-m-d H:i" }}</td>
           <td class="px-6 py-4 text-center flex justify-center gap-2">
-            <a href="{% url 'staff:staff_ticket_detail' ticket.id %}" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-full transition shadow-sm">View</a>
-            <form action="{% url 'staff:delete_ticket' ticket.id %}" method="POST" onsubmit="return confirm('Are you sure?');">
-              {% csrf_token %}
-              <butto be  n type="submit" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-full transition shadow-sm">Delete</button>
-            </form>
+            <a href="{% url 'staff:staff_ticket_detail' ticket.id %}" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-full transition shadow-sm" data-translate="View">View</a>
+            <a href="{% url 'staff:delete_ticket' ticket.id %}" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-full transition shadow-sm" onclick="return confirm('Are you sure?');" data-translate="Delete">Delete</a>
           </td>
         </tr>
         {% empty %}
         <tr>
-          <td colspan="6" class="text-center py-6 text-gray-500">No tickets found.</td>
+          <td colspan="6" class="text-center py-6 text-gray-500" data-translate="No tickets found.">No tickets found.</td>
         </tr>
         {% endfor %}
       </tbody>
@@ -114,25 +305,62 @@
   </div>
 </main>
 
+<!-- Dark Mode Script -->
+<script>
+function toggleDarkMode() {
+    var body = document.body;
+    var toggle = document.getElementById('darkModeToggle');
+    body.classList.toggle('dark');
+    toggle.classList.toggle('dark');
+    
+    // Save preference to localStorage
+    if (body.classList.contains('dark')) {
+        localStorage.setItem('darkMode', 'enabled');
+    } else {
+        localStorage.setItem('darkMode', 'disabled');
+    }
+}
+
+// Check for saved dark mode preference
+if (localStorage.getItem('darkMode') === 'enabled') {
+    document.body.classList.add('dark');
+    document.getElementById('darkModeToggle').classList.add('dark');
+}
+</script>
+
 <!-- Search Script -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const searchBox = document.getElementById('search-box');
-    const tableRows = document.querySelectorAll('tbody tr');
-
-    searchBox.addEventListener('input', function() {
-        const query = this.value.toLowerCase().trim();
-        tableRows.forEach(row => {
-            const rowText = row.innerText.toLowerCase();
-            row.style.display = rowText.includes(query) ? '' : 'none';
-        });
+    // Update language toggle appearance
+    var lang = getCurrentLang();
+    var toggles = document.querySelectorAll('.lang-toggle');
+    toggles.forEach(function(toggle) {
+        toggle.className = 'lang-toggle ' + lang;
+    });
+    var labels = document.querySelectorAll('#langLabel, #langLabelMobile');
+    labels.forEach(function(label) {
+        if (label) {
+            label.textContent = lang.toUpperCase();
+        }
     });
 
+    var searchBox = document.getElementById('search-box');
+    var tableRows = document.querySelectorAll('tbody tr');
+
+    if (searchBox) {
+        searchBox.addEventListener('input', function() {
+            var query = this.value.toLowerCase().trim();
+            tableRows.forEach(function(row) {
+                var rowText = row.innerText.toLowerCase();
+                row.style.display = rowText.includes(query) ? '' : 'none';
+            });
+        });
+    }
+
     // Handle row clicks for navigation
-    tableRows.forEach(row => {
+    tableRows.forEach(function(row) {
         if (row.dataset.url) {
             row.addEventListener('click', function(e) {
-                // Don't navigate if clicking on buttons/links inside the row
                 if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || e.target.closest('a') || e.target.closest('button')) {
                     return;
                 }
@@ -149,45 +377,45 @@ document.addEventListener('DOMContentLoaded', function() {
   <!-- Modal Box -->
   <div class="bg-white w-full max-w-xl rounded-2xl shadow-xl p-6 relative animate-fade-in">
 
-    <h2 class="text-2xl font-bold mb-4">Create New Ticket</h2>
+    <h2 class="text-2xl font-bold mb-4" data-translate="Create New Ticket">Create New Ticket</h2>
 
     <form method="POST" action="{% url 'staff:create_ticket' %}">
       {% csrf_token %}
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input name="tracking_id" placeholder="Tracking ID (manual)" required
+        <input name="tracking_id" data-translate-placeholder="Tracking ID (manual)" placeholder="Tracking ID (manual)" required
           class="border px-4 py-2 rounded-lg w-full font-mono md:col-span-2 bg-yellow-50 focus:ring-2 focus:ring-blue-500">
 
-        <input name="client_first_name" placeholder="First Name" required
+        <input name="client_first_name" data-translate-placeholder="First Name" placeholder="First Name" required
           class="border px-4 py-2 rounded-lg w-full">
 
-        <input name="client_last_name" placeholder="Last Name" required
+        <input name="client_last_name" data-translate-placeholder="Last Name" placeholder="Last Name" required
           class="border px-4 py-2 rounded-lg w-full">
 
-        <input name="client_email" type="email" placeholder="Email" required
+        <input name="client_email" type="email" data-translate-placeholder="Email" placeholder="Email" required
           class="border px-4 py-2 rounded-lg w-full">
 
-        <input name="client_phone" placeholder="Phone"
+        <input name="client_phone" data-translate-placeholder="Phone" placeholder="Phone"
           class="border px-4 py-2 rounded-lg w-full">
 
-        <input name="device_type" placeholder="Device Type" required
+        <input name="device_type" data-translate-placeholder="Device Type" placeholder="Device Type" required
           class="border px-4 py-2 rounded-lg w-full">
 
-        <input name="device_model" placeholder="Device Model"
+        <input name="device_model" data-translate-placeholder="Device Model" placeholder="Device Model"
           class="border px-4 py-2 rounded-lg w-full">
       </div>
 
-      <textarea name="problem_description" rows="3" placeholder="Problem description"
+      <textarea name="problem_description" rows="3" data-translate-placeholder="Problem description" placeholder="Problem description"
         class="border px-4 py-2 rounded-lg w-full mt-4"></textarea>
 
       <div class="flex justify-end gap-3 mt-6">
         <button type="button" onclick="closeModal()"
-          class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300">
+          class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300" data-translate="Cancel">
           Cancel
         </button>
 
         <button type="submit"
-          class="px-6 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 shadow">
+          class="px-6 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 shadow" data-translate="Create Ticket">
           Create Ticket
         </button>
       </div>
@@ -209,10 +437,14 @@ function closeModal() {
 
 // Auto-logout after 3 minutes of inactivity
 (function() {
-    let inactivityTime = 0;
-    const logoutTime = 3 * 60; // 3 minutes in seconds
-    const warningTime = 2 * 60; // Show warning at 2 minutes
-    let warningShown = false;
+    var inactivityTime = 0;
+    var logoutTime = 3 * 60;
+    var warningTime = 2 * 60;
+    var warningShown = false;
+    var lang = getCurrentLang();
+    var warningText = lang === 'de' 
+        ? "Inaktivitätswarnung: Sie werden in 1 Minute automatisch abgemeldet."
+        : "Inactivity Warning: You will be automatically logged out in 1 minute.";
     
     function resetTimer() {
         inactivityTime = 0;
@@ -222,16 +454,16 @@ function closeModal() {
     
     function showWarning() {
         if (!document.getElementById('inactivity-warning')) {
-            const warning = document.createElement('div');
+            var warning = document.createElement('div');
             warning.id = 'inactivity-warning';
             warning.className = 'fixed top-20 right-4 bg-red-600 text-white px-6 py-4 rounded-lg shadow-lg z-50 animate-pulse';
-            warning.innerHTML = '<strong>⚠️ Inaktivitätswarnung:</strong> Sie werden in 1 Minute automatisch abgemeldet. Bitte klicken oder tippen Sie, um angemeldet zu bleiben.';
+            warning.innerHTML = warningText;
             document.body.appendChild(warning);
         }
     }
     
     function hideWarning() {
-        const warning = document.getElementById('inactivity-warning');
+        var warning = document.getElementById('inactivity-warning');
         if (warning) {
             warning.remove();
         }
@@ -241,23 +473,19 @@ function closeModal() {
         window.location.href = "{% url 'staff:logout' %}";
     }
     
-    // Increment timer every second
     setInterval(function() {
         inactivityTime++;
         
-        // Show warning at 2 minutes
         if (inactivityTime >= warningTime && !warningShown) {
             warningShown = true;
             showWarning();
         }
         
-        // Logout at 3 minutes
         if (inactivityTime >= logoutTime) {
             logout();
         }
     }, 1000);
     
-    // Reset timer on user activity
     document.addEventListener('mousemove', resetTimer);
     document.addEventListener('keypress', resetTimer);
     document.addEventListener('click', resetTimer);

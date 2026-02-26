@@ -1,53 +1,118 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Payment Required - Staff Access</title>
+    <title>Payment Required</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="shortcut icon" href="repair_system/static/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="repair_system\static\favicon.ico" type="image/x-icon">
+    <script src="{% static 'home/translations.js' %}"></script>
+    <style>
+        /* Language Toggle - Flag Colors */
+        .lang-toggle {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            border-radius: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        .lang-toggle.en { background: linear-gradient(135deg, #012169 25%, #fff 25%, #fff 50%, #C8102E 50%, #C8102E 75%, #012169 75%); background-size: 20px 20px; }
+        .lang-toggle.de { background: linear-gradient(135deg, #000 25%, #DD0000 25%, #DD0000 50%, #000 50%, #000 75%, #DD0000 75%); background-size: 20px 20px; }
+        .lang-toggle span {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 10px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+        .lang-toggle.de span { color: white; }
+        .lang-toggle.en span { color: #012169; }
+        
+        /* WhatsApp Float Button */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .whatsapp-float:hover {
+            background-color: #20b857;
+            transform: scale(1.1);
+        }
+    </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center h-screen">
-    <div class="bg-white p-8 rounded shadow-lg w-full max-w-md text-center">
-        <div class="mb-6">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-            </svg>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen" onload="applyTranslations()">
+    <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md text-center">
+        <img src="/media/images/logo.png" alt="Tanitech Logo" class="h-16 w-auto mx-auto mb-4">
+        <h1 class="text-2xl font-bold mb-2" data-translate="Payment Required">Payment Required</h1>
+        <p class="text-gray-600 mb-6"><span data-translate="Staff access requires a one-time payment of">Staff access requires a one-time payment of</span> <span class="text-3xl font-bold text-blue-600">€{{ amount }}</span></p>
+        
+        <div class="bg-blue-50 p-4 rounded-lg mb-6 text-left">
+            <h3 class="font-semibold mb-2" data-translate="Instructions">Instructions</h3>
+            <ol class="list-decimal list-inside text-sm text-gray-700 space-y-1">
+                <li data-translate="1. Click the PayPal button below to pay">1. Click the PayPal button below to pay</li>
+                <li data-translate="2. After payment, contact admin with your PayPal receipt">2. After payment, contact admin with your PayPal receipt</li>
+                <li data-translate="3. Your account will be activated within 24 hours">3. Your account will be activated within 24 hours</li>
+            </ol>
         </div>
         
-        <h1 class="text-2xl font-bold mb-4 text-gray-800">Payment Required</h1>
+        <a href="{{ paypal_link }}" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition shadow-lg mb-4">
+            <span data-translate="Pay">Pay</span> <i class="fab fa-paypal"></i> <span data-translate="with PayPal">with PayPal</span>
+        </a>
         
-        <p class="text-gray-600 mb-6">
-            Staff access requires a one-time payment of <strong class="text-blue-600 text-xl">€{{ amount }}</strong>.
-        </p>
-        
-        <div class="bg-yellow-50 border border-yellow-200 rounded p-4 mb-6">
-            <p class="text-sm text-yellow-800">
-                <strong>Instructions:</strong><br>
-                1. Click the PayPal button below to pay €{{ amount }}<br>
-                2. After payment, contact admin with your PayPal receipt<br>
-                3. Your account will be activated within 24 hours
-            </p>
-        </div>
-
-        
-        <div class="space-y-4">
-            <a href="{{ paypal_link }}" target="_blank" 
-               class="block w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded transition flex items-center justify-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.59 3.025-2.566 6.082-8.558 6.082H9.63l-1.496 9.478h2.79c.457 0 .85-.334.922-.788l.04-.19.73-4.627.047-.255a.933.933 0 0 1 .922-.788h.58c3.76 0 6.704-1.528 7.565-5.946.318-1.63.157-2.97-.507-3.98z"/>
-                </svg>
-                Pay €{{ amount }} with PayPal
-            </a>
-            
-            <a href="{% url 'staff:login' %}" class="block text-gray-500 hover:text-gray-700 text-sm mt-4">
-
-                ← Back to Login
-            </a>
+        <div class="mt-4">
+            <a href="{% url 'staff:login' %}" class="text-blue-600 hover:text-blue-800" data-translate="Back to Login">Back to Login</a>
         </div>
         
-        <div class="mt-6 text-xs text-gray-400">
-            One-time payment for lifetime staff access. Secure system.
+        <p class="text-xs text-gray-500 mt-6" data-translate="One-time payment for lifetime staff access. Secure system.">One-time payment for lifetime staff access. Secure system.</p>
+        
+        <!-- Language Toggle - Flag Design -->
+        <div class="mt-4 flex justify-center">
+            <button id="langToggle" type="button" onclick="switchLanguage()" class="lang-toggle" title="Sprache ändern / Change Language">
+                <span id="langLabel">DE</span>
+            </button>
         </div>
     </div>
+
+<!-- WhatsApp Float Button -->
+<a href="https://wa.me/4915904000040" target="_blank" class="whatsapp-float" title="Chat on WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="white">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+</a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var lang = getCurrentLang();
+    var toggles = document.querySelectorAll('.lang-toggle');
+    toggles.forEach(function(toggle) {
+        toggle.className = 'lang-toggle ' + lang;
+    });
+    var labels = document.querySelectorAll('#langLabel, #langLabelMobile');
+    labels.forEach(function(label) {
+        if (label) {
+            label.textContent = lang.toUpperCase();
+        }
+    });
+});
+</script>
 </body>
 </html>

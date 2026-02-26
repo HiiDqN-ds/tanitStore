@@ -72,7 +72,30 @@ def staff_logout(request):
 def staff_dashboard(request):
     """List all tickets in dashboard"""
     tickets = Ticket.objects.all().order_by('-created_at')
-    return render(request, 'staff/dashboard.html', {'tickets': tickets})
+    
+    # Calculate stats
+    total_tickets = tickets.count()
+    total_revenue = sum(ticket.estimated_price or 0 for ticket in tickets)
+    
+    # Open tickets = all non-closed tickets (open, in_progress, sent_post_dhl, waiting_approval, approved)
+    open_tickets = tickets.exclude(status='closed')
+    open_tickets_count = open_tickets.count()
+    open_amount = sum(ticket.estimated_price or 0 for ticket in open_tickets)
+    
+    # Closed tickets = only tickets with status='closed'
+    closed_tickets = tickets.filter(status='closed')
+    closed_tickets_count = closed_tickets.count()
+    closed_amount = sum(ticket.estimated_price or 0 for ticket in closed_tickets)
+    
+    return render(request, 'staff/dashboard.html', {
+        'tickets': tickets,
+        'total_tickets': total_tickets,
+        'total_revenue': total_revenue,
+        'open_tickets_count': open_tickets_count,
+        'open_amount': open_amount,
+        'closed_tickets_count': closed_tickets_count,
+        'closed_amount': closed_amount,
+    })
 
 
 @login_required(login_url='staff:login')
@@ -129,17 +152,11 @@ Tanitech Team
 # -----------------------------
 # Delete Ticket 
 # -----------------------------
-from django.shortcuts import get_object_or_404, redirect
-from django.contrib import messages
-from tickets.models import Ticket
-
 @login_required(login_url='staff:login')
 def delete_ticket(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id)
-
-    if request.method == "POST":
-        ticket.delete()
-
+    ticket.delete()
+    messages.success(request, "Ticket deleted successfully.")
     return redirect('staff:dashboard')
 
 
