@@ -339,7 +339,7 @@ function switchLanguage() {
     applyTranslations();
     updateLangLabels();
     
-    // Reload page to apply Django template changes if needed
+    // Reload page to apply Django language change
     window.location.reload();
 }
 

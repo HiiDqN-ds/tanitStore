@@ -8,7 +8,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
     <link rel="shortcut icon" href="home\templates\home\static\favicon.ico" type="image/x-icon">
-    <script src="{% static 'home/translations.js' %}"></script>
     <style>
         /* Language Toggle - Flag Colors */
         .lang-toggle {
@@ -77,16 +76,8 @@
           class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition shadow" data-translate="Track Repair">
           Track Repair
         </button>
-        
-        <!-- Language Toggle - Flag Design -->
-        <button id="langToggle" type="button" onclick="switchLanguage()" class="lang-toggle" title="Sprache ändern / Change Language">
-          <span id="langLabel">DE</span>
-        </button>
       </nav>
       <div class="flex items-center gap-2 md:hidden">
-        <button id="langToggleMobile" type="button" onclick="switchLanguage()" class="lang-toggle" style="width: 40px; height: 20px;">
-          <span id="langLabelMobile" style="font-size: 8px;">DE</span>
-        </button>
         <button id="mobileMenuBtn" type="button" class="text-2xl">☰</button>
       </div>
     </div>

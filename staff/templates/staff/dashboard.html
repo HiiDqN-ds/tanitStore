@@ -6,7 +6,6 @@
     <title>Staff Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="shortcut icon" href="repair_system/static/favicon.ico" type="image/x-icon">
-    <script src="{% static 'home/translations.js' %}"></script>
     <style>
         /* Language Toggle - Flag Colors */
         .lang-toggle {
@@ -149,10 +148,6 @@
     <div class="flex items-center gap-4">
       <!-- Dark Mode Toggle -->
       <button id="darkModeToggle" type="button" onclick="toggleDarkMode()" class="dark-mode-toggle" title="Dark Mode">
-      </button>
-      <!-- Language Toggle - Flag Design -->
-      <button id="langToggle" type="button" onclick="switchLanguage()" class="lang-toggle" title="Sprache ändern / Change Language">
-        <span id="langLabel">DE</span>
       </button>
       <form action="{% url 'staff:logout' %}" method="POST">
         {% csrf_token %}

@@ -33,6 +33,10 @@ ALLOWED_HOSTS = [
 # -----------------------------
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [
+    BASE_DIR / 'home' / 'static',
+    BASE_DIR / 'repair_system' / 'static',
+]
 
 # -----------------------------
 # Media files (uploads)
