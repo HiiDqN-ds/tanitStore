@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
-    <link rel="shortcut icon" href="home\templates\home\static\favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'home/favicon.ico' %}" type="image/x-icon">
     <style>
         /* Language Toggle - Flag Colors */
         .lang-toggle {
@@ -237,6 +237,7 @@
 <!-- Toast -->
 <div id="toast" class="fixed bottom-5 right-5 bg-gray-800 text-white px-4 py-3 rounded shadow-lg opacity-0 transition-opacity duration-300 z-50"></div>
 
+<script src="{% static 'home/translations.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <script>
 var currentLang = getCurrentLang();
