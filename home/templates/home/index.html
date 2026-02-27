@@ -90,10 +90,35 @@
       <button id="mobileMenuBtn" class="md:hidden text-2xl">☰</button>
     </div>
 
-    <!-- MOBILE MENU -->
+      <!-- MOBILE MENU -->
     <div id="mobileMenu" class="hidden md:hidden pb-4 space-y-3">
       <a href="#services" class="block">{% trans "Services" %}</a>
       <a href="#contact" class="block">{% trans "Contact" %}</a>
+      
+      <!-- Track Repair Button -->
+      <button id="openTrackModalMobile" type="button"
+        class="w-full px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition shadow text-left">
+        {% trans "Track Repair" %}
+      </button>
+
+      <!-- Language Switcher -->
+      <div class="flex items-center gap-2">
+        <span class="text-sm text-gray-600">{% trans "Language" %}:</span>
+        <button onclick="switchLanguage('en')" class="flex items-center gap-2 px-3 py-2 rounded-lg border {% if request_language == 'en' %}border-blue-500 bg-blue-50{% else %}border-gray-200{% endif %}">
+          <img src="https://flagcdn.com/w20/gb.png" class="w-5 h-4 rounded-sm shadow">
+          <span class="text-sm">EN</span>
+        </button>
+        <button onclick="switchLanguage('de')" class="flex items-center gap-2 px-3 py-2 rounded-lg border {% if request_language == 'de' %}border-blue-500 bg-blue-50{% else %}border-gray-200{% endif %}">
+          <img src="https://flagcdn.com/w20/de.png" class="w-5 h-4 rounded-sm shadow">
+          <span class="text-sm">DE</span>
+        </button>
+      </div>
+
+      <!-- Open Repair Ticket Button -->
+      <button type="button"
+        class="w-full px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition shadow openModalBtn">
+        {% trans "Open a Repair Ticket" %}
+      </button>
     </div>
   </div>
 </header>
@@ -247,6 +272,22 @@
 <div id="toast" class="fixed bottom-5 right-5 bg-gray-800 text-white px-4 py-3 rounded shadow-lg opacity-0 transition-opacity duration-300 z-50"></div>
 
 <script>
+function getCSRFToken() {
+    var name = 'csrftoken';
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
 function switchLanguage(lang) {
     document.cookie = 'django_language=' + lang + ';path=/;max-age=31536000';
     location.reload();
@@ -368,7 +409,13 @@ document.addEventListener('DOMContentLoaded', function() {
     formData.delete('client_name');
 
     try{
-      var res = await fetch('/api/tickets/',{method:'POST',body:formData});
+      var res = await fetch('/api/tickets/',{
+        method:'POST',
+        body:formData,
+        headers: {
+          'X-CSRFToken': getCSRFToken()
+        }
+      });
       var data = await res.json();
       clearInterval(interval);
       progressBar.style.width='100%';
@@ -403,6 +450,15 @@ document.addEventListener('DOMContentLoaded', function() {
   mobileMenuBtn.addEventListener('click', function() {
     mobileMenu.classList.toggle('hidden');
   });
+
+  // Mobile Track Repair Button
+  var openTrackModalMobile = document.getElementById('openTrackModalMobile');
+  if(openTrackModalMobile) {
+    openTrackModalMobile.onclick = function() {
+      mobileMenu.classList.add('hidden');
+      openTrack();
+    };
+  }
 
   var trackModal = document.getElementById('trackModal');
   var openTrackBtn = document.getElementById('openTrackModal');
