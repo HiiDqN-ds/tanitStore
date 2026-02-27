@@ -1,9 +1,9 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
-<html lang="de">
+<html lang="{{ request_language|default:'de' }}">
 <head>
     <meta charset="UTF-8">
-    <title>Create Ticket</title>
+    <title>{% trans "Create Ticket" %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="shortcut icon" href="repair_system/static/favicon.ico" type="image/x-icon">
     <style>
@@ -44,7 +44,7 @@
     </div>
     <div class="flex items-center gap-4">
       <a href="{% url 'staff:dashboard' %}" class="text-blue-600 hover:text-blue-800">
-        &larr; Back to Dashboard
+        &larr; {% trans "Back to Dashboard" %}
       </a>
     </div>
   </div>
@@ -55,22 +55,22 @@
     <form method="POST" class="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow">
       {% csrf_token %}
 
-      <h2 class="text-2xl font-bold mb-4">Create Ticket Manually</h2>
+      <h2 class="text-2xl font-bold mb-4">{% trans "Create Ticket Manually" %}</h2>
 
-      <input name="tracking_id" placeholder="Tracking ID (optional)" class="w-full border p-2 mb-3">
+      <input name="tracking_id" placeholder="{% trans 'Tracking ID (optional)' %}" class="w-full border p-2 mb-3">
 
-      <input name="client_first_name" placeholder="First name" class="w-full border p-2 mb-3" required>
-      <input name="client_last_name" placeholder="Last name" class="w-full border p-2 mb-3" required>
-      <input name="client_email" placeholder="Email" class="w-full border p-2 mb-3" required>
+      <input name="client_first_name" placeholder="{% trans 'First name' %}" class="w-full border p-2 mb-3" required>
+      <input name="client_last_name" placeholder="{% trans 'Last name' %}" class="w-full border p-2 mb-3" required>
+      <input name="client_email" placeholder="{% trans 'Email' %}" class="w-full border p-2 mb-3" required>
 
-      <input name="device_type" placeholder="Device type" class="w-full border p-2 mb-3">
-      <input name="device_model" placeholder="Device model" class="w-full border p-2 mb-3">
+      <input name="device_type" placeholder="{% trans 'Device type' %}" class="w-full border p-2 mb-3">
+      <input name="device_model" placeholder="{% trans 'Device model' %}" class="w-full border p-2 mb-3">
 
-      <textarea name="problem_description" placeholder="Problem" class="w-full border p-2 mb-3"></textarea>
+      <textarea name="problem_description" placeholder="{% trans 'Problem' %}" class="w-full border p-2 mb-3"></textarea>
 
-      <input name="estimated_price" placeholder="Price" class="w-full border p-2 mb-3">
+      <input name="estimated_price" placeholder="{% trans 'Price' %}" class="w-full border p-2 mb-3">
 
-      <button class="bg-blue-600 text-white px-4 py-2 rounded">Create & Send Contract</button>
+      <button class="bg-blue-600 text-white px-4 py-2 rounded">{% trans "Create & Send Contract" %}</button>
     </form>
 </main>
 

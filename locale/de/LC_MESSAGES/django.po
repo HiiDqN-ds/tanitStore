@@ -291,3 +291,51 @@ msgstr "Passwort"
 #: admin_auth/templates/admin_auth/login.html
 msgid "Login"
 msgstr "Anmelden"
+
+#: staff/templates/staff/login.html
+msgid "Staff Login"
+msgstr "Mitarbeiter-Anmeldung"
+
+#: staff/templates/staff/create_ticket.html
+msgid "Create Ticket"
+msgstr "Ticket erstellen"
+
+#: staff/templates/staff/create_ticket.html
+msgid "Back to Dashboard"
+msgstr "Zurück zum Dashboard"
+
+#: staff/templates/staff/create_ticket.html
+msgid "Create Ticket Manually"
+msgstr "Ticket manuell erstellen"
+
+#: staff/templates/staff/create_ticket.html
+msgid "Tracking ID (optional)"
+msgstr "Tracking-ID (optional)"
+
+#: staff/templates/staff/create_ticket.html
+msgid "First name"
+msgstr "Vorname"
+
+#: staff/templates/staff/create_ticket.html
+msgid "Last name"
+msgstr "Nachname"
+
+#: staff/templates/staff/create_ticket.html
+msgid "Device type"
+msgstr "Gerätetyp"
+
+#: staff/templates/staff/create_ticket.html
+msgid "Device model"
+msgstr "Gerätemodell"
+
+#: staff/templates/staff/create_ticket.html
+msgid "Problem"
+msgstr "Problem"
+
+#: staff/templates/staff/create_ticket.html
+msgid "Price"
+msgstr "Preis"
+
+#: staff/templates/staff/create_ticket.html
+msgid "Create & Send Contract"
+msgstr "Erstellen & Vertrag senden"

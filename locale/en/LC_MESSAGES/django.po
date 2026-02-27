@@ -291,3 +291,51 @@ msgstr "Password"
 #: admin_auth/templates/admin_auth/login.html
 msgid "Login"
 msgstr "Login"
+
+#: staff/templates/staff/login.html
+msgid "Staff Login"
+msgstr "Staff Login"
+
+#: staff/templates/staff/create_ticket.html
+msgid "Create Ticket"
+msgstr "Create Ticket"
+
+#: staff/templates/staff/create_ticket.html
+msgid "Back to Dashboard"
+msgstr "Back to Dashboard"
+
+#: staff/templates/staff/create_ticket.html
+msgid "Create Ticket Manually"
+msgstr "Create Ticket Manually"
+
+#: staff/templates/staff/create_ticket.html
+msgid "Tracking ID (optional)"
+msgstr "Tracking ID (optional)"
+
+#: staff/templates/staff/create_ticket.html
+msgid "First name"
+msgstr "First name"
+
+#: staff/templates/staff/create_ticket.html
+msgid "Last name"
+msgstr "Last name"
+
+#: staff/templates/staff/create_ticket.html
+msgid "Device type"
+msgstr "Device type"
+
+#: staff/templates/staff/create_ticket.html
+msgid "Device model"
+msgstr "Device model"
+
+#: staff/templates/staff/create_ticket.html
+msgid "Problem"
+msgstr "Problem"
+
+#: staff/templates/staff/create_ticket.html
+msgid "Price"
+msgstr "Price"
+
+#: staff/templates/staff/create_ticket.html
+msgid "Create & Send Contract"
+msgstr "Create & Send Contract"
