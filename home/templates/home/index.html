@@ -53,14 +53,14 @@
         </button>
         
         <!-- Language Selector -->
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1">
             {% get_available_languages as languages %}
             {% get_language_info_list for languages as lang_list %}
             {% for lang in lang_list %}
                 <button onclick="switchLanguage('{{ lang.code }}')" 
-                        class="px-2 py-1 rounded text-sm font-medium transition {% if request_language == lang.code %}bg-blue-600 text-white{% else %}bg-gray-200 hover:bg-gray-300{% endif %}"
+                        class="px-2 py-1 rounded text-lg font-medium transition {% if request_language == lang.code %}bg-blue-600 text-white{% else %}bg-transparent hover:bg-gray-200{% endif %}"
                         title="{{ lang.name }}">
-                    {{ lang.code|upper }}
+                    {% if lang.code == 'en' %}🇬🇧{% elif lang.code == 'de' %}🇩🇪{% endif %}
                 </button>
             {% endfor %}
         </div>
@@ -73,6 +73,18 @@
       <a href="#services" class="block">{% trans "Services" %}</a>
       <a href="#contact" class="block">{% trans "Contact" %}</a>
       <button id="openTrackModalMobile" type="button" class="w-full bg-blue-600 text-white py-2 rounded">{% trans "Track Repair" %}</button>
+      <!-- Mobile Language Selector -->
+      <div class="flex items-center gap-2 pt-2 border-t">
+        <span class="text-sm text-gray-600">Language:</span>
+        {% get_available_languages as languages %}
+        {% get_language_info_list for languages as lang_list %}
+        {% for lang in lang_list %}
+            <button onclick="switchLanguage('{{ lang.code }}')" 
+                    class="px-2 py-1 rounded text-sm font-medium transition {% if request_language == lang.code %}bg-blue-600 text-white{% else %}bg-gray-200{% endif %}">
+                {% if lang.code == 'en' %}🇬🇧 English{% elif lang.code == 'de' %}🇩🇪 Deutsch{% endif %}
+            </button>
+        {% endfor %}
+      </div>
     </div>
   </div>
 </header>
