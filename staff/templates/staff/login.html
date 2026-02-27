@@ -1,47 +1,15 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <title>Staff Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="shortcut icon" href="repair_system\static\favicon.ico" type="image/x-icon">
-    <script src="{% static 'home/translations.js' %}"></script>
-    <style>
-        /* Language Toggle - Flag Colors */
-        .lang-toggle {
-            position: relative;
-            width: 50px;
-            height: 26px;
-            border-radius: 13px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            overflow: hidden;
-        }
-        .lang-toggle.en { background: linear-gradient(135deg, #012169 25%, #fff 25%, #fff 50%, #C8102E 50%, #C8102E 75%, #012169 75%); background-size: 20px 20px; }
-        .lang-toggle.de { background: linear-gradient(135deg, #000 25%, #DD0000 25%, #DD0000 50%, #000 50%, #000 75%, #DD0000 75%); background-size: 20px 20px; }
-        .lang-toggle span {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 10px;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-        }
-        .lang-toggle.de span { color: white; }
-        .lang-toggle.en span { color: #012169; }
-    </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center h-screen" onload="applyTranslations()">
+<body class="bg-gray-100 flex items-center justify-center h-screen">
     <div class="bg-white p-8 rounded shadow-lg w-full max-w-sm">
-        <div class="flex justify-end mb-2">
-            <button id="langToggle" type="button" onclick="switchLanguage()" class="lang-toggle" title="Sprache ändern / Change Language">
-                <span id="langLabel">DE</span>
-            </button>
-        </div>
-        <h1 class="text-2xl font-bold mb-4 text-center" data-translate="Staff Login">Staff Login</h1>
+        <h1 class="text-2xl font-bold mb-4 text-center">Staff Login</h1>
 
         {% if error %}
         <p class="text-red-500 mb-3 text-center">{{ error }}</p>
@@ -49,25 +17,10 @@
 
         <form method="POST">
             {% csrf_token %}
-            <input name="username" data-translate-placeholder="Username" placeholder="Username" required class="w-full p-3 border rounded mb-3 focus:ring-2 focus:ring-blue-400">
-            <input type="password" name="password" data-translate-placeholder="Password" placeholder="Password" required class="w-full p-3 border rounded mb-4 focus:ring-2 focus:ring-blue-400">
-            <button type="submit" class="w-full p-3 bg-blue-600 text-white rounded hover:bg-blue-700 font-semibold" data-translate="Login">Login</button>
+            <input name="username" placeholder="Username" required class="w-full p-3 border rounded mb-3 focus:ring-2 focus:ring-blue-400">
+            <input type="password" name="password" placeholder="Password" required class="w-full p-3 border rounded mb-4 focus:ring-2 focus:ring-blue-400">
+            <button type="submit" class="w-full p-3 bg-blue-600 text-white rounded hover:bg-blue-700 font-semibold">Login</button>
         </form>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var lang = getCurrentLang();
-            var toggles = document.querySelectorAll('.lang-toggle');
-            toggles.forEach(function(toggle) {
-                toggle.className = 'lang-toggle ' + lang;
-            });
-            var labels = document.querySelectorAll('#langLabel, #langLabelMobile');
-            labels.forEach(function(label) {
-                if (label) {
-                    label.textContent = lang.toUpperCase();
-                }
-            });
-        });
-    </script>
 </body>
 </html>

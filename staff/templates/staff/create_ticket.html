@@ -1,38 +1,12 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <title>Create Ticket</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="shortcut icon" href="repair_system/static/favicon.ico" type="image/x-icon">
-    <script src="{% static 'home/translations.js' %}"></script>
     <style>
-        /* Language Toggle - Flag Colors */
-        .lang-toggle {
-            position: relative;
-            width: 50px;
-            height: 26px;
-            border-radius: 13px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            overflow: hidden;
-        }
-        .lang-toggle.en { background: linear-gradient(135deg, #012169 25%, #fff 25%, #fff 50%, #C8102E 50%, #C8102E 75%, #012169 75%); background-size: 20px 20px; }
-        .lang-toggle.de { background: linear-gradient(135deg, #000 25%, #DD0000 25%, #DD0000 50%, #000 50%, #000 75%, #DD0000 75%); background-size: 20px 20px; }
-        .lang-toggle span {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 10px;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-        }
-        .lang-toggle.de span { color: white; }
-        .lang-toggle.en span { color: #012169; }
-        
         /* WhatsApp Float Button */
         .whatsapp-float {
             position: fixed;
@@ -58,7 +32,7 @@
         }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen" onload="applyTranslations()">
+<body class="bg-gray-100 min-h-screen">
 
 <!-- Fixed Header -->
 <header class="bg-white shadow-md fixed w-full z-50 border-b">
@@ -69,12 +43,8 @@
       </a>
     </div>
     <div class="flex items-center gap-4">
-      <!-- Language Toggle - Flag Design -->
-      <button id="langToggle" type="button" onclick="switchLanguage()" class="lang-toggle" title="Sprache ändern / Change Language">
-        <span id="langLabel">DE</span>
-      </button>
-      <a href="{% url 'staff:dashboard' %}" class="text-blue-600 hover:text-blue-800" data-translate="Back to Dashboard">
-        &larr; <span data-translate="Back to Dashboard">Back to Dashboard</span>
+      <a href="{% url 'staff:dashboard' %}" class="text-blue-600 hover:text-blue-800">
+        &larr; Back to Dashboard
       </a>
     </div>
   </div>
@@ -85,22 +55,22 @@
     <form method="POST" class="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow">
       {% csrf_token %}
 
-      <h2 class="text-2xl font-bold mb-4" data-translate="Create Ticket Manually">Create Ticket Manually</h2>
+      <h2 class="text-2xl font-bold mb-4">Create Ticket Manually</h2>
 
-      <input name="tracking_id" data-translate-placeholder="Tracking ID (optional)" placeholder="Tracking ID (optional)" class="w-full border p-2 mb-3">
+      <input name="tracking_id" placeholder="Tracking ID (optional)" class="w-full border p-2 mb-3">
 
-      <input name="client_first_name" data-translate-placeholder="First name" placeholder="First name" class="w-full border p-2 mb-3" required>
-      <input name="client_last_name" data-translate-placeholder="Last name" placeholder="Last name" class="w-full border p-2 mb-3" required>
-      <input name="client_email" data-translate-placeholder="Email" placeholder="Email" class="w-full border p-2 mb-3" required>
+      <input name="client_first_name" placeholder="First name" class="w-full border p-2 mb-3" required>
+      <input name="client_last_name" placeholder="Last name" class="w-full border p-2 mb-3" required>
+      <input name="client_email" placeholder="Email" class="w-full border p-2 mb-3" required>
 
-      <input name="device_type" data-translate-placeholder="Device type" placeholder="Device type" class="w-full border p-2 mb-3">
-      <input name="device_model" data-translate-placeholder="Device model" placeholder="Device model" class="w-full border p-2 mb-3">
+      <input name="device_type" placeholder="Device type" class="w-full border p-2 mb-3">
+      <input name="device_model" placeholder="Device model" class="w-full border p-2 mb-3">
 
-      <textarea name="problem_description" data-translate-placeholder="Problem" placeholder="Problem" class="w-full border p-2 mb-3"></textarea>
+      <textarea name="problem_description" placeholder="Problem" class="w-full border p-2 mb-3"></textarea>
 
-      <input name="estimated_price" data-translate-placeholder="Price" placeholder="Price" class="w-full border p-2 mb-3">
+      <input name="estimated_price" placeholder="Price" class="w-full border p-2 mb-3">
 
-      <button class="bg-blue-600 text-white px-4 py-2 rounded" data-translate="Create & Send Contract">Create & Send Contract</button>
+      <button class="bg-blue-600 text-white px-4 py-2 rounded">Create & Send Contract</button>
     </form>
 </main>
 
@@ -110,22 +80,6 @@
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
     </svg>
 </a>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var lang = getCurrentLang();
-    var toggles = document.querySelectorAll('.lang-toggle');
-    toggles.forEach(function(toggle) {
-        toggle.className = 'lang-toggle ' + lang;
-    });
-    var labels = document.querySelectorAll('#langLabel, #langLabelMobile');
-    labels.forEach(function(label) {
-        if (label) {
-            label.textContent = lang.toUpperCase();
-        }
-    });
-});
-</script>
 
 </body>
 </html>
