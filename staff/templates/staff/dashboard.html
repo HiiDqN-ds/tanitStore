@@ -1,6 +1,6 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
-<html lang="de">
+<html lang="{{ request_language|default:'de' }}">
 <head>
     <meta charset="UTF-8">
     <title>Staff Dashboard</title>
@@ -130,7 +130,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1m0-9V7m0 2H3m18 4H3" />
           </svg>
-          <span>Logout</span>
+          <span>{% trans "Logout" %}</span>
         </button>
       </form>
     </div>

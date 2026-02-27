@@ -1,0 +1,293 @@
+# German translations for Django project.
+# Copyright (C) 2024
+# This file is distributed under the same license as the Django project.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: repair_tracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-01 00:00+0000\n"
+"PO-Revision-Date: 2024-01-01 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: German\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: home/templates/home/index.html
+msgid "Services"
+msgstr "Dienstleistungen"
+
+#: home/templates/home/index.html
+msgid "Contact"
+msgstr "Kontakt"
+
+#: home/templates/home/index.html
+msgid "Track Repair"
+msgstr "Reparatur verfolgen"
+
+#: home/templates/home/index.html
+msgid "Fast & Reliable Device Repair"
+msgstr "Schnelle und zuverlässige Gerätereparatur"
+
+#: home/templates/home/index.html
+msgid "Phones, Laptops, Tablets – We Fix Them All"
+msgstr "Handys, Laptops, Tablets – Wir reparieren alles"
+
+#: home/templates/home/index.html
+msgid "Open a Repair Ticket"
+msgstr "Reparaturauftrag erstellen"
+
+#: home/templates/home/index.html
+msgid "Expert Laptop Repairs"
+msgstr "Fachmännische Laptop-Reparaturen"
+
+#: home/templates/home/index.html
+msgid "We fix hardware, software, and virus issues fast."
+msgstr "Wir reparieren Hardware, Software und Virenprobleme schnell."
+
+#: home/templates/home/index.html
+msgid "Book Now"
+msgstr "Jetzt buchen"
+
+#: home/templates/home/index.html
+msgid "Professional Device Diagnostics"
+msgstr "Professionelle Gerätediagnose"
+
+#: home/templates/home/index.html
+msgid "We find the problem quickly and accurately."
+msgstr "Wir finden das Problem schnell und genau."
+
+#: home/templates/home/index.html
+msgid "Get Started"
+msgstr "Loslegen"
+
+#: home/templates/home/index.html
+msgid "Our Services"
+msgstr "Unsere Dienstleistungen"
+
+#: home/templates/home/index.html
+msgid "Phone Repair"
+msgstr "Handy-Reparatur"
+
+#: home/templates/home/index.html
+msgid "Screen, battery, water damage and more."
+msgstr "Bildschirm, Akku, Wasserschäden und mehr."
+
+#: home/templates/home/index.html
+msgid "Laptop Repair"
+msgstr "Laptop-Reparatur"
+
+#: home/templates/home/index.html
+msgid "Hardware, software, and virus removal."
+msgstr "Hardware, Software und Virenentfernung."
+
+#: home/templates/home/index.html
+msgid "Tablet Repair"
+msgstr "Tablet-Reparatur"
+
+#: home/templates/home/index.html
+msgid "Screen, battery, and performance issues."
+msgstr "Bildschirm, Akku und Leistungsprobleme."
+
+#: home/templates/home/index.html
+msgid "Diagnostics"
+msgstr "Diagnose"
+
+#: home/templates/home/index.html
+msgid "Contact Us"
+msgstr "Kontaktieren Sie uns"
+
+#: home/templates/home/index.html
+msgid "Phone"
+msgstr "Telefon"
+
+#: home/templates/home/index.html
+msgid "Email"
+msgstr "E-Mail"
+
+#: home/templates/home/index.html
+msgid "Address"
+msgstr "Adresse"
+
+#: home/templates/home/index.html
+msgid "Create a New Repair Order"
+msgstr "Neuen Reparaturauftrag erstellen"
+
+#: home/templates/home/index.html
+msgid "Full Name"
+msgstr "Vollständiger Name"
+
+#: home/templates/home/index.html
+msgid "Device Model"
+msgstr "Gerätemodell"
+
+#: home/templates/home/index.html
+msgid "Problem Description"
+msgstr "Problembeschreibung"
+
+#: home/templates/home/index.html
+msgid "Estimated Price"
+msgstr "Geschätzter Preis"
+
+#: home/templates/home/index.html
+msgid "Device Photo (Optional)"
+msgstr "Gerätefoto (Optional)"
+
+#: home/templates/home/index.html
+msgid "Submit"
+msgstr "Absenden"
+
+#: home/templates/home/index.html
+msgid "Track Your Repair"
+msgstr "Ihre Reparatur verfolgen"
+
+#: home/templates/home/index.html
+msgid "Enter your tracking number to see the current status of your repair."
+msgstr "Geben Sie Ihre Tracking-Nummer ein, um den aktuellen Status Ihrer Reparatur zu sehen."
+
+#: home/templates/home/index.html
+msgid "Tracking Number"
+msgstr "Tracking-Nummer"
+
+#: home/templates/home/index.html
+msgid "Check Status"
+msgstr "Status prüfen"
+
+#: home/templates/home/index.html
+msgid "Select Device"
+msgstr "Gerät auswählen"
+
+#: home/templates/home/index.html
+msgid "Smartphone"
+msgstr "Smartphone"
+
+#: home/templates/home/index.html
+msgid "Tablet"
+msgstr "Tablet"
+
+#: home/templates/home/index.html
+msgid "Laptop"
+msgstr "Laptop"
+
+#: staff/templates/staff/dashboard.html
+msgid "Repair Tickets Dashboard"
+msgstr "Reparatur-Tickets Dashboard"
+
+#: staff/templates/staff/dashboard.html
+msgid "Open Amount"
+msgstr "Offener Betrag"
+
+#: staff/templates/staff/dashboard.html
+msgid "Closed Amount"
+msgstr "Geschlossener Betrag"
+
+#: staff/templates/staff/dashboard.html
+msgid "Total Revenue"
+msgstr "Gesamtumsatz"
+
+#: staff/templates/staff/dashboard.html
+msgid "open tickets"
+msgstr "offene Tickets"
+
+#: staff/templates/staff/dashboard.html
+msgid "closed tickets"
+msgstr "geschlossene Tickets"
+
+#: staff/templates/staff/dashboard.html
+msgid "total tickets"
+msgstr "Gesamttickets"
+
+#: staff/templates/staff/dashboard.html
+msgid "Search Tracking ID / Client / Device..."
+msgstr "Tracking-ID / Kunde / Gerät suchen..."
+
+#: staff/templates/staff/dashboard.html
+msgid "Warehouse"
+msgstr "Lager"
+
+#: staff/templates/staff/dashboard.html
+msgid "New Ticket"
+msgstr "Neues Ticket"
+
+#: staff/templates/staff/dashboard.html
+msgid "Tracking ID"
+msgstr "Tracking-ID"
+
+#: staff/templates/staff/dashboard.html
+msgid "Client"
+msgstr "Kunde"
+
+#: staff/templates/staff/dashboard.html
+msgid "Device"
+msgstr "Gerät"
+
+#: staff/templates/staff/dashboard.html
+msgid "Status"
+msgstr "Status"
+
+#: staff/templates/staff/dashboard.html
+msgid "Created"
+msgstr "Erstellt"
+
+#: staff/templates/staff/dashboard.html
+msgid "Actions"
+msgstr "Aktionen"
+
+#: staff/templates/staff/dashboard.html
+msgid "View"
+msgstr "Ansehen"
+
+#: staff/templates/staff/dashboard.html
+msgid "Delete"
+msgstr "Löschen"
+
+#: staff/templates/staff/dashboard.html
+msgid "No tickets found."
+msgstr "Keine Tickets gefunden."
+
+#: staff/templates/staff/dashboard.html
+msgid "Logout"
+msgstr "Abmelden"
+
+#: staff/templates/staff/dashboard.html
+msgid "Create New Ticket"
+msgstr "Neues Ticket erstellen"
+
+#: staff/templates/staff/dashboard.html
+msgid "First Name"
+msgstr "Vorname"
+
+#: staff/templates/staff/dashboard.html
+msgid "Last Name"
+msgstr "Nachname"
+
+#: staff/templates/staff/dashboard.html
+msgid "Device Type"
+msgstr "Gerätetyp"
+
+#: staff/templates/staff/dashboard.html
+msgid "Problem description"
+msgstr "Problembeschreibung"
+
+#: staff/templates/staff/dashboard.html
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: admin_auth/templates/admin_auth/login.html
+msgid "Admin Login"
+msgstr "Admin-Anmeldung"
+
+#: admin_auth/templates/admin_auth/login.html
+msgid "Username"
+msgstr "Benutzername"
+
+#: admin_auth/templates/admin_auth/login.html
+msgid "Password"
+msgstr "Passwort"
+
+#: admin_auth/templates/admin_auth/login.html
+msgid "Login"
+msgstr "Anmelden"

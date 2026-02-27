@@ -1,0 +1,293 @@
+# English translations for Django project.
+# Copyright (C) 2024
+# This file is distributed under the same license as the Django project.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: repair_tracker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-01 00:00+0000\n"
+"PO-Revision-Date: 2024-01-01 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: home/templates/home/index.html
+msgid "Services"
+msgstr "Services"
+
+#: home/templates/home/index.html
+msgid "Contact"
+msgstr "Contact"
+
+#: home/templates/home/index.html
+msgid "Track Repair"
+msgstr "Track Repair"
+
+#: home/templates/home/index.html
+msgid "Fast & Reliable Device Repair"
+msgstr "Fast & Reliable Device Repair"
+
+#: home/templates/home/index.html
+msgid "Phones, Laptops, Tablets – We Fix Them All"
+msgstr "Phones, Laptops, Tablets – We Fix Them All"
+
+#: home/templates/home/index.html
+msgid "Open a Repair Ticket"
+msgstr "Open a Repair Ticket"
+
+#: home/templates/home/index.html
+msgid "Expert Laptop Repairs"
+msgstr "Expert Laptop Repairs"
+
+#: home/templates/home/index.html
+msgid "We fix hardware, software, and virus issues fast."
+msgstr "We fix hardware, software, and virus issues fast."
+
+#: home/templates/home/index.html
+msgid "Book Now"
+msgstr "Book Now"
+
+#: home/templates/home/index.html
+msgid "Professional Device Diagnostics"
+msgstr "Professional Device Diagnostics"
+
+#: home/templates/home/index.html
+msgid "We find the problem quickly and accurately."
+msgstr "We find the problem quickly and accurately."
+
+#: home/templates/home/index.html
+msgid "Get Started"
+msgstr "Get Started"
+
+#: home/templates/home/index.html
+msgid "Our Services"
+msgstr "Our Services"
+
+#: home/templates/home/index.html
+msgid "Phone Repair"
+msgstr "Phone Repair"
+
+#: home/templates/home/index.html
+msgid "Screen, battery, water damage and more."
+msgstr "Screen, battery, water damage and more."
+
+#: home/templates/home/index.html
+msgid "Laptop Repair"
+msgstr "Laptop Repair"
+
+#: home/templates/home/index.html
+msgid "Hardware, software, and virus removal."
+msgstr "Hardware, software, and virus removal."
+
+#: home/templates/home/index.html
+msgid "Tablet Repair"
+msgstr "Tablet Repair"
+
+#: home/templates/home/index.html
+msgid "Screen, battery, and performance issues."
+msgstr "Screen, battery, and performance issues."
+
+#: home/templates/home/index.html
+msgid "Diagnostics"
+msgstr "Diagnostics"
+
+#: home/templates/home/index.html
+msgid "Contact Us"
+msgstr "Contact Us"
+
+#: home/templates/home/index.html
+msgid "Phone"
+msgstr "Phone"
+
+#: home/templates/home/index.html
+msgid "Email"
+msgstr "Email"
+
+#: home/templates/home/index.html
+msgid "Address"
+msgstr "Address"
+
+#: home/templates/home/index.html
+msgid "Create a New Repair Order"
+msgstr "Create a New Repair Order"
+
+#: home/templates/home/index.html
+msgid "Full Name"
+msgstr "Full Name"
+
+#: home/templates/home/index.html
+msgid "Device Model"
+msgstr "Device Model"
+
+#: home/templates/home/index.html
+msgid "Problem Description"
+msgstr "Problem Description"
+
+#: home/templates/home/index.html
+msgid "Estimated Price"
+msgstr "Estimated Price"
+
+#: home/templates/home/index.html
+msgid "Device Photo (Optional)"
+msgstr "Device Photo (Optional)"
+
+#: home/templates/home/index.html
+msgid "Submit"
+msgstr "Submit"
+
+#: home/templates/home/index.html
+msgid "Track Your Repair"
+msgstr "Track Your Repair"
+
+#: home/templates/home/index.html
+msgid "Enter your tracking number to see the current status of your repair."
+msgstr "Enter your tracking number to see the current status of your repair."
+
+#: home/templates/home/index.html
+msgid "Tracking Number"
+msgstr "Tracking Number"
+
+#: home/templates/home/index.html
+msgid "Check Status"
+msgstr "Check Status"
+
+#: home/templates/home/index.html
+msgid "Select Device"
+msgstr "Select Device"
+
+#: home/templates/home/index.html
+msgid "Smartphone"
+msgstr "Smartphone"
+
+#: home/templates/home/index.html
+msgid "Tablet"
+msgstr "Tablet"
+
+#: home/templates/home/index.html
+msgid "Laptop"
+msgstr "Laptop"
+
+#: staff/templates/staff/dashboard.html
+msgid "Repair Tickets Dashboard"
+msgstr "Repair Tickets Dashboard"
+
+#: staff/templates/staff/dashboard.html
+msgid "Open Amount"
+msgstr "Open Amount"
+
+#: staff/templates/staff/dashboard.html
+msgid "Closed Amount"
+msgstr "Closed Amount"
+
+#: staff/templates/staff/dashboard.html
+msgid "Total Revenue"
+msgstr "Total Revenue"
+
+#: staff/templates/staff/dashboard.html
+msgid "open tickets"
+msgstr "open tickets"
+
+#: staff/templates/staff/dashboard.html
+msgid "closed tickets"
+msgstr "closed tickets"
+
+#: staff/templates/staff/dashboard.html
+msgid "total tickets"
+msgstr "total tickets"
+
+#: staff/templates/staff/dashboard.html
+msgid "Search Tracking ID / Client / Device..."
+msgstr "Search Tracking ID / Client / Device..."
+
+#: staff/templates/staff/dashboard.html
+msgid "Warehouse"
+msgstr "Warehouse"
+
+#: staff/templates/staff/dashboard.html
+msgid "New Ticket"
+msgstr "New Ticket"
+
+#: staff/templates/staff/dashboard.html
+msgid "Tracking ID"
+msgstr "Tracking ID"
+
+#: staff/templates/staff/dashboard.html
+msgid "Client"
+msgstr "Client"
+
+#: staff/templates/staff/dashboard.html
+msgid "Device"
+msgstr "Device"
+
+#: staff/templates/staff/dashboard.html
+msgid "Status"
+msgstr "Status"
+
+#: staff/templates/staff/dashboard.html
+msgid "Created"
+msgstr "Created"
+
+#: staff/templates/staff/dashboard.html
+msgid "Actions"
+msgstr "Actions"
+
+#: staff/templates/staff/dashboard.html
+msgid "View"
+msgstr "View"
+
+#: staff/templates/staff/dashboard.html
+msgid "Delete"
+msgstr "Delete"
+
+#: staff/templates/staff/dashboard.html
+msgid "No tickets found."
+msgstr "No tickets found."
+
+#: staff/templates/staff/dashboard.html
+msgid "Logout"
+msgstr "Logout"
+
+#: staff/templates/staff/dashboard.html
+msgid "Create New Ticket"
+msgstr "Create New Ticket"
+
+#: staff/templates/staff/dashboard.html
+msgid "First Name"
+msgstr "First Name"
+
+#: staff/templates/staff/dashboard.html
+msgid "Last Name"
+msgstr "Last Name"
+
+#: staff/templates/staff/dashboard.html
+msgid "Device Type"
+msgstr "Device Type"
+
+#: staff/templates/staff/dashboard.html
+msgid "Problem description"
+msgstr "Problem description"
+
+#: staff/templates/staff/dashboard.html
+msgid "Cancel"
+msgstr "Cancel"
+
+#: admin_auth/templates/admin_auth/login.html
+msgid "Admin Login"
+msgstr "Admin Login"
+
+#: admin_auth/templates/admin_auth/login.html
+msgid "Username"
+msgstr "Username"
+
+#: admin_auth/templates/admin_auth/login.html
+msgid "Password"
+msgstr "Password"
+
+#: admin_auth/templates/admin_auth/login.html
+msgid "Login"
+msgstr "Login"
