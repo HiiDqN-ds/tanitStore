@@ -19,6 +19,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'tanitech.de',
     'www.tanitech.de',
+    'repairtrack.onrender.com',  # <-- genau wie bei Render
     'repairtrack-lm69.onrender.com',
     'repairtracker.onrender.com',
     '127.0.0.1',
