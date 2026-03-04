@@ -17,9 +17,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-5s$uh9px07gium)i5s3mlg7_8q+7f1!9sao%4-()8l#oxq7b%6"
 DEBUG = True
 ALLOWED_HOSTS = [
+    'tanitech.de',
+    'www.tanitech.de',
     'tanitechh.de',
     'www.tanitechh.de',
-    'repairtrack.onrender.com',  # <-- genau wie bei Render
+    'repairtrack.onrender.com',
     'repairtrack-bqpl.onrender.com',
     'repairtracker.onrender.com',
     '127.0.0.1',
