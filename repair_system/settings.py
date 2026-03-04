@@ -21,6 +21,7 @@ ALLOWED_HOSTS = [
     'www.tanitech.de',
     'repairtrack.onrender.com',  # <-- genau wie bei Render
     'repairtrack-lm69.onrender.com',
+    'repairtrack-bqpl.onrender.com',
     'repairtracker.onrender.com',
     '127.0.0.1',
     'localhost',
