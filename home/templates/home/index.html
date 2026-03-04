@@ -333,25 +333,24 @@ document.addEventListener('DOMContentLoaded', function() {
   var removePhoto = document.getElementById('removePhoto');
   var responseMessage = document.getElementById('responseMessage');
 
+  var modalContent = modal.querySelector('div.transform');
+  
   openBtns.forEach(function(btn) {
     btn.onclick = function() { 
       modal.classList.remove('hidden'); 
-      var isMobile = window.innerWidth < 640;
-      if (isMobile) {
-        modal.classList.add('translate-y-0');
-      } else {
-        setTimeout(function() { modal.classList.add('opacity-100','translate-y-0'); }, 10); 
-      }
+      // Small delay to allow display:block to apply before adding opacity class
+      setTimeout(function() { 
+        modal.classList.add('opacity-100'); 
+        modalContent.classList.remove('translate-y-full', 'sm:translate-y-10');
+        modalContent.classList.add('translate-y-0');
+      }, 10); 
     };
   });
   
   closeBtn.onclick = function() { 
-    var isMobile = window.innerWidth < 640;
-    if (isMobile) {
-      modal.classList.remove('translate-y-0');
-    } else {
-      modal.classList.remove('opacity-100','translate-y-0'); 
-    }
+    modal.classList.remove('opacity-100'); 
+    modalContent.classList.remove('translate-y-0');
+    modalContent.classList.add('translate-y-full', 'sm:translate-y-10');
     setTimeout(function() { modal.classList.add('hidden'); }, 300); 
   };
   
@@ -471,14 +470,27 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   var trackModal = document.getElementById('trackModal');
+  var trackModalContent = trackModal.querySelector('div.transform');
   var openTrackBtn = document.getElementById('openTrackModal');
   var closeTrackBtn = document.getElementById('closeTrackModal');
   var trackForm = document.getElementById('trackForm');
   var trackInput = document.getElementById('trackingInput');
   var trackResult = document.getElementById('trackResult');
 
-  function openTrack() { trackModal.classList.remove('hidden'); setTimeout(function() { trackModal.classList.add('opacity-100','translate-y-0'); }, 10);}
-  function closeTrack() { trackModal.classList.remove('opacity-100','translate-y-0'); setTimeout(function() { trackModal.classList.add('hidden'); }, 300);}
+  function openTrack() { 
+    trackModal.classList.remove('hidden'); 
+    setTimeout(function() { 
+      trackModal.classList.add('opacity-100'); 
+      trackModalContent.classList.remove('translate-y-10');
+      trackModalContent.classList.add('translate-y-0'); 
+    }, 10);
+  }
+  function closeTrack() { 
+    trackModal.classList.remove('opacity-100'); 
+    trackModalContent.classList.remove('translate-y-0');
+    trackModalContent.classList.add('translate-y-10');
+    setTimeout(function() { trackModal.classList.add('hidden'); }, 300);
+  }
 
   openTrackBtn.onclick = openTrack;
   closeTrackBtn.onclick = closeTrack;
