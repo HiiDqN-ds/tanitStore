@@ -19,6 +19,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'tanitechh.de',
     'www.tanitechh.de',
+    'tanitechh.de',
+    'www.tanitechh.de',
     'repairtrack-lm69.onrender.com',
     'repairtracker.onrender.com',
     '127.0.0.1',
@@ -64,6 +66,7 @@ INSTALLED_APPS = [
 
     # Third-party
     'rest_framework',
+    'corsheaders',
 ]
 
 # -----------------------------
@@ -79,6 +82,7 @@ REST_FRAMEWORK = {
 # Middleware
 # -----------------------------
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
@@ -88,6 +92,10 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+# Allow CORS for all origins (for development)
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = "repair_system.urls"
 
@@ -117,7 +125,7 @@ WSGI_APPLICATION = "repair_system.wsgi.application"
        # 'ENGINE': 'django.db.backends.mysql',
       #  'NAME': 'repair_db',      # replace with your MySQL database name
      #   'USER': 'root',            # replace with your MySQL user
-    #    'PASSWORD': 'root',        # replace with your MySQL password
+    #   'PASSWORD': 'root',        # replace with your MySQL password
    #     'HOST': 'localhost',
   #      'PORT': '3306',
  #   }

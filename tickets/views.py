@@ -21,7 +21,7 @@ def ticket_list(request):
             phone = request.POST.get("client_phone")
             device_type = request.POST.get("device_type")
             device_model = request.POST.get("device_model")
-            description = request.POST.get("problem_description")
+            description = request.POST.get("problem_description") or request.POST.get("description", "")
             price = request.POST.get("estimated_price") or 0
             photo = request.FILES.get("device_photo")
 
