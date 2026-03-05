@@ -19,8 +19,6 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'tanitech.de',
     'www.tanitech.de',
-    'tanitechh.de',
-    'www.tanitechh.de',
     'repairtrack.onrender.com',
     'repairtrack-bqpl.onrender.com',
     'repairtracker.onrender.com',
