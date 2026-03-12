@@ -1,438 +1,196 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Print Ticket {{ ticket.tracking_id }}</title>
-    <link rel="shortcut icon" href="repair_system/static/favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<title>Print Ticket {{ ticket.tracking_id }}</title>
+<link rel="shortcut icon" href="repair_system/static/favicon.ico">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+
+<style>
+
+@page {
+    size: 104mm 56mm landscape;
+    margin: 0;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    width:104mm;
+    height:56mm;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:white;
+}
+
+/* MAIN TICKET */
+
+.ticket{
+    width:100mm;
+    height:54mm;
+    border:2px solid black;
+    padding:3mm;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+/* TITLE */
+
+.ticket-title{
+    text-align:center;
+    font-size:18px;
+    font-weight:bold;
+    border-bottom:2px solid black;
+    padding-bottom:1mm;
+    margin-bottom:1mm;
+}
+
+/* INFO SECTION */
+
+.ticket-info{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1mm;
+}
+
+.ticket-row{
+    display:flex;
+    flex-direction:column;
+}
+
+.ticket-row strong{
+    font-size:9px;
+    text-transform:uppercase;
+}
+
+.ticket-row span{
+    font-size:11px;
+    font-weight:600;
+}
+
+/* BARCODE SECTION */
+
+.barcode-section{
+    border-top:2px solid black;
+    margin-top:2mm;
+    padding-top:1mm;
+    text-align:center;
+}
+
+.tracking-id-text{
+    font-size:11px;
+    font-weight:bold;
+    letter-spacing:1px;
+    margin-bottom:1mm;
+}
+
+.barcode-container{
+    display:flex;
+    justify-content:center;
+}
+
+/* PRINT FIX */
+
+@media print{
+
+body{
+    width:104mm;
+    height:56mm;
+}
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Include JsBarcode -->
-    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+.ticket{
+    page-break-inside:avoid;
+}
 
-    <style>
-        /* 104mm × 56mm paper - landscape/horizontal orientation */
-        @page {
-            size: 100mm 60mm landscape;
-            margin: 0;
-        }
+}
 
-
-
-
-
-
-
-
-
-
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 16px;
-            width: 104mm;
-            height: 56mm;
-            margin: 0;
-            padding: 0;
-            -webkit-print-color-adjust: exact;
-            -moz-print-color-adjust: exact;
-            print-color-adjust: exact;
-            overflow: hidden;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        .ticket {
-            width: 102mm;
-            height: 54mm;
-            padding: 3mm;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            box-sizing: border-box;
-            background: white;
-            border: 1.5px solid #000;
-        }
-
-
-
-
-
-
-
-
-
-
-
-        .ticket-content {
-            flex: 2;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .ticket-title {
-            font-size: 18px;
-            font-weight: bold;
-            text-align: left;
-            margin-bottom: 2mm;
-            color: #000;
-            text-transform: uppercase;
-            border-bottom: 1px solid #000;
-            padding-bottom: 1mm;
-        }
-
-        .ticket-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1mm 3mm;
-        }
-
-        .ticket-row {
-            margin-bottom: 0.5mm;
-            line-height: 1.1;
-            font-size: 13px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .ticket-row strong {
-            font-size: 11px;
-            color: #555;
-            text-transform: uppercase;
-            margin-bottom: 0.3mm;
-        }
-
-        .ticket-row span {
-            font-size: 14px;
-            font-weight: 600;
-            color: #000;
-        }
-
-
-
-
-
-        .text-center {
-            text-align: center;
-        }
-
-        .barcode-section {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding-left: 3mm;
-            border-left: 1px dashed #ccc;
-        }
-
-        .barcode-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 1mm;
-        }
-
-        .tracking-id-text {
-            font-size: 12px;
-            font-weight: bold;
-            text-align: center;
-            letter-spacing: 1px;
-        }
-
-
-
-
-
-
-
-        .no-print {
-            display: none;
-        }
-
-        @media print {
-            .no-print {
-                display: none !important;
-            }
-            
-            body {
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-                width: 104mm;
-                height: 56mm;
-                margin: 0;
-                padding: 0;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background: white;
-            }
-            
-            .ticket {
-                width: 102mm;
-                height: 54mm;
-                margin: 0;
-                page-break-inside: avoid;
-                border: 1.5px solid #000;
-                padding: 3mm;
-            }
-
-
-
-
-
-
-
-
-
-            
-            * {
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-        }
-
-
-        /* Scale wrapper for auto-fitting */
-        .scale-wrapper {
-            width: 104mm;
-            height: 56mm;
-            transform-origin: top left;
-        }
-
-
-
-
-
-
-
-
-
-    </style>
+</style>
 </head>
+
 <body>
 
 <div class="ticket">
-    <div class="ticket-content">
-        <div class="ticket-title">REPAIR TICKET</div>
-        
-        <div class="ticket-info">
-            <div class="ticket-row">
-                <strong>Tracking ID</strong>
-                <span>{{ ticket.tracking_id }}</span>
-            </div>
-            <div class="ticket-row">
-                <strong>Status</strong>
-                <span>{{ ticket.status|title }}</span>
-            </div>
-            <div class="ticket-row">
-                <strong>Client</strong>
-                <span>{{ ticket.client.first_name }} {{ ticket.client.last_name }}</span>
-            </div>
-            <div class="ticket-row">
-                <strong>Phone</strong>
-                <span>{{ ticket.client_phone|default:"N/A" }}</span>
-            </div>
-            <div class="ticket-row">
-                <strong>Device</strong>
-                <span>{{ ticket.device_type }} {{ ticket.device_model }}</span>
-            </div>
-            <div class="ticket-row">
-                <strong>Date</strong>
-                <span>{{ ticket.created_at|date:"d.m.Y" }}</span>
-            </div>
-        </div>
-    </div>
 
-    <!-- Barcode Section -->
-    <div class="barcode-section">
-        <div class="barcode-container">
-            <svg id="barcode"></svg>
-        </div>
-        <div class="tracking-id-text">{{ ticket.tracking_id }}</div>
-    </div>
+<div class="ticket-title">
+REPAIR TICKET
 </div>
 
+<div class="ticket-info">
 
-
-
-
-<!-- Print Setup Instructions -->
-<div class="no-print" style="position: fixed; top: 10px; left: 10px; background: white; padding: 15px; border: 2px solid #ccc; border-radius: 8px; max-width: 350px; font-size: 12px; z-index: 1000;">
-    <h3 style="margin: 0 0 10px 0; font-size: 16px; font-weight: bold;">🖨️ Chrome Druck-Einstellungen</h3>
-    
-    <div style="background: #f5f5f5; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
-        <strong>Schritt-für-Schritt:</strong>
-        <ol style="margin: 5px 0; padding-left: 20px; line-height: 1.6;">
-            <li>Drucken (Ctrl+P) öffnen</li>
-            <li><strong>Ziel:</strong> Ihren Drucker wählen</li>
-            <li><strong>Layout:</strong> Querformat (Landscape)</li>
-            <li><strong>Papierformat:</strong> "Benutzerdefiniert" wählen</li>
-            <li><strong>Maße eingeben:</strong> 104mm × 56mm</li>
-            <li><strong>Ränder:</strong> "Keine" (None)</li>
-            <li><strong>Skalierung:</strong> 100% (nicht "Anpassen")</li>
-            <li><strong>Hintergrundgrafiken:</strong> ✓ Aktivieren</li>
-        </ol>
-    </div>
-    
-    <div style="background: #fff3cd; padding: 8px; border-radius: 5px; border-left: 4px solid #ffc107; margin-bottom: 10px;">
-        <strong>💡 Wichtig:</strong> Bei "Mehr Einstellungen" → "Hintergrundgrafiken" muss aktiviert sein, damit der Barcode und Rahmen gedruckt werden!
-    </div>
-    
-    <button onclick="window.print()" 
-        class="mt-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded w-full font-bold">
-        🖨️ Jetzt Drucken
-    </button>
+<div class="ticket-row">
+<strong>Email</strong>
+<span>{{ ticket.client.email|default:"N/A" }}</span>
 </div>
 
+<div class="ticket-row">
+<strong>Date</strong>
+<span>{{ ticket.created_at|date:"d.m.Y" }}</span>
+</div>
 
+<div class="ticket-row">
+<strong>Client</strong>
+<span>{{ ticket.client.first_name }} {{ ticket.client.last_name }}</span>
+</div>
+
+<div class="ticket-row">
+<strong>Phone</strong>
+<span>{{ ticket.client_phone|default:"N/A" }}</span>
+</div>
+
+<div class="ticket-row">
+<strong>Device</strong>
+<span>{{ ticket.device_type }} {{ ticket.device_model }}</span>
+</div>
+
+<div class="ticket-row">
+<strong>Status</strong>
+<span>{{ ticket.status|title }}</span>
+</div>
+
+</div>
+
+<div class="barcode-section">
+
+<div class="tracking-id-text">
+{{ ticket.tracking_id }}
+</div>
+
+<div class="barcode-container">
+<svg id="barcode"></svg>
+</div>
+
+</div>
+
+</div>
 
 <script>
-    // Generate the barcode using the tracking ID
-    JsBarcode("#barcode", "{{ ticket.tracking_id }}", {
-        format: "CODE128",
-        lineColor: "#000",
-        width: 1.5,
-        height: 35,
-        displayValue: false,
-        margin: 0
-    });
 
+JsBarcode("#barcode", "{{ ticket.tracking_id }}", {
+format:"CODE128",
+lineColor:"#000",
+width:1.6,
+height:22,
+displayValue:false,
+margin:0
+});
 
+/* auto open print */
 
+window.onload = function(){
+setTimeout(function(){
+window.print();
+},500);
+}
 
-
-
-    // Auto-fit scaling - scales content to fit within the page
-    function scaleToFit() {
-        const ticket = document.querySelector('.ticket');
-        const maxWidth = 104; // mm
-        const maxHeight = 56; // mm
-
-
-
-
-
-
-
-
-
-        
-        // Get the actual content height
-        const contentHeight = ticket.scrollHeight / 3.78; // Convert px to mm (approx)
-        const contentWidth = ticket.scrollWidth / 3.78;
-        
-        // Calculate scale factor
-        const scaleX = maxWidth / contentWidth;
-        const scaleY = maxHeight / contentHeight;
-        const scale = Math.min(scaleX, scaleY, 1); // Don't scale up, only down
-        
-        // Apply scale if needed
-        if (scale < 1) {
-            ticket.style.transform = `scale(${scale})`;
-            ticket.style.transformOrigin = 'top left';
-            ticket.style.width = `${contentWidth}mm`;
-            ticket.style.height = `${contentHeight}mm`;
-        }
-    }
-
-    // Run scaling after page loads
-    window.addEventListener('load', scaleToFit);
-    window.addEventListener('resize', scaleToFit);
-
-    // Auto-open print dialog after a short delay
-    window.addEventListener('load', function() {
-        setTimeout(function() {
-            // Only auto-print if not already printed in this session
-            if (!sessionStorage.getItem('ticketPrinted')) {
-                window.print();
-                sessionStorage.setItem('ticketPrinted', 'true');
-            }
-        }, 500);
-    });
-
-
-    // Auto-logout after 3 minutes of inactivity
-    (function() {
-        let inactivityTime = 0;
-        const logoutTime = 3 * 60; // 3 minutes in seconds
-        const warningTime = 2 * 60; // Show warning at 2 minutes
-        let warningShown = false;
-        
-        function resetTimer() {
-            inactivityTime = 0;
-            warningShown = false;
-            hideWarning();
-        }
-        
-        function showWarning() {
-            if (!document.getElementById('inactivity-warning')) {
-                const warning = document.createElement('div');
-                warning.id = 'inactivity-warning';
-                warning.className = 'fixed top-20 right-4 bg-red-600 text-white px-6 py-4 rounded-lg shadow-lg z-50 animate-pulse';
-                warning.innerHTML = '<strong>⚠️ Inaktivitätswarnung:</strong> Sie werden in 1 Minute automatisch abgemeldet. Bitte klicken oder tippen Sie, um angemeldet zu bleiben.';
-                document.body.appendChild(warning);
-            }
-        }
-        
-        function hideWarning() {
-            const warning = document.getElementById('inactivity-warning');
-            if (warning) {
-                warning.remove();
-            }
-        }
-        
-        function logout() {
-            window.location.href = "{% url 'staff:logout' %}";
-        }
-        
-        // Increment timer every second
-        setInterval(function() {
-            inactivityTime++;
-            
-            // Show warning at 2 minutes
-            if (inactivityTime >= warningTime && !warningShown) {
-                warningShown = true;
-                showWarning();
-            }
-            
-            // Logout at 3 minutes
-            if (inactivityTime >= logoutTime) {
-                logout();
-            }
-        }, 1000);
-        
-        // Reset timer on user activity
-        document.addEventListener('mousemove', resetTimer);
-        document.addEventListener('keypress', resetTimer);
-        document.addEventListener('click', resetTimer);
-        document.addEventListener('touchstart', resetTimer);
-        document.addEventListener('scroll', resetTimer);
-    })();
 </script>
 
 </body>
