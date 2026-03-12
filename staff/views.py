@@ -5,6 +5,9 @@ from django.core.mail import send_mail
 from django.urls import reverse
 from tickets.models import Ticket
 from django.contrib import messages
+from django.http import HttpResponse
+import csv
+from io import StringIO
 # -----------------------------
 # Staff Authentication
 # -----------------------------
@@ -257,6 +260,31 @@ Tanitech Team
 # -----------------------------
 # Example view for landscape ticket orientation
 # -----------------------------
+from django.utils import timezone
+@login_required(login_url='staff:login')
+def export_tickets_csv(request):
+    tickets = Ticket.objects.all().order_by('-created_at').values(
+        'tracking_id', 'client__username', 'client__email', 'client_phone', 
+        'device_type', 'device_model', 'description', 'status', 
+        'estimated_price', 'created_at'
+    )
+    
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="tickets_export_' + str(request.user.username) + '_' + str(timezone.now().strftime('%Y%m%d_%H%M%S')) + '.csv"'
+    
+    fieldnames = [
+        'tracking_id', 'client__username', 'client__email', 'client_phone',
+        'device_type', 'device_model', 'description', 'status', 
+        'estimated_price', 'created_at'
+    ]
+    writer = csv.DictWriter(response, fieldnames=fieldnames)
+    writer.writeheader()
+    for ticket in tickets:
+        row = dict(ticket)
+        writer.writerow(row)
+    
+    return response
+
 def print_ticket_example(request):
     """Example page showing landscape ticket orientation"""
     return render(request, 'staff/print_ticket_example.html')

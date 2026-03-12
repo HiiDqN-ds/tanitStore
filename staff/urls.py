@@ -13,5 +13,6 @@ urlpatterns = [
     path('ticket/delete/<int:ticket_id>/', views.delete_ticket, name='delete_ticket'),
     path('ticket/<int:id>/print/', views.print_ticket, name='print_ticket'),  # <--- new
     path("create-ticket/", views.create_ticket, name="create_ticket"),
+    path('export-csv/', views.export_tickets_csv, name='export_csv'),
     path('print-example/', views.print_ticket_example, name='print_ticket_example'),  # Example view
 ]

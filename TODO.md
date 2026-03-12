@@ -1,7 +1,10 @@
-# Repair Tracker TODO
+# CSV Export Task
 
-## Current Task: Replace Status with Device Problem in Print Ticket Template
-- [x] Create TODO.md with task steps
-- [x] Edit staff/templates/staff/print_ticket.html: Replace Status row with Device Problem using ticket.description
-- [x] Update TODO.md progress
-- [ ] Test print ticket with a ticket having description
+## Steps
+- [x] Read urls.py, views.py, dashboard.html
+- [x] Add export_tickets_csv view to staff/views.py (fixed imports)
+- [x] Add URL to staff/urls.py
+- [x] Add CSV button to dashboard.html (best UX: green download icon button)
+- [x] Update TODO.md
+- [x] Fix CSV DictWriter fieldnames mismatch error
+- [x] Test download (confirmed working)
