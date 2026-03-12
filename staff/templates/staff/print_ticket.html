@@ -151,9 +151,9 @@ REPAIR TICKET
 <span>{{ ticket.device_type }} {{ ticket.device_model }}</span>
 </div>
 
-<div class="ticket-row">
-<strong>Status</strong>
-<span>{{ ticket.status|title }}</span>
+        <div class="ticket-row">
+<strong>Device Problem</strong>
+<span>{{ ticket.description|truncatechars:25|default:"N/A" }}</span>
 </div>
 
 </div>
