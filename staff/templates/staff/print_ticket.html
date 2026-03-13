@@ -10,9 +10,11 @@
 
 <style>
 
-@page {
-    size: 104mm 56mm landscape;
-    margin: 0;
+/* PAGE SIZE */
+
+@page{
+    size:104mm 56mm;
+    margin:0;
 }
 
 *{
@@ -21,21 +23,20 @@
     padding:0;
 }
 
-body{
-    font-family: Arial, Helvetica, sans-serif;
+/* BODY */
+
+html,body{
     width:104mm;
     height:56mm;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    font-family:Arial, Helvetica, sans-serif;
     background:white;
 }
 
 /* MAIN TICKET */
 
 .ticket{
-    width:100mm;
-    height:54mm;
+    width:104mm;
+    height:56mm;
     border:2px solid black;
     padding:3mm;
     display:flex;
@@ -47,19 +48,19 @@ body{
 
 .ticket-title{
     text-align:center;
-    font-size:18px;
+    font-size:16px;
     font-weight:bold;
     border-bottom:2px solid black;
     padding-bottom:1mm;
-    margin-bottom:1mm;
 }
 
-/* INFO SECTION */
+/* INFO GRID */
 
 .ticket-info{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:1mm;
+    margin-top:1mm;
 }
 
 .ticket-row{
@@ -68,7 +69,7 @@ body{
 }
 
 .ticket-row strong{
-    font-size:9px;
+    font-size:8px;
     text-transform:uppercase;
 }
 
@@ -77,11 +78,10 @@ body{
     font-weight:600;
 }
 
-/* BARCODE SECTION */
+/* BARCODE */
 
 .barcode-section{
     border-top:2px solid black;
-    margin-top:2mm;
     padding-top:1mm;
     text-align:center;
 }
@@ -98,11 +98,11 @@ body{
     justify-content:center;
 }
 
-/* PRINT FIX */
+/* PRINT SETTINGS */
 
 @media print{
 
-body{
+html,body{
     width:104mm;
     height:56mm;
 }
@@ -151,7 +151,7 @@ REPAIR TICKET
 <span>{{ ticket.device_type }} {{ ticket.device_model }}</span>
 </div>
 
-        <div class="ticket-row">
+<div class="ticket-row">
 <strong>Device Problem</strong>
 <span>{{ ticket.description|truncatechars:25|default:"N/A" }}</span>
 </div>
@@ -177,18 +177,18 @@ REPAIR TICKET
 JsBarcode("#barcode", "{{ ticket.tracking_id }}", {
 format:"CODE128",
 lineColor:"#000",
-width:1.6,
+width:1.8,
 height:22,
 displayValue:false,
 margin:0
 });
 
-/* auto open print */
+/* AUTO PRINT */
 
 window.onload = function(){
-setTimeout(function(){
-window.print();
-},500);
+    setTimeout(function(){
+        window.print();
+    },500);
 }
 
 </script>
