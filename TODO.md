@@ -1,10 +1,24 @@
-# CSV Export Task
+# ✅ TASK COMPLETE: Repair Cost Field, Profit Calculation & Dashboard Display
 
-## Steps
-- [x] Read urls.py, views.py, dashboard.html
-- [x] Add export_tickets_csv view to staff/views.py (fixed imports)
-- [x] Add URL to staff/urls.py
-- [x] Add CSV button to dashboard.html (best UX: green download icon button)
-- [x] Update TODO.md
-- [x] Fix CSV DictWriter fieldnames mismatch error
-- [x] Test download (confirmed working)
+## Summary:
+- Added `repair_cost` field to Ticket model with profit property
+- Added repair_cost input + profit display in ticket_detail.html
+- Updated staff_dashboard view with total_profit & total_repair_cost calcs (closed tickets)
+- Added Total Profit stats card + Profit column to dashboard table (shows for closed tickets)
+- Migrations executed successfully
+
+## Files Updated:
+- ✅ tickets/models.py
+- ✅ staff/templates/staff/ticket_detail.html 
+- ✅ staff/views.py
+- ✅ staff/templates/staff/dashboard.html
+
+## How to Use:
+1. Go to staff dashboard: http://127.0.0.1:8000/staff/dashboard/
+2. Click "View" on any closed ticket → Set "Repair Cost" → Save & Notify
+3. Return to dashboard → See profit in table column & Total Profit card
+
+**Ready to test! Run `python manage.py runserver` and check /staff/dashboard/**
+
+
+

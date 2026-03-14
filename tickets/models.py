@@ -46,8 +46,14 @@ class Ticket(models.Model):
     agreement_pdf = models.FileField(upload_to='agreements/', blank=True, null=True)
     client_approved = models.BooleanField(default=False)
 
+    repair_cost = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    @property
+    def profit(self):
+        return max(0, self.estimated_price - self.repair_cost)
 
     def save(self, *args, **kwargs):
         if not self.tracking_id:

@@ -175,7 +175,7 @@
 
   
     <!-- Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
 
         <!-- Open Amount Card -->
         <div class="bg-white rounded-2xl shadow-sm border-l-4 border-yellow-400 p-6 flex justify-between items-center">
@@ -221,6 +221,20 @@
                     viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M3 3v18h18M9 17V9m4 8V5m4 12v-6" />
+                </svg>
+            </div>
+        </div>
+
+        <!-- Total Profit Card -->
+        <div class="bg-white rounded-2xl shadow-sm border-l-4 border-purple-500 p-6 flex justify-between items-center">
+            <div>
+                <p class="text-gray-500 text-sm">{% trans "Total Profit" %}</p>
+                <h2 class="text-2xl font-bold mt-1 text-green-600">€{{ total_profit|floatformat:2 }}</h2>
+                <p class="text-xs text-gray-400 mt-1">€{{ closed_amount|floatformat:2 }} - €{{ total_repair_cost|floatformat:2 }}</p>
+            </div>
+            <div class="bg-purple-100 p-3 rounded-full">
+                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08 .402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
                 </svg>
             </div>
         </div>
@@ -275,6 +289,7 @@
           <th class="px-6 py-3 text-left text-sm font-medium uppercase">{% trans "Device" %}</th>
           <th class="px-6 py-3 text-left text-sm font-medium uppercase">{% trans "Status" %}</th>
           <th class="px-6 py-3 text-left text-sm font-medium uppercase">{% trans "Created" %}</th>
+          <th class="px-6 py-3 text-right text-sm font-medium uppercase">{% trans "Profit" %}</th>
           <th class="px-6 py-3 text-center text-sm font-medium uppercase">{% trans "Actions" %}</th>
         </tr>
       </thead>
@@ -295,6 +310,9 @@
             </span>
           </td>
           <td class="px-6 py-4 text-sm text-gray-500">{{ ticket.created_at|date:"Y-m-d H:i" }}</td>
+          <td class="px-6 py-4 text-right font-mono text-lg font-bold text-green-600">
+            €{{ ticket.profit|floatformat:2|default:"—" }}
+          </td>
           <td class="px-6 py-4 text-center flex justify-center gap-2">
             <a href="{% url 'staff:staff_ticket_detail' ticket.id %}" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-full transition shadow-sm">{% trans "View" %}</a>
             <a href="{% url 'staff:delete_ticket' ticket.id %}" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-full transition shadow-sm" onclick="return confirm('Are you sure?');">{% trans "Delete" %}</a>
@@ -302,7 +320,7 @@
         </tr>
         {% empty %}
         <tr>
-          <td colspan="6" class="text-center py-6 text-gray-500">{% trans "No tickets found." %}</td>
+          <td colspan="7" class="text-center py-6 text-gray-500">{% trans "No tickets found." %}</td>
         </tr>
         {% endfor %}
       </tbody>

@@ -90,6 +90,11 @@ def staff_dashboard(request):
     closed_tickets_count = closed_tickets.count()
     closed_amount = sum(ticket.estimated_price or 0 for ticket in closed_tickets)
     
+    # Profit calculations (closed tickets only)
+    from django.db.models import Sum
+    total_repair_cost = closed_tickets.aggregate(total_repair=Sum('repair_cost'))['total_repair'] or 0
+    total_profit = closed_amount - total_repair_cost
+    
     return render(request, 'staff/dashboard.html', {
         'tickets': tickets,
         'total_tickets': total_tickets,
@@ -98,6 +103,8 @@ def staff_dashboard(request):
         'open_amount': open_amount,
         'closed_tickets_count': closed_tickets_count,
         'closed_amount': closed_amount,
+        'total_repair_cost': total_repair_cost,
+        'total_profit': total_profit,
     })
 
 
@@ -120,6 +127,9 @@ def update_ticket_status(request, id):
         price = request.POST.get("price")
         if price:
             ticket.estimated_price = price
+        repair_cost = request.POST.get("repair_cost")
+        if repair_cost:
+            ticket.repair_cost = repair_cost
         staff_note = request.POST.get("staff_note")
         ticket.save()
 
