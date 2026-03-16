@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 
 from .models import Ticket
 from .utils import generate_pdf
+from django.core.files.base import ContentFile
 
 
 # -----------------------------
@@ -50,8 +51,15 @@ def ticket_list(request):
                 device_photo=photo
             )
 
-            # Generate PDF from utils.py
+            # Ensure agreement PDF is saved (model triggers, but explicit for buffer)
             pdf_buffer = generate_pdf(ticket)
+            if not ticket.agreement_pdf:
+                ticket.agreement_pdf.save(
+                    f'agreement_{ticket.tracking_id}.pdf',
+                    ContentFile(pdf_buffer.read()),
+                    save=False
+                )
+                ticket.save(update_fields=['agreement_pdf'])
 
             # Send Email with PDF
             subject = f"Reparaturauftrag – Tracking #{ticket.tracking_id}"

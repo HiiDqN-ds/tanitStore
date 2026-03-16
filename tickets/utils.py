@@ -75,7 +75,8 @@ def generate_pdf(ticket):
         ["Telefon", ticket.client_phone or "-"],
         ["Gerät", f"{ticket.device_type} {ticket.device_model}"],
         ["Problem", ticket.description or "-"],
-        ["Preis", f"{ticket.estimated_price} €"]
+        ["Preis", f"{ticket.estimated_price} € (inkl. 19% MwSt.)"],
+        ["MwSt (19%)", f"{float(ticket.estimated_price) * 0.19:.2f} €"]
     ]
 
     table = Table(data, colWidths=[160, 340])

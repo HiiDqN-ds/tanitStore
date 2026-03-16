@@ -7,6 +7,8 @@ import uuid
 import uuid
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.files.base import ContentFile
+from .utils import generate_pdf
 
 
 class Ticket(models.Model):
@@ -58,7 +60,18 @@ class Ticket(models.Model):
     def save(self, *args, **kwargs):
         if not self.tracking_id:
             self.tracking_id = uuid.uuid4().hex.upper()[:12]
+        
         super().save(*args, **kwargs)
+        
+        # Auto-generate agreement PDF if not exists
+        if not self.agreement_pdf:
+            pdf_buffer = generate_pdf(self)
+            self.agreement_pdf.save(
+                f'agreement_{self.tracking_id}.pdf',
+                ContentFile(pdf_buffer.read()),
+                save=False
+            )
+            self.save(update_fields=['agreement_pdf'])
 
 
     def __str__(self):

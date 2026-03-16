@@ -183,12 +183,28 @@ def print_ticket(request, id):
     return render(request, 'staff/print_ticket.html', {'ticket': ticket})
 
 
+@login_required(login_url='staff:login')
+def regenerate_pdf(request, id):
+    """Regenerate and save agreement PDF for existing ticket"""
+    ticket = get_object_or_404(Ticket, id=id)
+    pdf_buffer = generate_pdf(ticket)
+    ticket.agreement_pdf.save(
+        f'agreement_{ticket.tracking_id}.pdf',
+        ContentFile(pdf_buffer.read()),
+        save=False
+    )
+    ticket.save(update_fields=['agreement_pdf'])
+    messages.success(request, f"PDF regenerated for {ticket.tracking_id}")
+    return redirect('staff:staff_ticket_detail', id=ticket.id)
+
+
 
 from django.shortcuts import render, redirect
 from django.core.mail import EmailMessage
 from tickets.models import Ticket
 from django.contrib.auth.models import User
 from tickets.utils import generate_pdf
+from django.core.files.base import ContentFile
 
 @login_required(login_url='staff:login')
 def create_ticket(request):
@@ -235,8 +251,15 @@ def create_ticket(request):
             estimated_price=price
         )
 
-        # Generate PDF
+        # Ensure agreement PDF is saved
         pdf = generate_pdf(ticket)
+        if not ticket.agreement_pdf:
+            ticket.agreement_pdf.save(
+                f'agreement_{ticket.tracking_id}.pdf',
+                ContentFile(pdf.read()),
+                save=False
+            )
+            ticket.save(update_fields=['agreement_pdf'])
 
         # Send Email
         subject = f"Reparaturauftrag #{ticket.tracking_id}"
