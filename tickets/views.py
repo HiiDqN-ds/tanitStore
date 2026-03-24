@@ -26,8 +26,13 @@ def ticket_list(request):
             price = request.POST.get("estimated_price") or 0
             photo = request.FILES.get("device_photo")
 
-            if not first_name or not last_name or not email or not device_type:
-                return JsonResponse({"error": "Missing required fields"}, status=400)
+            missing = []
+            if not first_name: missing.append('first_name')
+            if not last_name: missing.append('last_name')
+            if not email: missing.append('email')
+            if not device_type: missing.append('device_type')
+            if missing:
+                return JsonResponse({"error": f"Missing required fields: {', '.join(missing)}"}, status=400)
 
             # Create / Get User
             user, created = User.objects.get_or_create(
