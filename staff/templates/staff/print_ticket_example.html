@@ -1,356 +1,192 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Ticket Print Orientation Test - Xprinter XP-420B</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            background: #f0f0f0;
-        }
-        
-        .example-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        
-        .test-section {
-            margin: 30px 0;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .test-section h2 {
-            margin-top: 0;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #007bff;
-        }
-        
-        /* HORIZONTAL (Landscape) - 104mm × 56mm - CURRENT DESIGN */
-        .ticket-horizontal {
-            width: 520px;  /* 104mm × 5 for visibility */
-            height: 280px; /* 56mm × 5 for visibility */
-            border: 3px solid #28a745;
-            background: white;
-            padding: 15px;
-            margin: 20px auto;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-        }
-        
-        .ticket-horizontal::before {
-            content: "CURRENT DESIGN: HORIZONTAL (104mm × 56mm)";
-            position: absolute;
-            top: -30px;
-            left: 0;
-            font-weight: bold;
-            color: #28a745;
-        }
-        
-        .ticket-content {
-            flex: 2;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        
-        .ticket-title-new {
-            font-size: 22px;
-            font-weight: bold;
-            text-align: left;
-            margin-bottom: 10px;
-            color: #000;
-            text-transform: uppercase;
-            border-bottom: 2px solid #000;
-            padding-bottom: 5px;
-        }
-        
-        .ticket-info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5px 15px;
-        }
-        
-        .ticket-row-new {
-            margin-bottom: 3px;
-            line-height: 1.2;
-            font-size: 14px;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .ticket-row-new strong {
-            font-size: 11px;
-            color: #555;
-            text-transform: uppercase;
-            margin-bottom: 2px;
-        }
-        
-        .ticket-row-new span {
-            font-size: 15px;
-            font-weight: 600;
-            color: #000;
-        }
-        
-        .barcode-section {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding-left: 15px;
-            border-left: 2px dashed #ccc;
-        }
-        
-        .fake-barcode-new {
-            height: 70px;
-            width: 120px;
-            background: repeating-linear-gradient(
-                90deg,
-                #000 0px,
-                #000 2px,
-                #fff 2px,
-                #fff 4px
-            );
-            margin-bottom: 5px;
-        }
-        
-        .tracking-id-text {
-            font-size: 14px;
-            font-weight: bold;
-            text-align: center;
-            letter-spacing: 1px;
-        }
+<meta charset="UTF-8">
+<title>Print Ticket {{ ticket.tracking_id }}</title>
+<link rel="shortcut icon" href="repair_system/static/favicon.ico">
 
-        
-        /* VERTICAL (Portrait) - 56mm × 104mm */
-        .ticket-vertical {
-            width: 280px;  /* 56mm × 5 for visibility */
-            height: 520px; /* 104mm × 5 for visibility */
-            border: 3px solid #dc3545;
-            background: white;
-            padding: 20px;
-            margin: 20px auto;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-        }
-        
-        .ticket-vertical::before {
-            content: "VERTICAL (56mm × 104mm)";
-            position: absolute;
-            top: -30px;
-            left: 0;
-            font-weight: bold;
-            color: #dc3545;
-        }
-        
-        .ticket-title {
-            text-align: center;
-            font-weight: bold;
-            font-size: 20px;
-            margin-bottom: 15px;
-        }
-        
-        .ticket-row {
-            margin: 8px 0;
-            font-size: 14px;
-        }
-        
-        .barcode-area {
-            text-align: center;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 2px dashed #333;
-        }
-        
-        .fake-barcode {
-            height: 50px;
-            background: repeating-linear-gradient(
-                90deg,
-                #000 0px,
-                #000 3px,
-                #fff 3px,
-                #fff 6px
-            );
-            margin: 10px 0;
-        }
-        
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        
-        .comparison-table th, .comparison-table td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-        }
-        
-        .comparison-table th {
-            background: #007bff;
-            color: white;
-        }
-        
-        .comparison-table tr:nth-child(even) {
-            background: #f9f9f9;
-        }
-        
-        .recommendation {
-            margin-top: 30px;
-            padding: 20px;
-            background: #fff3cd;
-            border-left: 5px solid #ffc107;
-            border-radius: 5px;
-        }
-    </style>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+
+<style>
+
+/* PAGE SIZE (XP-420B STANDARD) */
+@page{
+    size: 100mm 50mm;
+    margin: 0;
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* BODY */
+html, body{
+    width: 100mm;
+    height: 50mm;
+    font-family: Arial, Helvetica, sans-serif;
+    background: white;
+print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+}
+
+/* MAIN TICKET */
+.ticket{
+    width: 100mm;
+    height: 50mm;
+    border: 2px solid black;
+    padding: 2.5mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* TITLE */
+.ticket-title{
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    border-bottom: 2px solid black;
+    padding-bottom: 1mm;
+}
+
+/* INFO GRID */
+.ticket-info{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1mm;
+    margin-top: 1mm;
+}
+
+.ticket-row{
+    display: flex;
+    flex-direction: column;
+}
+
+.ticket-row strong{
+    font-size: 7px;
+    text-transform: uppercase;
+}
+
+.ticket-row span{
+    font-size: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* BARCODE */
+.barcode-section{
+    border-top: 2px solid black;
+    padding-top: 1mm;
+    text-align: center;
+}
+
+.tracking-id-text{
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 1mm;
+}
+
+.barcode-container{
+    display: flex;
+    justify-content: center;
+}
+
+/* PRINT SETTINGS */
+@media print{
+    html, body{
+        width: 100mm;
+        height: 50mm;
+    }
+
+    .ticket{
+        page-break-inside: avoid;
+    }
+}
+
+</style>
 </head>
-<body>
-    <div class="example-container">
-        <h1>🖨️ Xprinter XP-420B - Ticket Orientation Test</h1>
-        
-        <div class="test-section">
-            <h2>Option 1: HORIZONTAL (Landscape) - Current Setting</h2>
-            <p>Paper size: <strong>104mm wide × 56mm tall</strong></p>
-            <p>The ticket prints <strong>wide and short</strong> - good for labels on boxes/devices</p>
-            
-            <div class="ticket-horizontal">
-                <div class="ticket-content">
-                    <div class="ticket-title-new">REPAIR TICKET</div>
-                    <div class="ticket-info-grid">
-                        <div class="ticket-row-new">
-                            <strong>Tracking ID</strong>
-                            <span>679E1EF85D83</span>
-                        </div>
-                        <div class="ticket-row-new">
-                            <strong>Status</strong>
-                            <span>Open</span>
-                        </div>
-                        <div class="ticket-row-new">
-                            <strong>Client</strong>
-                            <span>Test User</span>
-                        </div>
-                        <div class="ticket-row-new">
-                            <strong>Phone</strong>
-                            <span>+1234567890</span>
-                        </div>
-                        <div class="ticket-row-new">
-                            <strong>Problem</strong>
-                            <span>Display not working</span>
-                        </div>
-                        <div class="ticket-row-new">
-                            <strong>Email</strong>
-                            <span>test@example.com</span>
-                        </div>
-                        <div class="ticket-row-new">
-                            <strong>Device</strong>
-                            <span>Laptop Test Model X1</span>
-                        </div>
-                        <div class="ticket-row-new">
-                            <strong>Date</strong>
-                            <span>18.02.2026</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="barcode-section">
-                    <div class="fake-barcode-new"></div>
-                    <div class="tracking-id-text">679E1EF85D83</div>
-                </div>
-            </div>
 
+<body>
+
+<div class="ticket">
+
+    <div class="ticket-title">
+        REPAIR TICKET
+    </div>
+
+    <div class="ticket-info">
+
+        <div class="ticket-row">
+            <strong>Email</strong>
+            <span>{{ ticket.client.email|default:"N/A" }}</span>
         </div>
-        
-        <div class="test-section">
-            <h2>Option 2: VERTICAL (Portrait) - Alternative</h2>
-            <p>Paper size: <strong>56mm wide × 104mm tall</strong></p>
-            <p>The ticket prints <strong>narrow and tall</strong> - good for hanging tags</p>
-            
-            <div class="ticket-vertical">
-                <div>
-                    <div class="ticket-title">Repair Ticket</div>
-                    <div class="ticket-row"><strong>ID:</strong> 679E1EF85D83</div>
-                    <div class="ticket-row"><strong>Client:</strong> Test User</div>
-                    <div class="ticket-row"><strong>Phone:</strong> +1234567890</div>
-                    <div class="ticket-row"><strong>Problem:</strong> Display not working</div>
-                    <div class="ticket-row"><strong>Email:</strong> test@example.com</div>
-                    <div class="ticket-row"><strong>Device:</strong> Laptop Test Model X1</div>
-                    <div class="ticket-row"><strong>Status:</strong> Open</div>
-                    <div class="ticket-row"><strong>Date:</strong> 2026-02-18 15:31</div>
-                </div>
-                <div class="barcode-area">
-                    <div class="fake-barcode"></div>
-                    <div>679E1EF85D83</div>
-                </div>
-            </div>
+
+        <div class="ticket-row">
+            <strong>Date</strong>
+            <span>{{ ticket.created_at|date:"d.m.Y" }}</span>
         </div>
-        
-        <div class="test-section">
-            <h2>📊 Comparison</h2>
-            <table class="comparison-table">
-                <tr>
-                    <th>Feature</th>
-                    <th>Horizontal (104×56)</th>
-                    <th>Vertical (56×104)</th>
-                </tr>
-                <tr>
-                    <td>Width</td>
-                    <td>104mm (wide)</td>
-                    <td>56mm (narrow)</td>
-                </tr>
-                <tr>
-                    <td>Height</td>
-                    <td>56mm (short)</td>
-                    <td>104mm (tall)</td>
-                </tr>
-                <tr>
-                    <td>Best for</td>
-                    <td>Device labels, box stickers</td>
-                    <td>Hanging tags, narrow spaces</td>
-                </tr>
-                <tr>
-                    <td>Text layout</td>
-                    <td>More horizontal space</td>
-                    <td>More vertical space</td>
-                </tr>
-            </table>
+
+        <div class="ticket-row">
+            <strong>Client</strong>
+            <span>{{ ticket.client.first_name }} {{ ticket.client.last_name }}</span>
         </div>
-        
-        <div class="recommendation">
-            <h3>💡 Current Design Features</h3>
-            <ul style="margin: 10px 0; padding-left: 20px;">
-                <li><strong>Horizontal layout:</strong> Wide and short (104mm × 56mm)</li>
-                <li><strong>Two-column design:</strong> Info on left, barcode on right</li>
-                <li><strong>Grid layout:</strong> 2×3 grid for compact information</li>
-                <li><strong>Professional labels:</strong> Small gray uppercase labels</li>
-                <li><strong>Large values:</strong> Bold black text for readability</li>
-                <li><strong>Vertical barcode:</strong> With tracking ID below</li>
-                <li><strong>Perfect for:</strong> Device labels, box stickers, asset tags</li>
-            </ul>
-            <p><strong>Chrome Print Settings:</strong></p>
-            <ol style="margin: 5px 0; padding-left: 20px;">
-                <li>Layout: Querformat (Landscape)</li>
-                <li>Paper: Benutzerdefiniert 104mm × 56mm</li>
-                <li>Margins: Keine (None)</li>
-                <li>Scale: 100%</li>
-                <li>Background graphics: ✓ Enabled (for barcode & borders)</li>
-            </ol>
+
+        <div class="ticket-row">
+            <strong>Phone</strong>
+            <span>{{ ticket.client_phone|default:"N/A" }}</span>
+        </div>
+
+        <div class="ticket-row">
+            <strong>Device</strong>
+            <span>{{ ticket.device_type }} {{ ticket.device_model }}</span>
+        </div>
+
+        <div class="ticket-row">
+            <strong>Problem</strong>
+            <span>{{ ticket.description|truncatechars:20|default:"N/A" }}</span>
         </div>
 
     </div>
+
+    <div class="barcode-section">
+
+        <div class="tracking-id-text">
+            {{ ticket.tracking_id }}
+        </div>
+
+        <div class="barcode-container">
+            <svg id="barcode"></svg>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+window.onload = function(){
+
+    // Generate barcode AFTER load
+    JsBarcode("#barcode", "{{ ticket.tracking_id }}", {
+        format: "CODE128",
+        lineColor: "#000",
+        width: 1.4,
+        height: 20,
+        displayValue: false,
+        margin: 0
+    });
+
+    // Print after barcode renders
+    setTimeout(function(){
+        window.print();
+    }, 800);
+}
+</script>
+
 </body>
 </html>

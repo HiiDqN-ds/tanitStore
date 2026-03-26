@@ -116,7 +116,7 @@
 
       <!-- Price & Status Update Form -->
       <div class="mt-6 bg-gray-50 p-4 rounded shadow">
-        <form id="updateForm" method="post" action="{% url 'staff:update_ticket_status' ticket.id %}" class="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+        <form id="updateForm" method="post" action="{% url 'staff:update_ticket_status' ticket.id %}" class="loading-form grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
           {% csrf_token %}
 
           <!-- Status -->
@@ -162,7 +162,7 @@
 
           <!-- Buttons -->
           <div class="md:col-span-2 flex gap-3 mt-2">
-            <button type="submit" onclick="return confirmUpdate()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+            <button type="submit" data-loading="Saving..." onclick="return confirmUpdate()" class="loading-btn bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
               Save & Notify Client
             </button>
 
@@ -183,7 +183,7 @@
               {% else %}
               <span class="bg-gray-400 text-white px-3 py-2 rounded text-sm">No PDF</span>
               {% endif %}
-              <a href="{% url 'staff:regenerate_pdf' ticket.id %}" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded text-sm">
+              <a href="{% url 'staff:regenerate_pdf' ticket.id %}" class="save-link bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded text-sm" data-loading="Regenerating...">
                 🔄 Regenerate PDF
               </a>
             </div>
@@ -323,5 +323,8 @@ document.addEventListener('DOMContentLoaded', function() {
   })();
 });
 </script>
+
+<script src="/static/staff/js/loading.js"></script>
+
 </body>
 </html>

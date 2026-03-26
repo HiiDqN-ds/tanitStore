@@ -10,10 +10,9 @@
 
 <style>
 
-/* PAGE SIZE */
-
+/* PAGE SIZE (XP-420B BEST SIZE) */
 @page{
-    size:104mm 56mm;
+    size:100mm 50mm;
     margin:0;
 }
 
@@ -24,38 +23,36 @@
 }
 
 /* BODY */
-
 html,body{
-    width:104mm;
-    height:56mm;
+    width:100mm;
+    height:50mm;
     font-family:Arial, Helvetica, sans-serif;
     background:white;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
 }
 
 /* MAIN TICKET */
-
 .ticket{
-    width:104mm;
-    height:56mm;
+    width:100mm;
+    height:50mm;
     border:2px solid black;
-    padding:3mm;
+    padding:2.5mm;
     display:flex;
     flex-direction:column;
     justify-content:space-between;
 }
 
 /* TITLE */
-
 .ticket-title{
     text-align:center;
-    font-size:16px;
+    font-size:14px;
     font-weight:bold;
     border-bottom:2px solid black;
     padding-bottom:1mm;
 }
 
 /* INFO GRID */
-
 .ticket-info{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -69,17 +66,19 @@ html,body{
 }
 
 .ticket-row strong{
-    font-size:8px;
+    font-size:7px;
     text-transform:uppercase;
 }
 
 .ticket-row span{
-    font-size:11px;
+    font-size:10px;
     font-weight:600;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 
 /* BARCODE */
-
 .barcode-section{
     border-top:2px solid black;
     padding-top:1mm;
@@ -87,7 +86,7 @@ html,body{
 }
 
 .tracking-id-text{
-    font-size:11px;
+    font-size:10px;
     font-weight:bold;
     letter-spacing:1px;
     margin-bottom:1mm;
@@ -99,18 +98,15 @@ html,body{
 }
 
 /* PRINT SETTINGS */
-
 @media print{
+    html,body{
+        width:100mm;
+        height:50mm;
+    }
 
-html,body{
-    width:104mm;
-    height:56mm;
-}
-
-.ticket{
-    page-break-inside:avoid;
-}
-
+    .ticket{
+        page-break-inside:avoid;
+    }
 }
 
 </style>
@@ -152,8 +148,8 @@ REPAIR TICKET
 </div>
 
 <div class="ticket-row">
-<strong>Device Problem</strong>
-<span>{{ ticket.description|truncatechars:25|default:"N/A" }}</span>
+<strong>Problem</strong>
+<span>{{ ticket.description|truncatechars:20|default:"N/A" }}</span>
 </div>
 
 </div>
@@ -173,24 +169,23 @@ REPAIR TICKET
 </div>
 
 <script>
-
-JsBarcode("#barcode", "{{ ticket.tracking_id }}", {
-format:"CODE128",
-lineColor:"#000",
-width:1.8,
-height:22,
-displayValue:false,
-margin:0
-});
-
-/* AUTO PRINT */
-
 window.onload = function(){
+
+    // Generate barcode AFTER load
+    JsBarcode("#barcode", "{{ ticket.tracking_id }}", {
+        format:"CODE128",
+        lineColor:"#000",
+        width:1.4,   // 🔥 important for thermal printers
+        height:20,
+        displayValue:false,
+        margin:0
+    });
+
+    // Wait a bit to ensure barcode renders
     setTimeout(function(){
         window.print();
-    },500);
+    },800);
 }
-
 </script>
 
 </body>

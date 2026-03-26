@@ -170,8 +170,27 @@
 <!-- Main Content -->
 <main class="pt-28 max-w-7xl mx-auto px-6">
 
+
+
+  <!-- Notifications -->
+  <div class="max-w-4xl mx-auto mt-6 mb-6">
+    {% if messages %}
+      <div class="space-y-2">
+        {% for message in messages %}
+          <div class="px-4 py-3 rounded-lg shadow-sm
+            {% if message.tags == 'success' %}bg-green-100 border border-green-300 text-green-800
+            {% elif message.tags == 'error' %}bg-red-100 border border-red-300 text-red-800
+            {% else %}bg-gray-100 border border-gray-300 text-gray-800{% endif %} transition-all">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+
   <!-- Dashboard Title -->
   <h1 class="text-3xl font-bold text-gray-800 mb-6">{% trans "Repair Tickets Dashboard" %}</h1>
+
 
   
     <!-- Stats Cards -->
@@ -315,7 +334,7 @@
           </td>
           <td class="px-6 py-4 text-center flex justify-center gap-2">
             <a href="{% url 'staff:staff_ticket_detail' ticket.id %}" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-full transition shadow-sm">{% trans "View" %}</a>
-            <a href="{% url 'staff:delete_ticket' ticket.id %}" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-full transition shadow-sm" onclick="return confirm('Are you sure?');">{% trans "Delete" %}</a>
+            <a href="{% url 'staff:delete_ticket' ticket.id %}" class="delete-link bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-full transition shadow-sm" onclick="handleDelete(event, this);">{% trans "Delete" %}</a>
           </td>
         </tr>
         {% empty %}
@@ -411,7 +430,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <h2 class="text-2xl font-bold mb-4">{% trans "Create New Ticket" %}</h2>
 
-    <form method="POST" action="{% url 'staff:create_ticket' %}">
+    <form method="POST" action="{% url 'staff:create_ticket' %}" class="loading-form">
       {% csrf_token %}
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -446,8 +465,8 @@ document.addEventListener('DOMContentLoaded', function() {
           {% trans "Cancel" %}
         </button>
 
-        <button type="submit"
-          class="px-6 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 shadow">
+        <button type="submit" data-loading="Creating Ticket..."
+          class="px-6 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 shadow loading-btn">
           {% trans "Create Ticket" %}
         </button>
       </div>
@@ -521,17 +540,9 @@ function closeModal() {
     document.addEventListener('touchstart', resetTimer);
     document.addEventListener('scroll', resetTimer);
 })();
+
 </script>
 
-<style>
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
-}
-.animate-fade-in {
-  animation: fadeIn 0.2s ease-out;
-}
-</style>
-
+<script src="/static/staff/js/loading.js"></script>
 </body>
 </html>
