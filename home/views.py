@@ -1,13 +1,17 @@
 from django.shortcuts import render
-from django.contrib import messages
 from tickets.models import Ticket
+from django.contrib import messages
+
+def index(request):
+    """View for the home page"""
+    return render(request, 'home/index.html')
 
 def create_ticket(request):
     """Public page for creating repair tickets"""
     context = {}
     
     if request.method == 'POST':
-        # Retrieve form data
+        # Retrieve and save form data
         new_ticket = Ticket.objects.create(
             client_first_name=request.POST.get('client_first_name'),
             client_last_name=request.POST.get('client_last_name'),
