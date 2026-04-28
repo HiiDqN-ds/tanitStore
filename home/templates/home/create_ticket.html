@@ -60,8 +60,8 @@ Since you are passing the ticket context to this template after creation, the bu
       <h2 class="text-2xl font-bold mb-4">{% trans "Create Ticket Manually" %}</h2>
 
       <input name="tracking_id" placeholder="{% trans 'Tracking ID (optional)' %}" class="w-full border p-2 mb-3">
-      <input name="client_first_name" placeholder="{% trans 'First name' %}" class="w-full border p-2 mb-3" required>
-      <input name="client_last_name" placeholder="{% trans 'Last name' %}" class="w-full border p-2 mb-3" required>
+      <input name="client_first_name" placeholder="{% trans 'First name' %}" class="w-full border p-2 mb-3" >
+      <input name="client_last_name" placeholder="{% trans 'Last name' %}" class="w-full border p-2 mb-3" >
       
       <!-- Email and Phone are now required -->
       <input type="email" name="client_email" placeholder="{% trans 'Email' %}" class="w-full border p-2 mb-3" required>
