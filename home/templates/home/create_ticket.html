@@ -59,8 +59,8 @@
 
       <input name="tracking_id" placeholder="{% trans 'Tracking ID (optional)' %}" class="w-full border p-2 mb-3">
 
-      <input name="client_first_name" placeholder="{% trans 'First name' %}" class="w-full border p-2 mb-3" required>
-      <input name="client_last_name" placeholder="{% trans 'Last name' %}" class="w-full border p-2 mb-3" required>
+      <input name="client_first_name" placeholder="{% trans 'First name' %}" class="w-full border p-2 mb-3" >
+      <input name="client_last_name" placeholder="{% trans 'Last name' %}" class="w-full border p-2 mb-3" >
       <input name="client_email" placeholder="{% trans 'Email' %}" class="w-full border p-2 mb-3" required>
 
       <input name="device_type" placeholder="{% trans 'Device type' %}" class="w-full border p-2 mb-3">
@@ -68,7 +68,6 @@
 
       <textarea name="problem_description" placeholder="{% trans 'Problem' %}" class="w-full border p-2 mb-3"></textarea>
 
-      <input name="estimated_price" placeholder="{% trans 'Price' %}" class="w-full border p-2 mb-3">
 
       <button class="bg-blue-600 text-white px-4 py-2 rounded">{% trans "Create & Send Contract" %}</button>
     </form>
