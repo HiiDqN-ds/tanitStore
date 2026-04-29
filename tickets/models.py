@@ -9,7 +9,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.files.base import ContentFile
 from .utils import generate_pdf
- 
+
 
 class Ticket(models.Model):
     STATUS_CHOICES = [
@@ -39,7 +39,7 @@ class Ticket(models.Model):
 
     device_type = models.CharField(max_length=50, blank=True, null=True)
     device_model = models.CharField(max_length=100, blank=True, null=True)
-    client_phone_number = models.CharField(max_length=50, blank=True, null=True)
+    client_phone = models.CharField(max_length=50, blank=True, null=True)
 
     estimated_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
@@ -58,28 +58,20 @@ class Ticket(models.Model):
         return max(0, self.estimated_price - self.repair_cost)
 
     def save(self, *args, **kwargs):
-        # Generate tracking ID if missing
         if not self.tracking_id:
             self.tracking_id = uuid.uuid4().hex.upper()[:12]
-    
-        # Check if this is a NEW object (important for safe PDF generation)
-        is_new = self.pk is None
-    
-        # First normal save (creates DB record)
+        
         super().save(*args, **kwargs)
-    
-        # Generate PDF ONLY once for new tickets
-        if is_new and not self.agreement_pdf:
+        
+        # Auto-generate agreement PDF if not exists
+        if not self.agreement_pdf:
             pdf_buffer = generate_pdf(self)
-    
             self.agreement_pdf.save(
-                f"agreement_{self.tracking_id}.pdf",
+                f'agreement_{self.tracking_id}.pdf',
                 ContentFile(pdf_buffer.read()),
                 save=False
             )
-    
-            # Update ONLY the file field safely (no recursion)
-            super().save(update_fields=["agreement_pdf"])
+            self.save(update_fields=['agreement_pdf'])
 
 
     def __str__(self):
