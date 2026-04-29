@@ -58,20 +58,28 @@ class Ticket(models.Model):
         return max(0, self.estimated_price - self.repair_cost)
 
     def save(self, *args, **kwargs):
+        # Generate tracking ID if missing
         if not self.tracking_id:
             self.tracking_id = uuid.uuid4().hex.upper()[:12]
-        
+    
+        # Check if this is a NEW object (important for safe PDF generation)
+        is_new = self.pk is None
+    
+        # First normal save (creates DB record)
         super().save(*args, **kwargs)
-        
-        # Auto-generate agreement PDF if not exists
-        if not self.agreement_pdf:
+    
+        # Generate PDF ONLY once for new tickets
+        if is_new and not self.agreement_pdf:
             pdf_buffer = generate_pdf(self)
+    
             self.agreement_pdf.save(
-                f'agreement_{self.tracking_id}.pdf',
+                f"agreement_{self.tracking_id}.pdf",
                 ContentFile(pdf_buffer.read()),
                 save=False
             )
-            self.save(update_fields=['agreement_pdf'])
+    
+            # Update ONLY the file field safely (no recursion)
+            super().save(update_fields=["agreement_pdf"])
 
 
     def __str__(self):
