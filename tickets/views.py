@@ -144,19 +144,3 @@ def generate_auftrag(request, ticket_id):
     
     
     
-from django.shortcuts import get_object_or_404
-from django.http import FileResponse, HttpResponse
-from .models import Ticket
-
-
-def download_ticket_pdf(request, ticket_id):
-    ticket = get_object_or_404(Ticket, id=ticket_id)
-
-    if not ticket.agreement_pdf:
-        return HttpResponse("PDF not available yet", status=404)
-
-    return FileResponse(
-        ticket.agreement_pdf.open("rb"),
-        content_type="application/pdf",
-        filename=f"ticket_{ticket.tracking_id}.pdf"
-    )
