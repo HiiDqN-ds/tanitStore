@@ -39,7 +39,7 @@ class Ticket(models.Model):
 
     device_type = models.CharField(max_length=50, blank=True, null=True)
     device_model = models.CharField(max_length=100, blank=True, null=True)
-    client_phone = models.CharField(max_length=50, blank=True, null=True)
+    client_phone_number = models.CharField(max_length=50, blank=True, null=True)
 
     estimated_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
