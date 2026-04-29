@@ -7,5 +7,4 @@ urlpatterns = [
     path('tickets/', ticket_list, name='ticket_list'),
     path('tickets/<str:tracking_id>/', ticket_detail, name='ticket_detail'),
     path("auftrag/<int:ticket_id>/", generate_auftrag, name="generate_auftrag"),
-    path('ticket/<int:ticket_id>/download/', views.download_ticket_pdf, name='ticket_download'),
 ]
