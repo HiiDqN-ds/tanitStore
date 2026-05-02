@@ -220,9 +220,9 @@
     <form id="ticketFormModal" class="p-4 space-y-4" enctype="multipart/form-data">
       <input name="client_name" id="client_name" type="text" placeholder="{% trans 'Full Name' %}" class="w-full p-3 border rounded focus:ring-2 focus:ring-blue-400">
       <p class="text-red-600 text-sm hidden" id="error-client_name"></p>
-      <input name="client_email" id="client_email" type="email" placeholder="{% trans 'Email' %}" class="w-full p-3 border rounded focus:ring-2 focus:ring-blue-400">
+<input name="client_email" id="client_email" type="email" placeholder="{% trans 'Email' %}" class="w-full p-3 border rounded focus:ring-2 focus:ring-blue-400" required>
       <p class="text-red-600 text-sm hidden" id="error-client_email"></p>
-      <input name="client_phone" id="client_phone" type="text" placeholder="{% trans 'Phone' %}" class="w-full p-3 border rounded focus:ring-2 focus:ring-blue-400">
+<input name="client_phone" id="client_phone" type="text" placeholder="{% trans 'Phone' %}" class="w-full p-3 border rounded focus:ring-2 focus:ring-blue-400" required>
       <select name="device_type" id="device_type" class="w-full p-3 border rounded focus:ring-2 focus:ring-blue-400">
         <option value="">{% trans "Select Device" %}</option>
         <option value="Smartphone">{% trans "Smartphone" %}</option>
@@ -232,8 +232,7 @@
       <p class="text-red-600 text-sm hidden" id="error-device_type"></p>
       <input name="device_model" id="device_model" type="text" placeholder="{% trans 'Device Model' %}" class="w-full p-3 border rounded focus:ring-2 focus:ring-blue-400">
       <textarea name="problem_description" id="problem_description" rows="3" placeholder="{% trans 'Problem Description' %}" class="w-full p-3 border rounded focus:ring-2 focus:ring-blue-400"></textarea>
-      <input name="estimated_price" id="estimated_price" type="number" placeholder="{% trans 'Estimated Price' %} (€)" class="w-full p-3 border rounded focus:ring-2 focus:ring-blue-400">
-      <label class="block text-gray-700 font-medium">{% trans "Device Photo (Optional)" %}</label>
+<label class="block text-gray-700 font-medium">{% trans "Device Photo (Optional)" %}</label>
       <div class="flex items-center gap-2">
         <input name="device_photo" id="device_photo" type="file" accept="image/*" class="flex-1 p-2 border rounded">
         <button type="button" id="removePhoto" class="text-red-500 hover:text-red-700 font-semibold hidden">X</button>
@@ -310,11 +309,7 @@ document.addEventListener('click', function(event) {
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <script>
-var errorMessages = {
-    name: 'Name ist erforderlich',
-    email: 'Email ist erforderlich',
-    device: 'Bitte wählen Sie ein Gerät aus'
-};
+// All fields are now optional - no validation error messages needed
 
 var successMessage = 'Auftrag erfolgreich!';
 var errorMessage = 'Fehler';
@@ -371,40 +366,13 @@ document.addEventListener('DOMContentLoaded', function() {
   removePhoto.addEventListener('click', function() {
     document.getElementById('device_photo').value = '';
     previewPhoto.classList.add('hidden'); 
-    removePhoto.classList.add('hidden');
+removePhoto.classList.add('hidden');
   });
 
-  var fields = [
-    { id: 'client_name', message: errorMessages.name },
-    { id: 'client_email', message: errorMessages.email },
-    { id: 'device_type', message: errorMessages.device }
-  ];
-
-  function showError(id, msg){ 
-    var input = document.getElementById(id); 
-    var error = document.getElementById('error-' + id); 
-    input.classList.add('border-red-500','animate-shake'); 
-    setTimeout(function() { input.classList.remove('animate-shake'); }, 300); 
-    error.innerText = msg; 
-    error.classList.remove('hidden'); 
-  }
-  
-  function clearError(id){ 
-    var input = document.getElementById(id); 
-    var error = document.getElementById('error-' + id); 
-    input.classList.remove('border-red-500'); 
-    error.classList.add('hidden'); 
-  }
-
+  // All fields are optional - no client-side validation
   form.addEventListener('submit', async function(e) {
     e.preventDefault();
-    var firstInvalid = null;
-    fields.forEach(function(f) {
-      var input = document.getElementById(f.id);
-      if(!input.value.trim()){ showError(f.id,f.message); if(!firstInvalid) firstInvalid=input; }
-      else clearError(f.id);
-    });
-    if(firstInvalid){ firstInvalid.focus(); return; }
+    // No validation - all fields are optional
 
     spinner.classList.remove('hidden');
     progressBar.style.width='0%';
@@ -430,11 +398,22 @@ document.addEventListener('DOMContentLoaded', function() {
       progressBar.style.width='100%';
       spinner.classList.add('hidden');
 
-      if(res.ok){
+if(res.ok){
         showToast(successMessage,'bg-green-600');
-        responseMessage.innerHTML = successMessage + '<br>Tracking #: <span class="font-bold">' + data.tracking_id + '</span>';
+        // Show tracking ID and print/download buttons
+var printUrl = '/staff/ticket/' + data.ticket_id + '/print/';
+        var downloadUrl = '/api/auftrag/' + data.ticket_id + '/';
+        responseMessage.innerHTML = successMessage + '<br>Tracking #: <span class="font-bold">' + data.tracking_id + '</span>' +
+'<div class="mt-3 flex gap-2 justify-center">' +
+          '<a href="' + printUrl + '" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded text-sm font-semibold">' +
+          '🖨️ Print Ticket' +
+          '</a>' +
+          '<a href="' + downloadUrl + '" download="auftrag_' + data.tracking_id + '.pdf" class="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded text-sm font-semibold">' +
+          '💾 Download PDF' +
+          '</a>' +
+          '</div>';
         responseMessage.className = "text-green-600 font-semibold text-center";
-        form.reset(); 
+        form.reset();
         previewPhoto.classList.add('hidden'); 
         removePhoto.classList.add('hidden');
       } else showToast(errorMessage + (data.error?' - '+data.error:''),'bg-red-600');
@@ -445,11 +424,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  function showToast(msg,bg){
+function showToast(msg,bg){
     toast.innerText=msg;
     toast.className='fixed bottom-5 right-5 px-4 py-3 rounded shadow-lg opacity-100 ' + bg;
     setTimeout(function(){toast.classList.remove('opacity-100');},3000);
   }
+
+
 
   new Swiper('.swiper',{loop:true,autoplay:{delay:5000},pagination:{el:'.swiper-pagination',clickable:true}});
 

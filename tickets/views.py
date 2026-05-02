@@ -3,6 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 from django.shortcuts import get_object_or_404
+import uuid
 
 from .models import Ticket
 from .utils import generate_pdf
@@ -26,19 +27,25 @@ def ticket_list(request):
             price = request.POST.get("estimated_price") or 0
             photo = request.FILES.get("device_photo")
 
-            missing = []
-            if not first_name: missing.append('first_name')
-            if not last_name: missing.append('last_name')
-            if not email: missing.append('email')
-            if not device_type: missing.append('device_type')
-            if missing:
-                return JsonResponse({"error": f"Missing required fields: {', '.join(missing)}"}, status=400)
-
+            # All fields are optional
+            # Handle missing/empty values with defaults
+# Required fields validation
+            if not email:
+                return JsonResponse({"error": "Email is required"}, status=400)
+            if not phone:
+                return JsonResponse({"error": "Phone is required"}, status=400)
+            if not first_name:
+                first_name = "Unknown"
+            if not last_name:
+                last_name = ""
+            if not device_type:
+                device_type = "Unknown"
+            
             # Create / Get User
             user, created = User.objects.get_or_create(
                 username=email,
                 defaults={
-                    "email": email,
+                    "email": email or f"{email}@example.com",
                     "first_name": first_name,
                     "last_name": last_name
                 }
@@ -66,9 +73,12 @@ def ticket_list(request):
                 )
                 ticket.save(update_fields=['agreement_pdf'])
 
-            # Send Email with PDF
-            subject = f"Reparaturauftrag – Tracking #{ticket.tracking_id}"
-            body = f"""
+            # Send Email with PDF only if email is provided (not a guest)
+            email_sent = False
+            if email and not email.startswith("guest_"):
+                try:
+                    subject = f"Reparaturauftrag – Tracking #{ticket.tracking_id}"
+                    body = f"""
 Hallo {first_name} {last_name},
 
 Ihr Reparaturauftrag wurde erfolgreich erstellt.
@@ -81,13 +91,17 @@ Vielen Dank!
 Tanitech Team
 """
 
-            email_msg = EmailMessage(subject, body, None, [email])
-            email_msg.attach(
-                f"auftrag_{ticket.tracking_id}.pdf",
-                pdf_buffer.getvalue(),
-                "application/pdf"
-            )
-            email_msg.send(fail_silently=False)
+                    email_msg = EmailMessage(subject, body, None, [email])
+                    email_msg.attach(
+                        f"auftrag_{ticket.tracking_id}.pdf",
+                        pdf_buffer.getvalue(),
+                        "application/pdf"
+                    )
+                    email_msg.send(fail_silently=False)
+                    email_sent = True
+                except Exception as e:
+                    # Email sending failed, but ticket was created
+                    pass
 
             return JsonResponse({
                 "success": True,
