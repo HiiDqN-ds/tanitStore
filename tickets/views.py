@@ -155,3 +155,6 @@ def generate_auftrag(request, ticket_id):
     response = HttpResponse(pdf_buffer, content_type="application/pdf")
     response["Content-Disposition"] = f'inline; filename="auftrag_{ticket.tracking_id}.pdf"'
     return response
+    
+    
+    

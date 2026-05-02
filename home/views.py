@@ -13,4 +13,3 @@ def create_ticket(request):
         'tickets_url': '/tickets/',  # AJAX endpoint
     }
     return render(request, 'home/create_ticket.html', context)
-

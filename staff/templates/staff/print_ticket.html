@@ -10,68 +10,68 @@
 
 <style>
 
-/* PAGE SIZE (XP-420B BEST SIZE) */
-@page{
-    size:100mm 50mm;
+/* PAGE SIZE FOR 104x56mm PAPER */
+@page {
+    size:104mm 56mm;
     margin:0;
 }
 
-*{
+* {
     box-sizing:border-box;
     margin:0;
     padding:0;
 }
 
 /* BODY */
-html,body{
-    width:100mm;
-    height:50mm;
-    font-family:Arial, Helvetica, sans-serif;
+html, body {
+    width:104mm;
+    height:56mm;
+    font-family: Arial, Helvetica, sans-serif;
     background:white;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
 }
 
 /* MAIN TICKET */
-.ticket{
-    width:100mm;
-    height:50mm;
-    border:2px solid black;
-    padding:2.5mm;
+.ticket {
+    width:100%;
+    height:100%;
+    border:1px solid black;
+    padding:2mm;
     display:flex;
     flex-direction:column;
     justify-content:space-between;
 }
 
 /* TITLE */
-.ticket-title{
+.ticket-title {
     text-align:center;
-    font-size:14px;
+    font-size:12px;
     font-weight:bold;
-    border-bottom:2px solid black;
+    border-bottom:1px solid black;
     padding-bottom:1mm;
 }
 
 /* INFO GRID */
-.ticket-info{
+.ticket-info {
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:1mm;
     margin-top:1mm;
 }
 
-.ticket-row{
+.ticket-row {
     display:flex;
     flex-direction:column;
 }
 
-.ticket-row strong{
-    font-size:7px;
+.ticket-row strong {
+    font-size:6px;
     text-transform:uppercase;
 }
 
-.ticket-row span{
-    font-size:10px;
+.ticket-row span {
+    font-size:9px;
     font-weight:600;
     white-space:nowrap;
     overflow:hidden;
@@ -79,32 +79,32 @@ html,body{
 }
 
 /* BARCODE */
-.barcode-section{
-    border-top:2px solid black;
+.barcode-section {
+    border-top:1px solid black;
     padding-top:1mm;
     text-align:center;
 }
 
-.tracking-id-text{
-    font-size:10px;
+.tracking-id-text {
+    font-size:9px;
     font-weight:bold;
     letter-spacing:1px;
     margin-bottom:1mm;
 }
 
-.barcode-container{
+.barcode-container {
     display:flex;
     justify-content:center;
 }
 
 /* PRINT SETTINGS */
-@media print{
-    html,body{
-        width:100mm;
-        height:50mm;
+@media print {
+    html, body {
+        width:104mm;
+        height:56mm;
     }
 
-    .ticket{
+    .ticket {
         page-break-inside:avoid;
     }
 }
@@ -171,20 +171,20 @@ REPAIR TICKET
 <script>
 window.onload = function(){
 
-    // Generate barcode AFTER load
+    // Generate barcode for thermal printer
     JsBarcode("#barcode", "{{ ticket.tracking_id }}", {
         format:"CODE128",
         lineColor:"#000",
-        width:1.4,   // 🔥 important for thermal printers
-        height:20,
+        width:1.2,   // slightly thinner for small ticket
+        height:18,   // adjust for 56mm height
         displayValue:false,
         margin:0
     });
 
-    // Wait a bit to ensure barcode renders
+    // Print automatically
     setTimeout(function(){
         window.print();
-    },800);
+    },500);
 }
 </script>
 
