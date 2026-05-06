@@ -172,6 +172,226 @@ msgstr "Tablet"
 msgid "Laptop"
 msgstr "Laptop"
 
+#: home/templates/home/index.html
+msgid "Contact"
+msgstr "Kontakt"
+
+#: home/templates/home/index.html
+msgid "Important Links"
+msgstr "Wichtiger Link"
+
+#: home/templates/home/index.html
+msgid "Privacy Policy"
+msgstr "Datenschutz (Privacy Policy)"
+
+#: home/templates/home/index.html
+msgid "Terms and Conditions"
+msgstr "AGB (Allgemeine Geschäftsbedingungen)"
+
+#: home/templates/home/index.html
+msgid "Delivery and Shipping"
+msgstr "Lieferung und Versand"
+
+#: home/templates/home/index.html
+msgid "Right of Withdrawal"
+msgstr "Widerrufsbelehrung (Widerrufsrecht)"
+
+#: home/templates/home/index.html
+msgid "Order Process"
+msgstr "Bestellvorgang"
+
+#: home/templates/home/index.html
+msgid "More Links"
+msgstr "Weitere Links"
+
+#: home/templates/home/index.html
+msgid "Impressum"
+msgstr "Impressum"
+
+#: home/templates/home/index.html
+msgid "Blog"
+msgstr "Blog"
+
+#: home/templates/home/index.html
+msgid "FAQs"
+msgstr "FAQs"
+
+#: home/templates/home/index.html
+msgid "Subscribe to Newsletter"
+msgstr "Newsletter abonnieren"
+
+#: home/templates/home/index.html
+msgid "Your email address"
+msgstr "Ihre E-Mail Adresse"
+
+#: home/templates/home/index.html
+msgid "Subscribe"
+msgstr "Abonnieren"
+
+#: home/templates/home/index.html
+msgid "© 2024 Tanitech. All rights reserved."
+msgstr "© 2024 Tanitech. Alle Rechte vorbehalten."
+
+#: home/templates/home/index.html
+msgid "contact"
+msgstr "kontakt"
+
+#: home/templates/pages/datenschutz.html
+msgid "Privacy Policy - Tanitech"
+msgstr "Datenschutz - Tanitech"
+
+#: home/templates/pages/datenschutz.html
+msgid "Privacy Policy"
+msgstr "Datenschutz"
+
+#: home/templates/pages/datenschutz.html
+msgid "Your privacy is important to us. This policy explains how we collect, use, and protect your data."
+msgstr "Ihre Privatsphäre ist uns wichtig. Diese Richtlinie erklärt, wie wir Ihre Daten sammeln, verwenden und schützen."
+
+#: home/templates/pages/datenschutz.html
+msgid "Data Collection"
+msgstr "Datensammlung"
+
+#: home/templates/pages/datenschutz.html
+msgid "Cookies"
+msgstr "Cookies"
+
+#: home/templates/pages/datenschutz.html
+msgid "Back to Home"
+msgstr "Zurück zur Startseite"
+
+#: home/templates/pages/agb.html
+msgid "Terms and Conditions - Tanitech"
+msgstr "AGB - Tanitech"
+
+#: home/templates/pages/agb.html
+msgid "Terms and Conditions"
+msgstr "Allgemeine Geschäftsbedingungen"
+
+#: home/templates/pages/agb.html
+msgid "Please read these terms carefully before using our services."
+msgstr "Bitte lesen Sie diese Bedingungen sorgfältig, bevor Sie unsere Dienstleistungen nutzen."
+
+#: home/templates/pages/agb.html
+msgid "1. Services"
+msgstr "1. Dienstleistungen"
+
+#: home/templates/pages/lieferung.html
+msgid "Delivery and Shipping - Tanitech"
+msgstr "Lieferung und Versand - Tanitech"
+
+#: home/templates/pages/lieferung.html
+msgid "Delivery and Shipping"
+msgstr "Lieferung und Versand"
+
+#: home/templates/pages/lieferung.html
+msgid "Information about delivery times and shipping costs."
+msgstr "Informationen zu Lieferzeiten und Versandkosten."
+
+#: home/templates/pages/widerruf.html
+msgid "Right of Withdrawal - Tanitech"
+msgstr "Widerrufsrecht - Tanitech"
+
+#: home/: home/templates/pages/widerruf.html
+msgid "Right of Withdrawal"
+msgstr "Widerrufsbelehrung (Widerrufsrecht)"
+
+#: home/templates/pages/widerruf.html
+msgid "You have 14 days to withdraw from the service."
+msgstr "Sie haben 14 Tage Zeit, um von dem Service zurückzutreten."
+
+#: home/templates/pages/widerruf.html
+msgid "Cancellation Form"
+msgstr "Widerrufsformular"
+
+#: home/templates/pages/widerruf.html
+msgid "Name"
+msgstr "Name"
+
+#: home/templates/pages/widerruf.html
+msgid "Address"
+msgstr "Adresse"
+
+#: home/templates/pages/widerruf.html
+msgid "Send Cancellation"
+msgstr "Widerruf senden"
+
+#: home/templates/pages/bestellung.html
+msgid "Order Process - Tanitech"
+msgstr "Bestellvorgang - Tanitech"
+
+#: home/templates/pages/bestellung.html
+msgid "Order Process"
+msgstr "Bestellvorgang"
+
+#: home/templates/pages/impressum.html
+msgid "Impressum - Tanitech"
+msgstr "Impressum - Tanitech"
+
+#: home/templates/pages/blog.html
+msgid "Blog - Tanitech"
+msgstr "Blog - Tanitech"
+
+#: home/templates/pages/blog.html
+msgid "Blog"
+msgstr "Blog"
+
+#: home/templates/pages/blog.html
+msgid "Latest Repair Tips"
+msgstr "Neueste Reparatur-Tipps"
+
+#: home/templates/pages/blog.html
+msgid "Read More"
+msgstr "Mehr lesen"
+
+#: home/templates/pages/faqs.html
+msgid "FAQs - Tanitech"
+msgstr "FAQs - Tanitech"
+
+#: home/templates/pages/faqs.html
+msgid "Frequently Asked Questions"
+msgstr "Häufig gestellte Fragen"
+
+#: home/templates/pages/faqs.html
+msgid "How long does repair take?"
+msgstr "Wie lange dauert eine Reparatur?"
+
+#: home/templates/pages/faqs.html
+msgid "Is there warranty?"
+msgstr "Gibt es Garantie?"
+
+#: home/templates/pages/kontakt.html
+msgid "Contact - Tanitech"
+msgstr "Kontakt - Tanitech"
+
+#: home/templates/pages/kontakt.html
+msgid "Contact"
+msgstr "Kontakt"
+
+#: home/templates/pages/kontakt.html
+msgid "Get in touch"
+msgstr "Kontaktieren Sie uns"
+
+#: home/templates/pages/kontakt.html
+msgid "Message"
+msgstr "Nachricht"
+
+#: home/templates/pages/kontakt.html
+msgid "Send Message"
+msgstr "Nachricht senden"
+
+#: home/templates/pages/newsletter.html
+msgid "Newsletter - Tanitech"
+msgstr "Newsletter - Tanitech"
+
+#: home/templates/pages/newsletter.html
+msgid "Newsletter Subscription"
+msgstr "Newsletter Abonnement"
+
+#: home/templates/pages/newsletter.html
+msgid "You will receive repair tips and offers."
+msgstr "Sie erhalten Reparatur-Tipps und Angebote."
+
 #: staff/templates/staff/dashboard.html
 msgid "Repair Tickets Dashboard"
 msgstr "Reparatur-Tickets Dashboard"
@@ -328,6 +548,10 @@ msgstr "Gerätetyp"
 msgid "Device model"
 msgstr "Gerätemodell"
 
+#: home/templates/pages/widerruf.html
+msgid "Right of Withdrawal"
+msgstr "Widerrufsbelehrung (Widerrufsrecht)"
+
 #: staff/templates/staff/create_ticket.html
 msgid "Problem"
 msgstr "Problem"
@@ -339,3 +563,4 @@ msgstr "Preis"
 #: staff/templates/staff/create_ticket.html
 msgid "Create & Send Contract"
 msgstr "Erstellen & Vertrag senden"
+

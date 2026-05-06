@@ -21,23 +21,27 @@ from django.conf import settings
 PAID_USERS = set()
 
 def staff_login(request):
-    """Staff login page"""
+    """Staff login page (supports login by username OR email)."""
     next_url = request.GET.get("next") or request.POST.get("next") or '/staff/dashboard/'
-    
+
     # Check if user is already authenticated and is staff
     if request.user.is_authenticated and request.user.is_staff:
         return redirect('staff:dashboard')
 
     if request.method == "POST":
-        username = request.POST.get("username")
+        username_or_email = request.POST.get("username")
         password = request.POST.get("password")
 
-        user = authenticate(request, username=username, password=password)
+        from django.contrib.auth import get_user_model
+        from django.db.models import Q
 
-        if user and user.is_staff:
-            # Log the user in
-            login(request, user)
-            
+        UserModel = get_user_model()
+        u = UserModel.objects.filter(Q(username=username_or_email) | Q(email=username_or_email)).first()
+
+        # Validate password manually to avoid backend mismatch issues
+        if u is not None and u.check_password(password) and u.is_staff:
+            login(request, u)
+
             # Safety check to prevent open redirect
             if url_has_allowed_host_and_scheme(next_url, allowed_hosts=settings.ALLOWED_HOSTS):
                 return redirect(next_url)
@@ -46,6 +50,7 @@ def staff_login(request):
         return render(request, "staff/login.html", {"error": "Invalid credentials", "next": next_url})
 
     return render(request, "staff/login.html", {"next": next_url})
+
 
 
 def payment_required(request):

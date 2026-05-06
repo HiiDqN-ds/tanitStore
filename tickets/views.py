@@ -27,28 +27,39 @@ def ticket_list(request):
             price = request.POST.get("estimated_price") or 0
             photo = request.FILES.get("device_photo")
 
-            # All fields are optional
-            # Handle missing/empty values with defaults
-# Required fields validation
+            # All fields are optional (except email/phone). Handle missing/empty values with defaults.
+            # Required fields validation
             if not email:
                 return JsonResponse({"error": "Email is required"}, status=400)
             if not phone:
                 return JsonResponse({"error": "Phone is required"}, status=400)
+
+            # Some frontend versions send `client_name` instead of split fields.
+            if not first_name and request.POST.get("client_name"):
+                full_name = request.POST.get("client_name", "").strip()
+                parts = full_name.split(" ")
+                first_name = parts[0] if parts else "Unknown"
+                last_name = " ".join(parts[1:]) if len(parts) > 1 else ""
+
             if not first_name:
                 first_name = "Unknown"
             if not last_name:
                 last_name = ""
             if not device_type:
                 device_type = "Unknown"
-            
+
+            device_model = device_model or None
+            description = (description or "").strip()
+            price = price if price not in (None, "") else 0
+
             # Create / Get User
             user, created = User.objects.get_or_create(
                 username=email,
                 defaults={
-                    "email": email or f"{email}@example.com",
+                    "email": email,
                     "first_name": first_name,
-                    "last_name": last_name
-                }
+                    "last_name": last_name,
+                },
             )
 
             # Create Ticket (tracking_id generated automatically by model)
@@ -60,7 +71,7 @@ def ticket_list(request):
                 device_type=device_type,
                 device_model=device_model,
                 estimated_price=price,
-                device_photo=photo
+                device_photo=photo,
             )
 
             # Ensure agreement PDF is saved (model triggers, but explicit for buffer)
@@ -99,14 +110,14 @@ Tanitech Team
                     )
                     email_msg.send(fail_silently=False)
                     email_sent = True
-                except Exception as e:
+                except Exception:
                     # Email sending failed, but ticket was created
                     pass
 
             return JsonResponse({
                 "success": True,
                 "ticket_id": ticket.id,
-                "tracking_id": ticket.tracking_id
+                "tracking_id": ticket.tracking_id,
             })
 
         except Exception as e:

@@ -1,10 +1,5 @@
-# Repair Tracker Dashboard Fix Task
-
-## Plan Implementation Steps
-- [ ] Step 1: Fix HTML syntax errors in staff/templates/staff/dashboard.html (remove extra </script>, clean end section)
-- [ ] Step 2: Verify no red lines in VSCode after edit
-- [ ] Step 3: Test dashboard functionality in browser
-- [ ] Step 4: Complete task
-
-Current status: Starting implementation...
+- [ ] Update `staff_login()` in `staff/views.py` to authenticate by username OR email reliably using `check_password`
+- [ ] Ensure login only succeeds when `user.is_staff=True`
+- [ ] Verify redirects and error messaging still work
+- [ ] Run quick server/test login flow
 

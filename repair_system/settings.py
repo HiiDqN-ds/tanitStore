@@ -139,18 +139,11 @@ import os
 # -----------------------------
 # Database: PostgreSQL (Render + local fallback)
 # -----------------------------
-import os
-import dj_database_url
-
 DATABASES = {
-    "default": dj_database_url.parse(
-        os.environ.get(
-            "DATABASE_URL",
-            "postgresql://repairt_db_zqz8_user:KVUdGDMPwlLM8DmTr8Tg3CGZPsRMtGEy@dpg-d5nkfjtactks73ci24qg-a.oregon-postgres.render.com/repairt_db_zqz8"
-        ),
-        conn_max_age=600,
-        ssl_require=True,
-    )
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
 }
 
 
@@ -220,3 +213,12 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Reset the session timer on every request (optional, usually desired)
 SESSION_SAVE_EVERY_REQUEST = True
+
+# -----------------------------
+# CSRF cookie tuning (dev-friendly)
+# -----------------------------
+# If you see "CSRF token missing" on simple POST forms, these settings
+# help when the browser blocks cross-site cookies.
+CSRF_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_SECURE = False
+

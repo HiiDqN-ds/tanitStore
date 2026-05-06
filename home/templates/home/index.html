@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <title>Tanitech Services</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
     <link rel="shortcut icon" href="{% static 'home/favicon.ico' %}" type="image/x-icon">
     <style>
@@ -123,14 +124,7 @@
 <section id="hero" class="relative h-screen">
     <div class="swiper h-full">
         <div class="swiper-wrapper h-full">
-            <div class="swiper-slide bg-[url('media/images/slider/slide1.jpg')] bg-center bg-cover flex flex-col justify-center items-center text-white text-center px-4">
-                <div class="absolute inset-0 bg-black/40"></div>
-                <div class="relative z-10 animate-fadeIn">
-                    <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold drop-shadow-lg">{% trans "Fast & Reliable Device Repair" %}</h2>
-                    <p class="mt-4 text-lg sm:text-xl md:text-2xl drop-shadow-lg">{% trans "Phones, Laptops, Tablets – We Fix Them All" %}</p>
-                    <a href="javascript:void(0)" class="mt-8 inline-block bg-blue-600 px-6 py-3 rounded-lg text-white font-semibold hover:bg-blue-700 transition openModalBtn">{% trans "Open a Repair Ticket" %}</a>
-                </div>
-            </div>
+  
             <div class="swiper-slide bg-[url('media/images/slider/slide2.jpg')] bg-center bg-cover flex flex-col justify-center items-center text-white text-center px-4">
                 <div class="absolute inset-0 bg-black/40"></div>
                 <div class="relative z-10 animate-fadeIn">
@@ -139,18 +133,14 @@
                     <a href="javascript:void(0)" class="mt-8 inline-block bg-blue-600 px-6 py-3 rounded-lg text-white font-semibold hover:bg-blue-700 transition openModalBtn">{% trans "Book Now" %}</a>
                 </div>
             </div>
-            <div class="swiper-slide bg-[url('media/images/slider/slide3.jpg')] bg-center bg-cover flex flex-col justify-center items-center text-white text-center px-4">
-                <div class="absolute inset-0 bg-black/40"></div>
-                <div class="relative z-10 animate-fadeIn">
-                    <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold drop-shadow-lg">{% trans "Professional Device Diagnostics" %}</h2>
-                    <p class="mt-4 text-lg sm:text-xl md:text-2xl drop-shadow-lg">{% trans "We find the problem quickly and accurately." %}</p>
-                    <a href="javascript:void(0)" class="mt-8 inline-block bg-blue-600 px-6 py-3 rounded-lg text-white font-semibold hover:bg-blue-700 transition openModalBtn">{% trans "Get Started" %}</a>
-                </div>
-            </div>
+
         </div>
-        <div class="swiper-pagination"></div>
+            </div>
+           
+        </div>
     </div>
 </section>
+
 
 <!-- Services -->
 <section id="services" class="py-20 bg-gray-50">
@@ -183,20 +173,88 @@
 
 <!-- Contact -->
 <section id="contact" class="py-20 bg-gray-50">
-    <div class="container mx-auto text-center max-w-2xl">
-        <h2 class="text-3xl font-bold mb-6">{% trans "Contact Us" %}</h2>
-        <p class="mb-2"><strong>{% trans "Phone" %}:</strong> +49(0)15904000040</p>
-        <p class="mb-2"><strong>{% trans "Email" %}:</strong> info@tanitech.de</p>
-        <p class="mb-6"><strong>{% trans "Address" %}:</strong> Friedrichstraße 1, 40217 Düsseldorf</p>
-        <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4998.064672361595!2d6.77416171165504!3d51.21847997163125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b8cb00589fda85%3A0x621f4d007f0419c9!2sTaniTech%20-%20Mobile%20und%20PC%20Reparatur%20Services!5e0!3m2!1sfr!2sde!4v1768835626024!5m2!1sfr!2sde"
-            width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    <div class="max-w-4xl mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold mb-6">{% trans "Contact Us" %}</h2>
+        </div>
+        <div class="bg-white p-8 rounded-lg shadow-lg space-y-6 text-center">
+            <div>
+                <p><strong>Kontaktieren Sie uns</strong></p>
+                <p>Friedrichstraße 1</p>
+                <p>40217 Düsseldorf, Germany</p>
+                <p><strong>+49(0)15904000040</strong></p>
+                <p><strong>E-Mail</strong> <a href="mailto:info@tanitech.de">info@tanitech.de</a></p>
+            </div>
+
+            <div class="flex justify-center">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4998.064672361595!2d6.77416171165504!3d51.21847997163125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b8cb00589fda85%3A0x621f4d007f0419c9!2sTaniTech%20-%20Mobile%20und%20PC%20Reparatur%20Services!5e0!3m2!1sfr!2sde!4v1768835626024!5m2!1sfr!2sde"
+                    width="100%"
+                    height="280"
+                    style="border:0; max-width: 720px;"
+                    loading="lazy"
+                    allowfullscreen=""
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
     </div>
 </section>
 
-<!-- Footer -->
-<footer class="bg-blue-600 text-white text-center p-6">
-    &copy; 2026 Tanitech. All rights reserved.
+<!-- Main Footer -->
+<footer class="bg-gray-900 text-white py-12 mt-20">
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
+    <!-- Contact -->
+    <div class="md:col-span-1 lg:col-span-1">
+      <h3 class="text-xl font-bold mb-6">{% trans "Kontakt" %}</h3>
+      <div class="space-y-3 text-E-Mail: info@tanitech.degray-200">
+        <p class="text-white font-semibold">Tanitech</p>
+        <p><span class="text-gray-300">Friedrichstraße 1, 40217 Düsseldorf, Germany</span></p>
+        <p><span class="font-semibold text-white">Telefon:</span> <a href="tel:+4921115872907" class="hover:text-blue-300 transition">+49(0) 15904000040</a></p>
+        <p><span class="font-semibold text-white">E-Mail:</span> <a href="mailto:info@tanitech.de" class="hover:text-blue-300 transition">info@tanitech.de</a></p>
+        <p><span class="font-semibold text-white">Support:</span> Mo-Fr 09:00 –19:00 | Sa: 10:00 – 16:00</p>
+      </div>
+    </div>
+
+    <!-- Quick links -->
+    <div>
+      <h3 class="text-xl font-bold mb-6">Wichtige Links</h3>
+      <ul class="space-y-2">
+        <li><a href="/pages/datenschutz" class="hover:text-blue-400 transition">Datenschutz (Privacy Policy)</a></li>
+        <li><a href="/agb" class="hover:text-blue-400 transition">AGB (Allgemeine Geschäftsbedingungen)</a></li>
+        <li><a href="/lieferung" class="hover:text-blue-400 transition">Lieferung und Versand</a></li>
+        <li><a href="/widerruf" class="hover:text-blue-400 transition">Widerrufsbelehrung</a></li>
+        <li><a href="/bestellung" class="hover:text-blue-400 transition">Bestellvorgang</a></li>
+      </ul>
+    </div>
+
+    <!-- Company links -->
+    <div>
+      <h3 class="text-xl font-bold mb-6">Company</h3>
+      <ul class="space-y-2">
+        <li><a href="/impressum" class="hover:text-blue-400 transition">Impressum</a></li>
+        <li><a href="/blog" class="hover:text-blue-400 transition">Blog</a></li>
+        <li><a href="/faqs" class="hover:text-blue-400 transition">FAQs</a></li>
+        <li><a href="/kontakt" class="hover:text-blue-400 transition">Kontakt</a></li>
+      </ul>
+    </div>
+
+    <!-- Newsletter -->
+    <div>
+      <h3 class="text-xl font-bold mb-6">Newsletter abonnieren</h3>
+      <p class="text-gray-300 text-sm mb-4">Neuigkeiten und Angebote direkt in dein Postfach.</p>
+      <form action="/newsletter/" method="post" class="space-y-4">
+        <div class="flex gap-2">
+          <input type="email" name="email" placeholder="Email" required class="flex-1 px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">
+          <button type="submit" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold transition">Abonnieren</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Bottom -->
+  <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+    <p>© 2024 Phone Repair Pro. All rights reserved.</p>
+  </div>
 </footer>
 
 <!-- WhatsApp Float Button -->
@@ -207,14 +265,14 @@
 </a>
 
 <!-- Repair Ticket Modal -->
-<div id="ticketModal" class="fixed inset-0 bg-black/50 flex items-end sm:items-center justify-center hidden z-50 p-0 sm:p-4 opacity-0 transition-opacity duration-300">
-  <div class="bg-white rounded-t-2xl sm:rounded-xl shadow-xl w-full sm:max-w-md max-h-[85vh] sm:max-h-[90vh] overflow-y-auto relative transform translate-y-full sm:translate-y-10 transition-transform duration-300 h-full sm:h-auto">
+<div id="ticketModal" class="fixed inset-0 bg-black/50 flex items-end sm:items-center justify-center hidden z-50 p-0 sm:p-4 opacity-0 transition-opacity duration-300" role="dialog" aria-modal="true" aria-labelledby="ticketModalTitle">
+  <div class="bg-white rounded-t-2xl sm:rounded-xl shadow-xl w-full sm:max-w-md max-h-[85vh] sm:max-h-[90vh] overflow-y-auto relative transform translate-y-full sm:translate-y-10 transition-transform duration-300 h-full sm:h-auto" tabindex="-1">
     <!-- Drag Handle for Mobile -->
     <div class="sm:hidden flex justify-center pt-3 pb-1">
       <div class="w-12 h-1.5 bg-gray-300 rounded-full"></div>
     </div>
     <div class="sticky top-0 bg-white p-4 flex justify-between items-center border-b z-10">
-      <h2 class="text-xl font-bold">{% trans "Create a New Repair Order" %}</h2>
+      <h2 id="ticketModalTitle" class="text-xl font-bold">{% trans "Create a New Repair Order" %}</h2>
 <button id="closeModal" type="button" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
     </div>
     <form id="ticketFormModal" class="p-4 space-y-4" enctype="multipart/form-data">
@@ -252,16 +310,17 @@
 </div>
 
 <!-- Tracking Modal -->
-<div id="trackModal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50 p-4 opacity-0 transition-opacity duration-300">
-  <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6 transform translate-y-10 transition-transform duration-300">
+<div id="trackModal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50 p-4 opacity-0 transition-opacity duration-300" role="dialog" aria-modal="true" aria-labelledby="trackModalTitle">
+  <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6 transform translate-y-10 transition-transform duration-300" tabindex="-1">
     <div class="flex justify-between items-center mb-4">
-      <h2 class="text-xl font-bold">{% trans "Track Your Repair" %}</h2>
+      <h2 id="trackModalTitle" class="text-xl font-bold">{% trans "Track Your Repair" %}</h2>
       <button id="closeTrackModal" type="button" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
     </div>
     <p class="mb-4 text-gray-700">{% trans "Enter your tracking number to see the current status of your repair." %}</p>
     <form id="trackForm" class="flex flex-col gap-3">
-      <input type="text" id="trackingInput" placeholder="{% trans 'Tracking Number' %}" class="border rounded p-3 focus:ring-2 focus:ring-blue-400">
-      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">{% trans "Check Status" %}</button>
+      <input type="text" id="trackingInput" placeholder="{% trans 'Tracking Number' %}" class="border rounded p-3 focus:ring-2 focus:ring-blue-400" aria-describedby="trackingError">
+      <p id="trackingError" class="text-red-600 text-sm hidden"></p>
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" type="submit">{% trans "Check Status" %}</button>
     </form>
     <div id="trackResult" class="mt-4 hidden p-4 rounded bg-gray-100 text-gray-800"></div>
   </div>
@@ -311,9 +370,9 @@ document.addEventListener('click', function(event) {
 <script>
 // All fields are now optional - no validation error messages needed
 
-var successMessage = 'Auftrag erfolgreich!';
-var errorMessage = 'Fehler';
-var networkError = 'Netzwerkfehler';
+var successMessage = '{% trans "Order submitted successfully!" %}';
+var errorMessage = '{% trans "Error" %}';
+var networkError = '{% trans "Network error" %}';
 
 document.addEventListener('DOMContentLoaded', function() {
     
@@ -330,29 +389,63 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var modalContent = modal.querySelector('div.transform');
   
+  var lastFocusedEl = null;
+
+  function trapFocus(modalEl) {
+    var focusable = modalEl.querySelectorAll('a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])');
+    focusable = Array.prototype.slice.call(focusable).filter(function(el){return !el.hasAttribute('disabled') && el.offsetParent !== null;});
+    if(!focusable.length) return;
+
+    var first = focusable[0];
+    var last = focusable[focusable.length - 1];
+
+    modalEl.addEventListener('keydown', function(e){
+      if(e.key !== 'Tab') return;
+      if(e.shiftKey){
+        if(document.activeElement === first){
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if(document.activeElement === last){
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }, { once: true });
+  }
+
   openBtns.forEach(function(btn) {
-    btn.onclick = function() { 
-      modal.classList.remove('hidden'); 
-      // Small delay to allow display:block to apply before adding opacity class
-      setTimeout(function() { 
-        modal.classList.add('opacity-100'); 
+    btn.onclick = function() {
+      lastFocusedEl = btn;
+      modal.classList.remove('hidden');
+      setTimeout(function() {
+        modal.classList.add('opacity-100');
         modalContent.classList.remove('translate-y-full', 'sm:translate-y-10');
         modalContent.classList.add('translate-y-0');
-      }, 10); 
+        // focus
+        var firstInput = modal.querySelector('input, select, textarea, button');
+        if(firstInput) firstInput.focus();
+        trapFocus(modalContent);
+      }, 10);
     };
   });
   
-  closeBtn.onclick = function() { 
-    modal.classList.remove('opacity-100'); 
+  closeBtn.onclick = function() {
+    modal.classList.remove('opacity-100');
     modalContent.classList.remove('translate-y-0');
     modalContent.classList.add('translate-y-full', 'sm:translate-y-10');
-    setTimeout(function() { modal.classList.add('hidden'); }, 300); 
+    setTimeout(function() {
+      modal.classList.add('hidden');
+      if(lastFocusedEl){ lastFocusedEl.focus(); }
+    }, 300);
   };
   
   modal.addEventListener('click', function(e) { if(e.target === modal) closeBtn.onclick(); });
   document.addEventListener('keydown', function(e) { if(e.key==='Escape' && !modal.classList.contains('hidden')) closeBtn.onclick(); });
 
   document.getElementById('device_photo').addEventListener('change', function(e) {
+
     if(e.target.files[0]){
       previewPhoto.src = URL.createObjectURL(e.target.files[0]);
       previewPhoto.classList.remove('hidden');
@@ -433,6 +526,9 @@ function showToast(msg,bg){
 
 
   new Swiper('.swiper',{loop:true,autoplay:{delay:5000},pagination:{el:'.swiper-pagination',clickable:true}});
+  document.querySelectorAll('a[href="#services"],a[href="#contact"]').forEach(function(a){
+    a.classList.add('focus:outline-none','focus:ring-2','focus:ring-blue-500','focus:ring-offset-2','rounded');
+  });
 
   var mobileMenuBtn = document.getElementById('mobileMenuBtn');
   var mobileMenu = document.getElementById('mobileMenu');
@@ -478,18 +574,31 @@ function showToast(msg,bg){
   trackModal.addEventListener('click', function(e) { if(e.target === trackModal) closeTrack(); });
   document.addEventListener('keydown', function(e) { if(e.key==='Escape' && !trackModal.classList.contains('hidden')) closeTrack(); });
 
-  var loadingText = 'Laden...';
-  var notFoundText = 'Ticket nicht gefunden.';
-  var networkErrorText = 'Netzwerkfehler, bitte erneut versuchen.';
-  var enterTrackingText = 'Bitte geben Sie eine Tracking-Nummer ein.';
+  var loadingText = '{% trans "Loading..." %}';
+  var notFoundText = '{% trans "Ticket not found." %}';
+  var networkErrorText = '{% trans "Network error, please try again." %}';
+  var enterTrackingText = '{% trans "Please enter a tracking number." %}';
+  
+  var trackingErrorEl = document.getElementById('trackingError');
+
 
   trackForm.addEventListener('submit', async function(e) {
     e.preventDefault();
     var trackingId = trackInput.value.trim();
-    if(!trackingId) return alert(enterTrackingText);
+    if(!trackingId) {
+      if(trackingErrorEl){
+        trackingErrorEl.textContent = enterTrackingText;
+        trackingErrorEl.classList.remove('hidden');
+      }
+      return;
+    }
+    if(trackingErrorEl){
+      trackingErrorEl.classList.add('hidden');
+    }
 
     trackResult.classList.remove('hidden');
     trackResult.innerHTML = loadingText;
+
 
     try {
       var res = await fetch('/api/tickets/' + trackingId + '/');
@@ -514,3 +623,4 @@ function showToast(msg,bg){
 </script>
 </body>
 </html>
+
