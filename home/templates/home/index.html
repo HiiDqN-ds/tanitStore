@@ -63,16 +63,22 @@
   </div>
 </header>
 
-<!-- HERO -->
+<!-- HERO (FIXED DIV STRUCTURE) -->
 <section id="hero" class="relative h-screen">
     <div class="swiper h-full">
         <div class="swiper-wrapper h-full">
 
             <div class="swiper-slide bg-[url('media/images/slider/slide2.jpg')] bg-center bg-cover flex flex-col justify-center items-center text-white text-center px-4">
                 <div class="absolute inset-0 bg-black/40"></div>
-                <div class="relative z-10">
-                    <h2 class="text-5xl font-bold">{% trans "Expert Laptop Repairs" %}</h2>
-                    <p class="mt-4 text-xl">{% trans "We fix hardware, software, and virus issues fast." %}</p>
+
+                <div class="relative z-10 animate-fadeIn">
+                    <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold drop-shadow-lg">
+                        {% trans "Expert Laptop Repairs" %}
+                    </h2>
+
+                    <p class="mt-4 text-lg sm:text-xl md:text-2xl drop-shadow-lg">
+                        {% trans "We fix hardware, software, and virus issues fast." %}
+                    </p>
                 </div>
             </div>
 
@@ -86,66 +92,73 @@
         <h2 class="text-3xl font-bold mb-12">{% trans "Our Services" %}</h2>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-            <div class="bg-white p-6 rounded-lg shadow">
-                <h3 class="text-xl font-semibold">{% trans "Phone Repair" %}</h3>
+
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center">
+                <h3 class="text-xl font-semibold mt-4">{% trans "Phone Repair" %}</h3>
             </div>
-            <div class="bg-white p-6 rounded-lg shadow">
-                <h3 class="text-xl font-semibold">{% trans "Laptop Repair" %}</h3>
+
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center">
+                <h3 class="text-xl font-semibold mt-4">{% trans "Laptop Repair" %}</h3>
             </div>
-            <div class="bg-white p-6 rounded-lg shadow">
-                <h3 class="text-xl font-semibold">{% trans "Tablet Repair" %}</h3>
+
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center">
+                <h3 class="text-xl font-semibold mt-4">{% trans "Tablet Repair" %}</h3>
             </div>
-            <div class="bg-white p-6 rounded-lg shadow">
-                <h3 class="text-xl font-semibold">{% trans "Diagnostics" %}</h3>
+
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center">
+                <h3 class="text-xl font-semibold mt-4">{% trans "Diagnostics" %}</h3>
             </div>
+
         </div>
     </div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact" class="py-20 bg-gray-50">
-    <div class="max-w-4xl mx-auto px-4 text-center">
-        <h2 class="text-3xl font-bold mb-6">{% trans "Contact Us" %}</h2>
+    <div class="max-w-4xl mx-auto px-4">
 
-        <div class="bg-white p-8 rounded-lg shadow space-y-3">
-            <p><strong>Tanitech</strong></p>
-            <p>Friedrichstraße 1, 40217 Düsseldorf, Germany</p>
-            <p>+49(0)15904000040</p>
-            <p><a href="mailto:info@tanitech.de">info@tanitech.de</a></p>
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold mb-6">{% trans "Contact Us" %}</h2>
+        </div>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg space-y-6 text-center">
+
+            <div>
+                <p><strong>Kontaktieren Sie uns</strong></p>
+                <p>Friedrichstraße 1</p>
+                <p>40217 Düsseldorf, Germany</p>
+                <p><strong>+49(0)15904000040</strong></p>
+                <p><strong>E-Mail</strong> <a href="mailto:info@tanitech.de">info@tanitech.de</a></p>
+            </div>
+
         </div>
     </div>
 </section>
 
-<!-- FOOTER -->
+<!-- FOOTER (FIXED Tailwind class bug) -->
 <footer class="bg-gray-900 text-white py-12 mt-20">
-  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
 
     <div>
-      <h3 class="text-xl font-bold mb-4">Kontakt</h3>
-      <p class="font-semibold">Tanitech</p>
-      <p>Friedrichstraße 1, Düsseldorf</p>
-      <p>+49 15904000040</p>
-      <p>info@tanitech.de</p>
-    </div>
+      <h3 class="text-xl font-bold mb-6">{% trans "Kontakt" %}</h3>
 
-    <div>
-      <h3 class="text-xl font-bold mb-4">Links</h3>
-      <ul class="space-y-2">
-        <li><a href="/impressum">Impressum</a></li>
-        <li><a href="/datenschutz">Datenschutz</a></li>
-        <li><a href="/kontakt">Kontakt</a></li>
-      </ul>
-    </div>
+      <div class="space-y-3 text-gray-200">
+        <p class="text-white font-semibold">Tanitech</p>
 
-    <div>
-      <h3 class="text-xl font-bold mb-4">Newsletter</h3>
-      <input type="email" placeholder="Email" class="w-full p-2 text-black rounded">
+        <p>Friedrichstraße 1, 40217 Düsseldorf, Germany</p>
+
+        <p><span class="font-semibold text-white">Telefon:</span> +49(0)15904000040</p>
+
+        <p><span class="font-semibold text-white">E-Mail:</span> info@tanitech.de</p>
+
+        <p><span class="font-semibold text-white">Support:</span> Mo-Fr 09:00 –19:00 | Sa: 10:00 – 16:00</p>
+      </div>
     </div>
 
   </div>
 
-  <div class="text-center mt-8 text-gray-400">
-    © 2026 Tanitech
+  <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+    <p>© 2026 Tanitech. All rights reserved.</p>
   </div>
 </footer>
 
